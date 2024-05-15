@@ -36,5 +36,5 @@ npm run dev
 2. Open host
 
 ```sh
-open http://localhost:3000
+open http://localhost:8081
 ```
