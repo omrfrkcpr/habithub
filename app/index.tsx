@@ -1,8 +1,29 @@
 import { Link, useRouter } from "expo-router";
+import { useFonts } from "expo-font";
 import { View, Pressable, Text } from "react-native";
+import { useAssets } from "expo-asset";
+import AuthBtn from "./components/buttons/AuthBtn";
+import Or from "./components/or/Or";
+import LoginBtn from "./components/buttons/LoginBtn";
+import { SafeAreaView } from "react-native-safe-area-context";
+import HomeBg from "./components/backgrounds/HomeBg";
 
 const LoginPage = () => {
   const router = useRouter();
+  const [assets, error] = useAssets([
+    require("../assets/images/apple.png"),
+    require("../assets/images/facebook.png"),
+    require("../assets/images/gmail.png"),
+  ]);
+
+  const [loaded, errors] = useFonts({
+    PopRegular: require("../assets/fonts/Poppins-Regular.ttf"),
+    PopBold: require("../assets/fonts/Poppins-Bold.ttf"),
+    PopLight: require("../assets/fonts/Poppins-Light.ttf"),
+    PopExLight: require("../assets/fonts/Poppins-ExtraLight.ttf"),
+    PopBlack: require("../assets/fonts/Poppins-Black.ttf"),
+    PopMed: require("../assets/fonts/Poppins-Medium.ttf"),
+  });
 
   const handleLogin = () => {
     // Add your login logic here
@@ -10,36 +31,35 @@ const LoginPage = () => {
   };
 
   return (
-    <View className="bg-[#f6f0fa] flex-1 justify-center items-center">
-      <View className="gap-3 mr-14 ">
-        <Text className="font-sans text-[70px] ">
+    <SafeAreaView className="bg-mainWhite flex-1 justify-center items-center relative">
+      <HomeBg />
+      <View className="gap-3 mr-16 ml-2">
+        <Text className="text-[64px] " style={{ fontFamily: "PopRegular" }}>
           Do your{"\n"}tasks{"\n"}quickly{"\n"}and easy
         </Text>
-        <Text className="font-sans font-extralight text-lg">
+        <Text className="text-[18px]" style={{ fontFamily: "PopExLight" }}>
           Your tasks, your rules, our support.
         </Text>
       </View>
-      <Pressable onPress={handleLogin}>
-        <Text
-          className="bg-white py-3 px-8 mt-[80px] shadow-xl text-2xl "
-          style={{ borderRadius: 100 }}
-        >
-          Login
-        </Text>
-      </Pressable>
 
+      <LoginBtn handleLogin={handleLogin} />
       <Link href="/register" asChild>
         <Pressable>
-          <Text className="mt-2 underline font-extralight">Create account</Text>
+          <Text
+            className="mt-2 underline text-[12px] text-black/50"
+            style={{
+              fontFamily: "PopLight",
+            }}
+          >
+            Create an account
+          </Text>
         </Pressable>
       </Link>
+      <Or />
+      <AuthBtn />
 
-      <View className="flex flex-row mt-5 text-center">
-        <Text className="text-[#e5dfe9]">____________ OR ____________</Text>
-      </View>
-
-      <Link href="/test">Unmatched route</Link>
-    </View>
+      {/* <Link href="/test">Unmatched route</Link> */}
+    </SafeAreaView>
   );
 };
 

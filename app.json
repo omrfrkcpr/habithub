@@ -32,6 +32,19 @@
         {
           "origin": "https://evanbacon.dev/"
         }
+      ],
+      [
+        "expo-asset",
+
+        {
+          "assets": [
+            "./assets/images/apple.png",
+            "./assets/images/facebook.png",
+            "./assets/images/gmail.png",
+            "./assets/images/loadingimg.png",
+            "./assets/images/mainW.png"
+          ]
+        }
       ]
     ],
     "experiments": {

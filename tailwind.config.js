@@ -5,14 +5,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        purple: "#f3c4fb",
-        gray: "#f5f5f5",
-        blue: "#bde0fe",
-        orange: "#ffc09f",
-        yellow: "#ffee93",
-        creme: "#fcf5c7",
-        green: "#adf7b6",
-        white: "#fdfdfd",
+        mainBlue: "#BDDFFE",
+        mainPink: "#CA87F4",
+        mainPinkTwo: "#F3C4FB",
+        mainWhite: "#F8EEFF",
       },
       fontFamily: {
         sans: ["Poppins", "ui-sans-serif", "system-ui"],
