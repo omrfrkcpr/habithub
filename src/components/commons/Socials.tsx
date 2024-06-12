@@ -12,23 +12,17 @@ function Socials() {
         target="_blank"
         rel="noreferrer"
       >
-        <FaLinkedin
-          size={24}
-          className="hover:bg-[#0964C0] text-[#0964C0] hover:text-white hover:scale-125"
-        />
+        <FaLinkedin className="hover:bg-[#0964C0] text-[#0964C0] hover:text-white hover:scale-125 text-[18px] md:text-[24px]" />
       </a>
       <a href="https://github.com/omrfrkcpr" target="_blank" rel="noreferrer">
-        <FaSquareGithub
-          size={24}
-          className="hover:bg-black hover:text-white hover:scale-125"
-        />
+        <FaSquareGithub className="hover:bg-black hover:text-white hover:scale-125 text-[18px] md:text-[24px]" />
       </a>
       <a
         href="https://www.linkedin.com/in/omrfrkcpr/"
         target="_blank"
         rel="noreferrer"
       >
-        <FcGoogle size={24} className="hover:bg-gray-100 hover:scale-125" />
+        <FcGoogle className="hover:bg-gray-100 hover:scale-125 text-[18px] md:text-[24px]" />
       </a>
 
       <a
@@ -36,10 +30,7 @@ function Socials() {
         target="_blank"
         rel="noreferrer"
       >
-        <FaMedium
-          size={24}
-          className="hover:text-white hover:bg-black hover:scale-125"
-        />
+        <FaMedium className="hover:text-white hover:bg-black hover:scale-125 text-[18px] md:text-[24px]" />
       </a>
     </div>
   );

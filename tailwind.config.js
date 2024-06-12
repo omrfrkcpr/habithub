@@ -6,8 +6,8 @@ module.exports = {
       colors: {
         "habit-light-green": "#ADF7B6",
         "habit-green": "#4EFF31",
-        "habit-light-purple": "#A817C0",
-        "habit-purple": "#C67ED2",
+        "habit-light-purple": "#C67ED2",
+        "habit-purple": "#A817C0",
         "habit-dark-purple": "#D21DFF",
         "habit-creme": "#FFC09F",
         "habit-light-blue": "#B0FFFA",
