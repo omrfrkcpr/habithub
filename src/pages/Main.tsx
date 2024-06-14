@@ -6,11 +6,13 @@ import MainCards from "../layouts/MainCards";
 import advertisement from "../assets/advertisement.png";
 import mentalHealth from "../assets/mental-health.png";
 import Footer from "../layouts/Footer";
+import googlePlay from "../assets/google-play.svg";
+import appStore from "../assets/app-store.svg";
 
 const Main = () => {
   const navigate = useNavigate();
   return (
-    <div className="relative min-h-[95rem] max-w-[1800px] mx-auto">
+    <div className="relative min-h-[100rem] md:min-h-[95rem] max-w-[1800px] mx-auto">
       <Navbar />
       <MainBg />
       <div className="absolute top-[130px] left-[50px] md:left-[100px] space-y-4 md:space-y-6 lg:space-y-8">
@@ -36,15 +38,27 @@ const Main = () => {
           alt="advertisement"
           className="w-[400px] md:w-[500px] xl:w-[750px] xl:h-[550px] object-fit"
         />
+        <div className="flex gap-2 justify-start items-center absolute bottom-8 left-5 md:bottom-14 md:left-7 xl:bottom-16 xl:left-10">
+          <img
+            src={googlePlay}
+            alt="google-play"
+            className="w-[50px] xl:w-[100px] cursor-pointer"
+          />
+          <img
+            src={appStore}
+            alt="app-store"
+            className="w-[50px] xl:w-[100px] cursor-pointer"
+          />
+        </div>
       </div>
-      <div className="absolute top-[1350px] md:top-[1000px] left-5 md:left-[650px] xl:left-[900px]">
-        <div className="relative w-[95%] max-w-[500px] xl:max-w-[800px] py-5 bg-habit-light-gray shadow-md rounded-xl">
+      <div className="absolute top-[1320px] md:top-[1000px] left-5 md:left-[650px] xl:left-[900px]">
+        <div className="relative w-[95%] max-w-[500px] max-h-[300px] xl:max-w-[800px] py-5 bg-habit-light-gray shadow-md rounded-xl">
           <img
             src={mentalHealth}
             alt="mental-health"
-            className="w-[200px] xl:w-[380px] xl:h-[300px] absolute -top-20 object-fit"
+            className="w-[200px] xl:w-[380px] xl:h-[300px] absolute -top-12 md:-top-20 object-fit"
           />
-          <p className="text-[10px] md:text-[16px] ms-[200px] xl:ms-[400px] pt-5 pb-5 px-3">
+          <p className="text-[10px] md:text-[13px] ms-[200px] xl:ms-[370px] pt-3 pb-3 px-1 md:pt-5 md:pb-5 md:px-3">
             <strong>Maximize</strong> productivity and prioritize{" "}
             <strong>mental wellness</strong> with our website version.
             Seamlessly blending mindfulness and <strong>task management</strong>
