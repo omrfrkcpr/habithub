@@ -21,17 +21,17 @@ const MainBg = () => {
       <img
         src={line}
         alt="line-8"
-        className="absolute bottom-0 w-[94vw] h-[500px] rotate-[5deg] -z-50"
+        className="absolute top-[350px] w-[94vw] h-[500px] rotate-[5deg] -z-50"
       />
       <img
         src={image1}
         alt="line-8"
-        className="absolute top-[50px] right-10 w-[500px]"
+        className="hidden xl:block absolute top-[50px] right-10 w-[500px]"
       />
       <img
         src={ellipse3}
         alt="line-8"
-        className="absolute top-[50px] right-16 -rotate-[8deg] w-[520px]"
+        className="hidden xl:block absolute top-[50px] right-16 -rotate-[8deg] w-[520px]"
       />
     </div>
   );

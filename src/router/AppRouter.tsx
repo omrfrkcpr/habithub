@@ -7,7 +7,6 @@ import {
 import Main from "../pages/Main";
 import PrivateRouter from "./PrivateRouter";
 import NotFound from "../pages/NotFound";
-import Footer from "../layouts/Footer";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Home from "../pages/Home";
@@ -31,7 +30,6 @@ const AppRouter = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      <Footer />
     </>
   );
 };
