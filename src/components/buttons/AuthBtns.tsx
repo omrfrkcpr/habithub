@@ -5,7 +5,7 @@ import facebook from "../../assets/facebook.png";
 
 const AuthBtns = () => {
   return (
-    <div className="flex gap-2 md:gap-5 justify-center items-center mt-3 md:mt-5">
+    <div className="flex gap-2 md:gap-5 justify-center items-center mt-2">
       <div className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer">
         <img
           src={gmail}

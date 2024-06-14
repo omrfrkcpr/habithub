@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import AuthBtns from "../buttons/AuthBtns";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -11,28 +13,28 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] md:w-[80%] lg:w-[60%] h-[75vh] max-w-[820px] max-h-[650px] bg-[#f8f9fab9] shadow-md rounded-lg p-12 text-center">
-      <h3 className="text-habit-light-purple font-bold text-center mt-2 md:mt-5 lg:mt-10 text-[15px] md:text-[20px]">
+    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] md:w-[80%] lg:w-[60%] h-auto max-w-[650px] max-h-[fit-content] bg-[#f8f9fab9] shadow-md rounded-lg p-10 text-center">
+      <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px]">
         Log in to HabitHub
       </h3>
-      <p className="w-[80%] md:w-[50%] mx-auto text-[10px] md:text-[15px] font-light text-center mt-4">
+      <p className="w-[80%] md:w-[50%] mx-auto text-[10px] xl:text-[13px] font-light text-center mt-4">
         Welcome back! Sign in using your social account or email to continue us
       </p>
       <AuthBtns />
       <form
         onSubmit={handleLogin}
-        className="flex flex-col justify-center items-center mt-16"
+        className="flex flex-col justify-center items-center mt-5"
       >
         <input
           type="text"
           placeholder="Email"
-          className="w-[90%] md:w-[50%] mx-auto text-[10px] md:text-[15px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
+          className="w-[90%] md:w-[50%] mx-auto text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
         />
         <div className="w-[90%] md:w-[50%] mx-auto text-center relative">
           <input
             type={showPass ? "text" : "password"}
             placeholder="Password"
-            className="w-full text-[10px] md:text-[15px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
+            className="w-full text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
           />
           <div
             onClick={() => setShowPass((prevState) => !prevState)}
@@ -48,8 +50,14 @@ const SignInForm = () => {
           Login
         </button>
       </form>
-      <button className="font-light mt-5 text-[10px] md:text-[14px] border-b border-gray-400 hover:font-medium">
-        Need an account?
+      <button className="font-light mt-5 text-[10px] md:text-[14px]">
+        Need an account?{" "}
+        <span
+          onClick={() => navigate("/signup")}
+          className="text-blue-400 font-medium hover:underline cursor-pointer"
+        >
+          Sign Up
+        </span>
       </button>
     </div>
   );

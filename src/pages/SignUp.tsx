@@ -6,9 +6,9 @@ import SignUpForm from "../components/forms/SignUpForm";
 
 const SignUp = () => {
   return (
-    <div className="h-screen relative">
+    <div className="h-[41.5rem] md:h-[43.5rem] relative max-w-[1800px] mx-auto">
       <Navbar />
-      <div className="absolute top-[400px] md:top-[540px] xl:top-24 -z-10">
+      <div className="absolute top-[400px] md:top-[540px] xl:top-[40px] -z-10">
         <img
           src={authBg}
           alt="auth-bg"
