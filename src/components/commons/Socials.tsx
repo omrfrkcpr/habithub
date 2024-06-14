@@ -6,7 +6,7 @@ import { FaMedium } from "react-icons/fa";
 
 function Socials() {
   return (
-    <div className="flex justify-center gap-2 border-b border-gray-400 py-1">
+    <div className="flex justify-center gap-2 py-1">
       <a
         href="https://www.linkedin.com/in/omrfrkcpr/"
         target="_blank"

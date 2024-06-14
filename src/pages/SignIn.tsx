@@ -1,14 +1,14 @@
 import React from "react";
 import Navbar from "../layouts/Navbar";
 import authBg from "../assets/authBg.png";
-import Footer from "../layouts/Footer";
+// import Footer from "../layouts/Footer";
 import SignInForm from "../components/forms/SignInForm";
 
 const SignIn = () => {
   return (
-    <div className="h-[41.5rem] md:h-[43.5rem] relative max-w-[1800px] mx-auto">
+    <div className="h-[41.5rem] md:h-[43.4rem] relative max-w-[1800px] mx-auto">
       <Navbar />
-      <div className="absolute top-[400px] md:top-[540px] xl:top-[40px] -z-10">
+      <div className="absolute top-[400px] md:top-[540px] xl:top-[95px] -z-10">
         <img
           src={authBg}
           alt="auth-bg"
@@ -16,7 +16,7 @@ const SignIn = () => {
         />
       </div>
       <SignInForm />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

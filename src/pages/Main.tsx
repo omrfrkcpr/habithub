@@ -36,7 +36,7 @@ const Main = () => {
         <img
           src={advertisement}
           alt="advertisement"
-          className="w-[400px] md:w-[500px] xl:w-[750px] xl:h-[550px] object-fit"
+          className="w-[400px] md:w-[500px] xl:w-[750px] xl:h-[550px] object-fit rounded-xl shadow-xl"
         />
         <div className="flex gap-2 justify-start items-center absolute bottom-8 left-5 md:bottom-14 md:left-7 xl:bottom-16 xl:left-10">
           <img
