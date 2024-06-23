@@ -13,7 +13,6 @@ import Home from "../pages/Home";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import Contract from "../pages/Contract";
-import Setup from "../layouts/Setup";
 
 const AppRouter = () => {
   return (
