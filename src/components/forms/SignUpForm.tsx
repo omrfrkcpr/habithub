@@ -73,11 +73,11 @@ const SignUpForm: React.FC = () => {
   });
 
   return (
-    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fab9] shadow-md rounded-lg py-6 px-2 mt-[28px] md:mt-[35px] text-center flex flex-col justify-between">
+    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fadb] shadow-md rounded-lg py-6 px-2 mt-[28px] md:mt-[35px] text-center flex flex-col justify-between">
       <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px] mt-4">
         Get started with your account
       </h3>
-      <p className="w-[70%] mx-auto text-[10px] xl:text-[12px] font-light text-center">
+      <p className="w-[70%] mx-auto text-[10px] md:text-[12px] font-light text-center">
         Track your habits. Achieve your goals. Do it all with HabitHub's Task
         Management Platform. Already have an account?{" "}
         <span

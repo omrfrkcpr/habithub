@@ -2,7 +2,7 @@ import React from "react";
 
 const MainCards = () => {
   return (
-    <div className="absolute top-[400px] md:top-[530px] left-[100px] text-center md:text-left md:left-[500px] flex flex-col md:flex-row gap-10">
+    <div className="absolute top-[400px] md:top-[450px] left-[100px] text-center md:text-left md:left-[500px] flex flex-col md:flex-row gap-10">
       <div className="grid grid-col-2 gap-2 w-[180px] text-sm font-light bg-habit-light-gray shadow-md p-3 md:p-5">
         <h2 className="font-bold">Easy to use</h2>
         <p>

@@ -13,11 +13,11 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] md:w-[80%] lg:w-[60%] h-auto max-w-[650px] max-h-[fit-content] bg-[#f8f9fab9] shadow-md rounded-lg p-10 text-center">
+    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[80%] md:w-[80%] lg:w-[60%] h-auto max-w-[650px] max-h-[fit-content] bg-[#f8f9fadb] shadow-md rounded-lg p-10 text-center">
       <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px]">
         Log in to HabitHub
       </h3>
-      <p className="w-[80%] md:w-[50%] mx-auto text-[10px] xl:text-[13px] font-light text-center mt-4">
+      <p className="w-[80%] md:w-[50%] mx-auto text-[10px] md:text-[13px] font-light text-center mt-4">
         Welcome back! Sign in using your social account or email to continue us
       </p>
       <AuthBtns />
