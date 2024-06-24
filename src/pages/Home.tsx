@@ -2,10 +2,11 @@ import React from "react";
 import DateTimePicker from "../layouts/DateTimePicker";
 import Logo from "../components/commons/Logo";
 import UserSettings from "../layouts/UserSettings";
+import AddTaskBtn from "../components/buttons/AddTaskBtn";
 
 const Home = () => {
   return (
-    <div className="relative h-screen w-screen dark:bg-[#3e284a]">
+    <div className="relative h-screen w-screen dark:bg-[#3e284a] transition-colors duration-300">
       <div className="absolute w-[280px] h-screen flex flex-col p-3 border-r border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#311a3e]">
         <div className="flex gap-1 justify-center items-center">
           <Logo />
@@ -15,6 +16,7 @@ const Home = () => {
       </div>
       <div className="w-full h-full p-4 flex justify-end relative">
         <UserSettings />
+        <AddTaskBtn />
       </div>
     </div>
   );

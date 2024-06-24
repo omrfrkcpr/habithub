@@ -5,71 +5,67 @@ import TimePicker from "react-time-picker";
 import Clock from "react-clock";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
+import { setDate, setTime } from "../features/dateSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 const DateTimePicker = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [selectedTime, setSelectedTime] = useState<string | null>(
-    `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(
-      2,
-      "0"
-    )}`
-  );
+  const dispatch = useDispatch();
+  const { date, time } = useSelector((state: RootState) => state.date);
+
   const [currentDate, setCurrentDate] = useState(new Date());
   const [manualTimeSelected, setManualTimeSelected] = useState(false);
 
-  // console.log("Date: ", selectedDate?.toDateString());
-  // console.log("Time: ", selectedTime);
+  console.log("Date: ", date);
+  console.log("Time: ", time);
 
+  // Update time in Redux only when minutes change
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!manualTimeSelected) {
-        setCurrentDate(new Date());
-        setSelectedTime(
-          `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(
-            2,
-            "0"
-          )}`
-        );
+      const now = new Date();
+      setCurrentDate(now);
+
+      const currentMinutes = now.getMinutes();
+      const selectedMinutes = new Date(time || "").getMinutes();
+
+      if (!manualTimeSelected && currentMinutes !== selectedMinutes) {
+        const formattedTime = `${now.getHours()}:${String(
+          currentMinutes
+        ).padStart(2, "0")}`;
+        dispatch(setTime(formattedTime));
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [manualTimeSelected]);
+  }, [time, manualTimeSelected, dispatch]);
 
-  const handleTimeChange = (time: string | null) => {
-    if (time) {
-      setSelectedTime(time);
-      setManualTimeSelected(true);
-    } else {
-      setSelectedTime(
-        `${currentDate.getHours()}:${String(currentDate.getMinutes()).padStart(
-          2,
-          "0"
-        )}`
-      );
-      setManualTimeSelected(false);
+  // Update date in Redux when selectedDate changes
+  const handleDateChange = (selectedDate: Date | null) => {
+    if (selectedDate) {
+      dispatch(setDate(selectedDate.toDateString()));
     }
   };
 
-  const handleDateChange = (date: Date | null) => {
-    if (date) {
-      setSelectedDate(date);
+  // Handle manual time selection
+  const handleTimeChange = (newTime: string | null) => {
+    if (newTime) {
+      setManualTimeSelected(true);
+      dispatch(setTime(newTime));
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[530px]">
+    <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[530px] z-50">
       <DatePicker
-        selected={selectedDate}
+        selected={new Date(date)}
         onChange={handleDateChange}
         dateFormat="MMMM d, yyyy"
         inline
-        minDate={new Date()} // enabled history
+        minDate={new Date()}
       />
-
       <TimePicker
         onChange={handleTimeChange}
-        value={selectedTime}
+        value={time}
         className="text-center border p-2"
         disableClock={true}
       />
