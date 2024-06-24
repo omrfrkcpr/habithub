@@ -17,8 +17,8 @@ const DateTimePicker = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [manualTimeSelected, setManualTimeSelected] = useState(false);
 
-  console.log("Date: ", selectedDate?.toDateString());
-  console.log("Time: ", selectedTime);
+  // console.log("Date: ", selectedDate?.toDateString());
+  // console.log("Time: ", selectedTime);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,15 +58,15 @@ const DateTimePicker = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[530px]">
       <DatePicker
         selected={selectedDate}
         onChange={handleDateChange}
         dateFormat="MMMM d, yyyy"
         inline
-        className="text-center border p-2"
-        minDate={new Date()} // Geçmiş tarihleri devre dışı bırakır
+        minDate={new Date()} // enabled history
       />
+
       <TimePicker
         onChange={handleTimeChange}
         value={selectedTime}

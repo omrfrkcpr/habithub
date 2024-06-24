@@ -10,6 +10,11 @@
     margin: 0;
     padding: 0;
   }
+
+  html {
+    transition: background-color 0.5s ease;
+  }
+
   body {
     font-family: "Poppins", "sans-serif";
   }
