@@ -21,7 +21,7 @@ const UserSettings = () => {
     setAnchorElUser(null);
   };
   return (
-    <div className="flex">
+    <div className="flex absolute top-5 right-5">
       <ThemeSwitcher />
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">

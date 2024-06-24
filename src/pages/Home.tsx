@@ -13,7 +13,7 @@ const Home = () => {
         </div>
         <DateTimePicker />
       </div>
-      <div className="absolute top-5 right-5">
+      <div className="w-full h-full p-4 flex justify-end relative">
         <UserSettings />
       </div>
     </div>
