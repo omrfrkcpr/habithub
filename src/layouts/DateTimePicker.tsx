@@ -16,9 +16,6 @@ const DateTimePicker = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [manualTimeSelected, setManualTimeSelected] = useState(false);
 
-  console.log("Date: ", date);
-  console.log("Time: ", time);
-
   // Update time in Redux only when minutes change
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,6 +50,9 @@ const DateTimePicker = () => {
       dispatch(setTime(newTime));
     }
   };
+
+  console.log("Date: ", date);
+  console.log("Time: ", time);
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[530px] z-50">
