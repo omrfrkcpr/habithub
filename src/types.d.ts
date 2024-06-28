@@ -14,3 +14,14 @@ interface SetupProps {
 interface ThemeState {
   darkMode: boolean;
 }
+
+interface NewTask {
+  name: string;
+  description: string;
+  cardColor: string;
+  repeat: string;
+  priority: string;
+  dueDate: Date;
+  tag: string;
+  isCompleted: false;
+}

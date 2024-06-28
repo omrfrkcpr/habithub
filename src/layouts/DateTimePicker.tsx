@@ -4,14 +4,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import Clock from "react-clock";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
-import { setDate, setTime } from "../features/dateSlice";
+import { setTime } from "../features/dateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import useDate from "../hooks/useDate";
 
 const DateTimePicker = () => {
   const dispatch = useDispatch();
   const { date, time } = useSelector((state: RootState) => state.date);
-
+  const handleDateChange = useDate();
   const [currentDate, setCurrentDate] = useState(new Date());
 
   // Update time in Redux only when minutes change
@@ -33,13 +34,6 @@ const DateTimePicker = () => {
 
     return () => clearInterval(interval);
   }, [dispatch, time]);
-
-  // Update date in Redux when selectedDate changes
-  const handleDateChange = (selectedDate: Date | null) => {
-    if (selectedDate) {
-      dispatch(setDate(selectedDate.toDateString()));
-    }
-  };
 
   // console.log("Date: ", date);
   // console.log("Time: ", time);
