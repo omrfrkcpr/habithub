@@ -6,9 +6,9 @@ import SignInForm from "../components/forms/SignInForm";
 
 const SignIn = () => {
   return (
-    <div className="h-[41.5rem] md:h-[43.4rem] relative max-w-[1800px] mx-auto">
+    <div className="h-screen relative max-w-[1800px] mx-auto">
       <Navbar />
-      <div className="absolute top-[400px] md:top-[495px] xl:top-[95px] -z-10">
+      <div className="absolute bottom-0 -z-10">
         <img
           src={authBg}
           alt="auth-bg"
