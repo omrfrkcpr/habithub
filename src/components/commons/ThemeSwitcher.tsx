@@ -9,7 +9,7 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <button
       onClick={handleToggle}
-      className=" w-10 h-10 rounded-full me-3 grid place-content-center place-items-center"
+      className="w-10 h-10 rounded-full md:me-3 grid place-content-center place-items-center outline-none"
     >
       {darkMode ? (
         <IoSunny className="text-[16px] md:text-[20px] text-habit-yellow hover:text-yellow-200" />

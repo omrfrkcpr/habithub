@@ -13,7 +13,11 @@ const TodoList = () => {
         })
       ) : (
         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-center items-center">
-          <img src={nothing} alt="nothing" className="w-[340px] h-[300px]" />
+          <img
+            src={nothing}
+            alt="nothing"
+            className="md:w-[340px] md:h-[300px] object-cover"
+          />
           <h1 className="text-[17px] text-black/70 font-semibold dark:text-white/70">
             Nothing here yet...
           </h1>

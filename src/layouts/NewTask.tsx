@@ -93,7 +93,7 @@ const NewTask = () => {
             <button
               key={color}
               style={{ backgroundColor: color }}
-              className={`w-8 h-8 md:w-10 md:h-10 rounded-full cursor-pointer border-[1px] md:border-[3px] font-bold ${
+              className={`w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full cursor-pointer border-[1px] md:border-[3px] font-bold ${
                 newTask.cardColor === color
                   ? "border-black/60 dark:border-[#EDEAEA]"
                   : "border-[#EDEAEA] dark:border-none"
