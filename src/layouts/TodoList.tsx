@@ -2,11 +2,16 @@ import React from "react";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
 import nothing from "../assets/NotFound.png";
+import { formatDateString } from "../helpers/functions";
 
 const TodoList = () => {
+  const { date } = useSelector((state: RootState) => state.date);
   const { todos } = useSelector((state: RootState) => state.todo);
   return (
     <div>
+      <h1 className="text-md font-bold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] px-2 py-1 my-4">
+        {formatDateString(date)}
+      </h1>
       {todos.length ? (
         todos.map((todo: any) => {
           return <div key={todo?.id}>{todo?.title}</div>;

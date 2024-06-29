@@ -1,20 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
 import DateTimePicker from "../layouts/DateTimePicker";
 import Logo from "../components/commons/Logo";
 import UserSettings from "../layouts/UserSettings";
 import AddTaskBtn from "../components/buttons/AddTaskBtn";
-import { RootState } from "../app/store";
-import { formatDateString } from "../helpers/functions";
 import TodoList from "../layouts/TodoList";
-import { MdAddReaction, MdMenu, MdClose } from "react-icons/md";
+import { MdMenu, MdClose } from "react-icons/md";
 import NewTask from "../layouts/NewTask";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
+import Lists from "../layouts/Lists";
 
 const Home = () => {
-  const { date } = useSelector((state: RootState) => state.date);
   const [showNewTask, setShowNewTask] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const [value, setValue] = useState<number>(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   // Close sidebar when clicking outside
   useEffect(() => {
@@ -78,18 +85,46 @@ const Home = () => {
         <AddTaskBtn showNewTask={showNewTask} setShowNewTask={setShowNewTask} />
       </div>
 
-      <div className="absolute top-[70px] md:top-[90px] md:right-10 h-[86vh] md:h-[90vh] w-[90vw] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-340px)] ">
-        <h1 className="text-xl md:text-2xl font-bold border-b border-black/70 text-black/70 dark:border-habit-white dark:text-habit-white">
-          {showNewTask ? (
-            <div className="flex gap-1 items-center">
-              New Task <MdAddReaction />
-            </div>
-          ) : (
-            formatDateString(date)
-          )}
-        </h1>
+      <div className="absolute top-[70px] md:top-[90px] md:right-10 h-[86vh] md:h-[90vh] w-[90vw] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-340px)]">
         <div className="w-full h-full">
-          {showNewTask ? <NewTask /> : <TodoList />}
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            sx={{
+              height: "60px",
+              "& .MuiTab-root": {
+                fontWeight: "bold",
+              },
+              "& .Mui-selected": {
+                color: "#C67ED2", // Change to your desired active color
+              },
+              "& .MuiTabs-indicator": {
+                backgroundColor: "#C67ED2", // Change to your desired active indicator color
+              },
+            }}
+          >
+            <Tab
+              icon={<FormatListBulletedIcon />}
+              iconPosition="start"
+              className="dark:text-white"
+              label="Todos"
+            />
+            <Tab
+              icon={<PlaylistAddCheckIcon />}
+              iconPosition="start"
+              className="dark:text-white"
+              label="Lists"
+            />
+            <Tab
+              icon={<PlaylistAddIcon />}
+              iconPosition="start"
+              className="dark:text-white"
+              label="New Task"
+            />
+          </Tabs>
+          {value === 0 && <TodoList />}
+          {value === 1 && <Lists />}
+          {value === 2 && <NewTask />}
         </div>
       </div>
     </div>
