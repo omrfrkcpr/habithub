@@ -31,3 +31,14 @@
   height: 100vh;
   width: 100%;
 }
+
+.input-cls {
+  font-size: 13px !important;
+  width: 70px !important;
+}
+
+.tag-cls {
+  background-color: #ddbfef !important;
+  color: #a831ec !important;
+  font-size: 13px !important;
+}
