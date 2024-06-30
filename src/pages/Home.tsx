@@ -39,7 +39,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative h-screen w-screen dark:bg-[#3e284a] transition-colors duration-300">
+    <div className="relative min-h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">
       {/* Hamburger Menu */}
       <div
         className={`md:hidden absolute top-6 left-4 z-50 ${
@@ -57,7 +57,7 @@ const Home = () => {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`absolute h-screen flex flex-col p-3 z-50 border-r bg-white border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#311a3e] transition-transform duration-300 transform ${
+        className={`fixed min-h-[100vh] h-[40rem] flex flex-col p-3 z-50 border-r bg-white border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#311a3e] transition-transform duration-300 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 w-[280px]`}
         id="desktop-sidebar"
@@ -79,12 +79,12 @@ const Home = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-full h-full p-4 flex justify-end relative">
+      <div className="w-full h-[40rem] p-4 flex justify-end relative">
         <UserSettings />
         <AddTaskBtn value={value} setValue={setValue} />
       </div>
 
-      <div className="absolute top-[50px] md:top-[90px] md:right-10 h-[86vh] md:h-[90vh] w-[90vw] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-340px)]">
+      <div className="absolute top-[50px] md:top-[80px] md:right-10 w-[90vw] h-[38rem] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-360px)]">
         <div className="w-full h-full">
           <Tabs
             value={value}

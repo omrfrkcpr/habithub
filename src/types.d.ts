@@ -21,7 +21,7 @@ interface NewTask {
   cardColor: string;
   repeat: string;
   priority: string;
-  dueDate: Date;
+  dueDates: Date[];
   tag: string;
   isCompleted: false;
 }
