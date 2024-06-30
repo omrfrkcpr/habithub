@@ -14,7 +14,6 @@ import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import Lists from "../layouts/Lists";
 
 const Home = () => {
-  const [showNewTask, setShowNewTask] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<number>(0);
@@ -82,10 +81,10 @@ const Home = () => {
       {/* Main Content */}
       <div className="w-full h-full p-4 flex justify-end relative">
         <UserSettings />
-        <AddTaskBtn showNewTask={showNewTask} setShowNewTask={setShowNewTask} />
+        <AddTaskBtn value={value} setValue={setValue} />
       </div>
 
-      <div className="absolute top-[70px] md:top-[90px] md:right-10 h-[86vh] md:h-[90vh] w-[90vw] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-340px)]">
+      <div className="absolute top-[50px] md:top-[90px] md:right-10 h-[86vh] md:h-[90vh] w-[90vw] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-340px)]">
         <div className="w-full h-full">
           <Tabs
             value={value}
@@ -96,29 +95,29 @@ const Home = () => {
                 fontWeight: "bold",
               },
               "& .Mui-selected": {
-                color: "#C67ED2", // Change to your desired active color
+                color: "#C67ED2 !important",
               },
               "& .MuiTabs-indicator": {
-                backgroundColor: "#C67ED2", // Change to your desired active indicator color
+                backgroundColor: "#C67ED2 !important",
               },
             }}
           >
             <Tab
               icon={<FormatListBulletedIcon />}
               iconPosition="start"
-              className="dark:text-white"
+              className="dark:text-white w-[100px]"
               label="Todos"
             />
             <Tab
               icon={<PlaylistAddCheckIcon />}
               iconPosition="start"
-              className="dark:text-white"
+              className="dark:text-white w-[100px]"
               label="Lists"
             />
             <Tab
               icon={<PlaylistAddIcon />}
               iconPosition="start"
-              className="dark:text-white"
+              className="dark:text-white w-[fit-content]"
               label="New Task"
             />
           </Tabs>
