@@ -16,7 +16,7 @@ const MainBg = () => {
       <img
         src={ellipse1}
         alt="ellipse-1195"
-        className="absolute top-[60px] md:top-[50px] w-[300px] md:w-[550px] left-[50px] md:left-[180px] -z-30"
+        className="absolute top-[60px] md:top-[50px] w-[300px] md:w-[550px] left-[70px] md:left-[180px] -z-30"
       />
       <img
         src={line}
