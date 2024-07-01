@@ -9,7 +9,7 @@ const TodoList = () => {
   const { todos } = useSelector((state: RootState) => state.todo);
   return (
     <div>
-      <h1 className="text-md font-bold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] px-2 py-1 my-4">
+      <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 py-1 my-4">
         {formatDateString(date)}
       </h1>
       {todos.length ? (

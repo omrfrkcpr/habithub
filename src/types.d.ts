@@ -25,3 +25,8 @@ interface NewTask {
   tag: string;
   isCompleted: false;
 }
+
+type ExampleCustomInputProps = {
+  value?: string;
+  onClick?: () => void;
+};

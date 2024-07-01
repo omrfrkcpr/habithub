@@ -11,7 +11,7 @@ import Tab from "@mui/material/Tab";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
-import Lists from "../layouts/Lists";
+import TagLists from "../layouts/TagLists";
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -39,7 +39,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative min-h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">
+    <div className="relative min-h-screen h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">
       {/* Hamburger Menu */}
       <div
         className={`md:hidden absolute top-6 left-4 z-50 ${
@@ -122,7 +122,7 @@ const Home = () => {
             />
           </Tabs>
           {value === 0 && <TodoList />}
-          {value === 1 && <Lists />}
+          {value === 1 && <TagLists />}
           {value === 2 && <NewTask />}
         </div>
       </div>
