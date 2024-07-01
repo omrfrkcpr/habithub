@@ -35,6 +35,10 @@ interface Repeat extends ChildNewTask {
   startDate: Date;
 }
 
+interface PriorityBtn extends ChildNewTask {
+  priority: string;
+}
+
 interface ExampleCustomInputProps {
   value?: string;
   onClick?: () => void;

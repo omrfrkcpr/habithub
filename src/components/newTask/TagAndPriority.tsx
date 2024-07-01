@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { TagsInput } from "react-tag-input-component";
+import PriorityBtn from "../buttons/PriorityBtn";
+import { priorities } from "../../helpers/constants";
 
 const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
   const [availableTags] = useState([
@@ -18,10 +20,6 @@ const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
     }
   };
 
-  const handlePriorityClick = (priority: string) => {
-    setNewTask({ ...newTask, priority });
-  };
-
   return (
     <div className="p-4 rounded-[8px] bg-white dark:bg-[#4b3455] flex flex-1 flex-col">
       <div className="border-b border-gray-300 mb-2 pb-2">
@@ -33,36 +31,16 @@ const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
           the priority levels below.
         </p>
         <div className="bg-gray-200 rounded-full mb-4 flex justify-evenly">
-          <button
-            className={`capitalize flex-1 py-1 text-[12px] md:text-[16px] rounded-full ${
-              newTask.priority === "low"
-                ? "bg-gray-400 text-white"
-                : "hover:text-black/60 text-black"
-            }`}
-            onClick={() => handlePriorityClick("low")}
-          >
-            low
-          </button>
-          <button
-            className={`capitalize flex-1 py-1 text-[12px] md:text-[16px] rounded-full ${
-              newTask.priority === "standard"
-                ? "bg-gray-400 text-white"
-                : "hover:text-black/60 text-black"
-            }`}
-            onClick={() => handlePriorityClick("standard")}
-          >
-            standard
-          </button>
-          <button
-            className={`capitalize flex-1 py-1 text-[12px] md:text-[16px] rounded-full ${
-              newTask.priority === "high"
-                ? "bg-gray-400 text-white"
-                : "hover:text-black/60 text-black"
-            }`}
-            onClick={() => handlePriorityClick("high")}
-          >
-            high
-          </button>
+          {priorities.map((priority: string) => {
+            return (
+              <PriorityBtn
+                key={priority}
+                newTask={newTask}
+                setNewTask={setNewTask}
+                priority={priority}
+              />
+            );
+          })}
         </div>
       </div>
       <div>
