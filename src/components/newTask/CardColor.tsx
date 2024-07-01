@@ -1,13 +1,7 @@
 import React from "react";
 import { cardColors } from "../../helpers/constants";
 
-const CardColor = ({
-  newTask,
-  setNewTask,
-}: {
-  newTask: NewTask;
-  setNewTask: React.Dispatch<React.SetStateAction<NewTask>>;
-}) => {
+const CardColor: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
   const handleCardColorClick = (color: string) => {
     setNewTask({ ...newTask, cardColor: color });
   };

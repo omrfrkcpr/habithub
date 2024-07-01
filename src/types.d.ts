@@ -26,7 +26,16 @@ interface NewTask {
   isCompleted: false;
 }
 
-type ExampleCustomInputProps = {
+interface ChildNewTask {
+  newTask: NewTask;
+  setNewTask: React.Dispatch<React.SetStateAction<NewTask>>;
+}
+
+interface Repeat extends ChildNewTask {
+  startDate: Date;
+}
+
+interface ExampleCustomInputProps {
   value?: string;
   onClick?: () => void;
-};
+}

@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { TagsInput } from "react-tag-input-component";
 
-const TagAndPriority = ({
-  newTask,
-  setNewTask,
-}: {
-  newTask: NewTask;
-  setNewTask: React.Dispatch<React.SetStateAction<NewTask>>;
-}) => {
+const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
   const [availableTags] = useState([
     "Daily Routine",
     "Study Routine",

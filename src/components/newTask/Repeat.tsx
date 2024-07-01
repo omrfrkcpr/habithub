@@ -9,15 +9,7 @@ import {
 } from "../../helpers/constants";
 import { RootState } from "../../app/store";
 
-const Repeat = ({
-  newTask,
-  setNewTask,
-  startDate,
-}: {
-  newTask: NewTask;
-  setNewTask: React.Dispatch<React.SetStateAction<NewTask>>;
-  startDate: Date;
-}) => {
+const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
   const [checked, setChecked] = useState(false);
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const [dailyDays, setDailyDays] = useState<string[]>([]);
