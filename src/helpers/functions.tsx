@@ -36,7 +36,7 @@ export const generateWeeklyDueDates = (
   option: string,
   startDate: Date
 ): Date[] => {
-  const currentDate = new Date(startDate);
+  const currentDate = new Date();
   const newDueDates: Date[] = [];
 
   // Find the start date's week index in the year
@@ -73,6 +73,11 @@ export const generateWeeklyDueDates = (
       break;
   }
 
+  // Add startDate to the beginning of the array if it's not already included
+  if (!newDueDates.some((date) => date.getTime() === startDate.getTime())) {
+    newDueDates.unshift(new Date(startDate));
+  }
+
   return newDueDates;
 };
 
@@ -90,35 +95,79 @@ export const generateMonthlyDueDates = (
   option: string,
   startDate: Date
 ): Date[] => {
-  const currentDate = new Date(startDate);
+  const currentDate = new Date();
   const newDueDates: Date[] = [];
-  const monthsToAdd = 12 - currentDate.getMonth(); // Calculate remaining months in the current year
+  const currentDay = currentDate.getDate(); // Current day of the month
+
+  // Calculate remaining months in the current year
+  let monthsToAdd = 12 - currentDate.getMonth();
+
+  // Add startDate to newDueDates
+  newDueDates.push(new Date(startDate));
 
   switch (option) {
     case "firstDay":
+      // Skip the current month if current day is past the 1st
+      if (currentDay > 1) {
+        monthsToAdd -= 1;
+      }
       for (let i = 0; i < monthsToAdd; i++) {
         const nextDate = new Date(currentDate);
-        nextDate.setMonth(currentDate.getMonth() + i, 1);
+        nextDate.setMonth(
+          currentDate.getMonth() + i + (currentDay > 1 ? 1 : 0),
+          1
+        );
         newDueDates.push(nextDate);
       }
       break;
+
     case "lastDay":
+      // Skip the current month if current day is past the last day of the month
+      if (
+        currentDay >
+        new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          0
+        ).getDate()
+      ) {
+        monthsToAdd -= 1;
+      }
       for (let i = 0; i < monthsToAdd; i++) {
         const nextDate = new Date(currentDate);
-        nextDate.setMonth(currentDate.getMonth() + i + 1, 0);
+        nextDate.setMonth(
+          currentDate.getMonth() +
+            i +
+            (currentDay > nextDate.getDate() ? 1 : 0) +
+            1,
+          0
+        );
         newDueDates.push(nextDate);
       }
       break;
+
     default:
       if (option.startsWith("specificDay")) {
         const day = parseInt(option.split("-")[1]);
+        // Skip the current month if current day is past the specific day
+        if (currentDay > day) {
+          monthsToAdd -= 1;
+        }
         for (let i = 0; i < monthsToAdd; i++) {
           const nextDate = new Date(currentDate);
-          nextDate.setMonth(currentDate.getMonth() + i, day);
+          nextDate.setMonth(
+            currentDate.getMonth() + i + (currentDay > day ? 1 : 0),
+            day
+          );
           newDueDates.push(nextDate);
         }
       }
       break;
+  }
+
+  // Add startDate to the beginning of the array if it's not already included
+  if (!newDueDates.some((date) => date.getTime() === startDate.getTime())) {
+    newDueDates.unshift(new Date(startDate));
   }
 
   return newDueDates;
@@ -141,26 +190,23 @@ export const generateDailyDueDates = (
   const startDayIndex = startDate.getDay(); // Start day index (0: Sunday, 1: Monday, ..., 6: Saturday)
   const newDueDates: Date[] = [];
 
-  // Calculate the maximum days to add based on the start day
-  let maxDaysToAdd = 0;
-  if (startDayIndex === 0) {
-    // If start day is Sunday
-    maxDaysToAdd = 7; // Can add up to 7 days (Sunday to Saturday)
-  } else {
-    maxDaysToAdd = 7 - startDayIndex + 1; // Days left in the current week
-  }
-
   // Add startDate to newDueDates
   newDueDates.push(new Date(startDate));
 
   dailyDays.forEach((day) => {
     const dayIndex = daysOfWeek.indexOf(day);
-    if (dayIndex >= startDayIndex && dayIndex < startDayIndex + maxDaysToAdd) {
+    if (dayIndex !== -1) {
+      const daysToAdd = (dayIndex - startDayIndex + 7) % 7;
       const nextDate = new Date(startDate);
-      nextDate.setDate(startDate.getDate() + (dayIndex - startDayIndex));
+      nextDate.setDate(startDate.getDate() + daysToAdd);
       newDueDates.push(nextDate);
     }
   });
+
+  // Add startDate to the beginning of the array if it's not already included
+  if (!newDueDates.some((date) => date.getTime() === startDate.getTime())) {
+    newDueDates.unshift(new Date(startDate));
+  }
 
   return newDueDates;
 };

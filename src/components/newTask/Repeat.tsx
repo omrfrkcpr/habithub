@@ -80,7 +80,7 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
 
   useEffect(() => {
     setNewTask({ ...newTask, dueDates: generateDueDates() });
-  }, [dailyDays, weeklyOption, monthlyOption, startDate]);
+  }, [dailyDays, weeklyOption, monthlyOption, startDate, newTask.repeat]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
@@ -176,6 +176,7 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
           color={darkMode ? "success" : "secondary"}
         />
       </div>
+      <p className={`${checked ? "" : "pointer-events-none opacity-50"}`}></p>
       <div className={`${checked ? "" : "pointer-events-none opacity-50"}`}>
         <div className="mt-3">
           <div className="flex gap-2 border-b border-gray-300 pb-4">
