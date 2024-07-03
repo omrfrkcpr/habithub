@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CardColor from "../components/newTodo/CardColor";
 import Repeat from "../components/newTodo/Repeat";
 import TagAndPriority from "../components/newTodo/TagAndPriority";
+import ActionBtns from "../components/newTodo/ActionBtns";
 
 const NewTodo = () => {
   const initialNewTodo: NewTodo = {
@@ -73,6 +74,7 @@ const NewTodo = () => {
           <TagAndPriority newTodo={newTodo} setNewTodo={setNewTodo} />
         </div>
       </div>
+      <ActionBtns newTodo={newTodo} setNewTodo={setNewTodo} />
     </div>
   );
 };

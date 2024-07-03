@@ -55,3 +55,12 @@ interface RepeatValueBtnProps {
   onClick: (value: string) => void;
   isDisabled?: boolean;
 }
+
+interface ActionBtnProps {
+  onClick: () => void;
+  loading: boolean;
+  icon: React.ReactNode;
+  label: string;
+  color: string;
+  hoverColor: string;
+}
