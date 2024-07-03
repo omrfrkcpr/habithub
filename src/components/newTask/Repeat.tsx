@@ -1,5 +1,5 @@
 import { Switch } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   repeatOptions,
@@ -8,6 +8,8 @@ import {
   weeklyOptions,
 } from "../../helpers/constants";
 import { RootState } from "../../app/store";
+import RepeatValueBtn from "../buttons/RepeatValueBtn";
+import RepeatSection from "./RepeatSection";
 
 const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
   const [checked, setChecked] = useState(false);
@@ -16,32 +18,45 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
   const [weeklyOption, setWeeklyOption] = useState<string>("everyWeek");
   const [monthlyOption, setMonthlyOption] = useState<string>("firstDay");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    if (!e.target.checked) {
+  useEffect(() => {
+    if (!checked) {
       setNewTask({ ...newTask, repeat: "", dueDates: [startDate] });
     }
+  }, [checked]);
+
+  useEffect(() => {
+    setNewTask({ ...newTask, dueDates: generateDueDates() });
+  }, [dailyDays, weeklyOption, monthlyOption, startDate]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
   };
 
   const handleRepeatChange = (repeatOption: string) => {
-    setNewTask({ ...newTask, repeat: repeatOption });
+    setNewTask({
+      ...newTask,
+      repeat: repeatOption,
+      dueDates: generateDueDates(),
+    });
   };
 
   const generateDueDates = () => {
     const currentDate = new Date(startDate);
-    let prevDueDates: Date[] = [];
+    let newDueDates: Date[] = [];
 
     if (newTask.repeat === "daily") {
-      dailyDays.forEach((day) => {
-        const dayIndex = daysOfWeek.indexOf(day);
-        if (dayIndex >= 0) {
+      for (let i = 0; i < 7; i++) {
+        dailyDays.forEach((day) => {
+          const dayIndex = daysOfWeek.indexOf(day);
           const nextDate = new Date(currentDate);
           nextDate.setDate(
-            currentDate.getDate() + ((7 + dayIndex - currentDate.getDay()) % 7)
+            currentDate.getDate() +
+              ((dayIndex - currentDate.getDay() + 7) % 7) +
+              i * 7
           );
-          prevDueDates.push(nextDate);
-        }
-      });
+          newDueDates.push(nextDate);
+        });
+      }
     } else if (newTask.repeat === "weekly") {
       for (let i = 0; i < 4; i++) {
         const nextDate = new Date(currentDate);
@@ -56,10 +71,10 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
           );
           const sunday = new Date(saturday);
           sunday.setDate(saturday.getDate() + 1);
-          prevDueDates.push(saturday, sunday);
+          newDueDates.push(saturday, sunday);
           continue;
         }
-        prevDueDates.push(nextDate);
+        newDueDates.push(nextDate);
       }
     } else if (newTask.repeat === "monthly") {
       for (let i = 0; i < 3; i++) {
@@ -68,15 +83,15 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
           nextDate.setMonth(currentDate.getMonth() + i, 1);
         } else if (monthlyOption === "lastDay") {
           nextDate.setMonth(currentDate.getMonth() + i + 1, 0);
-        } else if (monthlyOption === "specificDay") {
+        } else if (monthlyOption.startsWith("specificDay")) {
           const day = parseInt(monthlyOption.split("-")[1]);
           nextDate.setMonth(currentDate.getMonth() + i, day);
         }
-        prevDueDates.push(nextDate);
+        newDueDates.push(nextDate);
       }
     }
 
-    return prevDueDates;
+    return newDueDates;
   };
 
   const handleDailyDayClick = (day: string) => {
@@ -84,17 +99,38 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
       ? dailyDays.filter((d) => d !== day)
       : [...dailyDays, day];
     setDailyDays(updatedDays);
-    setNewTask({ ...newTask, dueDates: generateDueDates() });
   };
 
   const handleWeeklyOptionChange = (option: string) => {
     setWeeklyOption(option);
-    setNewTask({ ...newTask, dueDates: generateDueDates() });
   };
 
   const handleMonthlyOptionChange = (option: string) => {
     setMonthlyOption(option);
-    setNewTask({ ...newTask, dueDates: generateDueDates() });
+  };
+
+  const startDayIndex = new Date(startDate).getDay();
+  console.log(startDayIndex);
+  const repeatConfigurations = {
+    daily: {
+      options: daysOfWeek.map((day: string, index: number) => ({
+        value: day,
+        label: day,
+        isDisabled: index < new Date().getDay() || index === startDayIndex,
+      })),
+      selectedValue: dailyDays,
+      onClick: handleDailyDayClick,
+    },
+    weekly: {
+      options: weeklyOptions,
+      selectedValue: weeklyOption,
+      onClick: handleWeeklyOptionChange,
+    },
+    monthly: {
+      options: monthlyOptions,
+      selectedValue: monthlyOption,
+      onClick: handleMonthlyOptionChange,
+    },
   };
 
   return (
@@ -118,72 +154,27 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
       </div>
       <div className={`${checked ? "" : "pointer-events-none opacity-50"}`}>
         <div className="mt-3">
-          <div className="flex gap-2">
+          <div className="flex gap-2 border-b border-gray-300 pb-4">
             {Object.entries(repeatOptions).map(([value, label]) => (
-              <button
+              <RepeatValueBtn
                 key={value}
                 value={value}
-                onClick={() => handleRepeatChange(value)}
-                className={`bg-white dark:bg-[#4b3455] text-sm md:text-md py-1 px-2 rounded-md border border-gray-300 dark:border-gray-600 ${
-                  newTask.repeat === value ? "bg-blue-500 text-white" : ""
-                }`}
-              >
-                {label}
-              </button>
+                label={label}
+                selectedValue={newTask.repeat}
+                onClick={handleRepeatChange}
+              />
             ))}
           </div>
-          {newTask.repeat === "daily" && (
-            <div className="mt-3">
-              {daysOfWeek.map((day: string) => (
-                <button
-                  key={day}
-                  className={`capitalize py-1 px-2 m-1 rounded-full text-[12px] md:text-[16px] ${
-                    dailyDays.includes(day)
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200 text-black"
-                  }`}
-                  onClick={() => handleDailyDayClick(day)}
-                >
-                  {day}
-                </button>
-              ))}
-            </div>
-          )}
-          {newTask.repeat === "weekly" && (
-            <div className="mt-3 flex gap-2">
-              {weeklyOptions.map(
-                ({ value, label }: { value: string; label: string }) => (
-                  <button
-                    key={value}
-                    value={value}
-                    onClick={() => handleWeeklyOptionChange(value)}
-                    className={`bg-white dark:bg-[#4b3455] text-sm md:text-md py-1 px-2 rounded-md border border-gray-300 dark:border-gray-600 ${
-                      weeklyOption === value ? "bg-blue-500 text-white" : ""
-                    }`}
-                  >
-                    {label}
-                  </button>
-                )
-              )}
-            </div>
-          )}
-          {newTask.repeat === "monthly" && (
-            <div className="mt-3 flex gap-2">
-              {monthlyOptions.map(
-                ({ value, label }: { value: string; label: string }) => (
-                  <button
-                    key={value}
-                    value={value}
-                    onClick={() => handleMonthlyOptionChange(value)}
-                    className={`bg-white dark:bg-[#4b3455] text-sm md:text-md py-1 px-2 rounded-md border border-gray-300 dark:border-gray-600 ${
-                      monthlyOption === value ? "bg-blue-500 text-white" : ""
-                    }`}
-                  >
-                    {label}
-                  </button>
-                )
-              )}
-            </div>
+          {Object.entries(repeatConfigurations).map(
+            ([key, config]) =>
+              newTask.repeat === key && (
+                <RepeatSection
+                  key={key}
+                  options={config.options}
+                  selectedValue={config.selectedValue}
+                  onClick={config.onClick}
+                />
+              )
           )}
         </div>
       </div>

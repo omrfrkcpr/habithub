@@ -51,6 +51,7 @@ const NewTask = () => {
             dateFormat="dd/MM/yyyy - h:mm aa"
             timeInputLabel="Time:"
             showTimeInput
+            minDate={new Date()}
           />
         </div>
         <div className="my-5 py-5 px-5 bg-habit-light-gray dark:bg-[#5e436c] rounded-[8px] shadow-md flex justify-between flex-col lg:flex-row gap-4">

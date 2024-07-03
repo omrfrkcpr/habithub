@@ -31,10 +31,6 @@ interface ChildNewTask {
   setNewTask: React.Dispatch<React.SetStateAction<NewTask>>;
 }
 
-interface Repeat extends ChildNewTask {
-  startDate: Date;
-}
-
 interface PriorityBtn extends ChildNewTask {
   priority: string;
 }
@@ -42,4 +38,20 @@ interface PriorityBtn extends ChildNewTask {
 interface ExampleCustomInputProps {
   value?: string;
   onClick?: () => void;
+}
+interface Repeat extends ChildNewTask {
+  startDate: Date;
+}
+interface RepeatSectionProps {
+  options: { value: string; label: string; isDisabled?: boolean }[];
+  selectedValue: string | string[];
+  onClick: (value: string) => void;
+}
+
+interface RepeatValueBtnProps {
+  value: string;
+  label: string;
+  selectedValue: string | string[];
+  onClick: (value: string) => void;
+  isDisabled?: boolean;
 }
