@@ -15,7 +15,7 @@ interface ThemeState {
   darkMode: boolean;
 }
 
-interface NewTask {
+interface NewTodo {
   name: string;
   description: string;
   cardColor: string;
@@ -26,12 +26,12 @@ interface NewTask {
   isCompleted: false;
 }
 
-interface ChildNewTask {
-  newTask: NewTask;
-  setNewTask: React.Dispatch<React.SetStateAction<NewTask>>;
+interface ChildNewTodo {
+  newTodo: NewTodo;
+  setNewTodo: React.Dispatch<React.SetStateAction<NewTodo>>;
 }
 
-interface PriorityBtn extends ChildNewTask {
+interface PriorityBtn extends ChildNewTodo {
   priority: string;
 }
 
@@ -39,7 +39,7 @@ interface ExampleCustomInputProps {
   value?: string;
   onClick?: () => void;
 }
-interface Repeat extends ChildNewTask {
+interface Repeat extends ChildNewTodo {
   startDate: Date;
 }
 interface RepeatSectionProps {

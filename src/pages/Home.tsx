@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import DateTimePicker from "../layouts/DateTimePicker";
 import Logo from "../components/commons/Logo";
 import UserSettings from "../layouts/UserSettings";
-import AddTaskBtn from "../components/buttons/AddTaskBtn";
+import AddTodoBtn from "../components/buttons/AddTodoBtn";
 import TodoList from "../layouts/TodoList";
 import { MdMenu, MdClose } from "react-icons/md";
-import NewTask from "../layouts/NewTask";
+import NewTodo from "../layouts/NewTodo";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -81,7 +81,7 @@ const Home = () => {
       {/* Main Content */}
       <div className="w-full h-[40rem] p-4 flex justify-end relative">
         <UserSettings />
-        <AddTaskBtn value={value} setValue={setValue} />
+        <AddTodoBtn value={value} setValue={setValue} />
       </div>
 
       <div className="absolute top-[50px] md:top-[80px] md:right-10 w-[90vw] h-[38rem] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-360px)]">
@@ -118,12 +118,12 @@ const Home = () => {
               icon={<PlaylistAddIcon />}
               iconPosition="start"
               className="dark:text-white w-[fit-content]"
-              label="New Task"
+              label="New Todo"
             />
           </Tabs>
           {value === 0 && <TodoList />}
           {value === 1 && <TagLists />}
-          {value === 2 && <NewTask />}
+          {value === 2 && <NewTodo />}
         </div>
       </div>
     </div>

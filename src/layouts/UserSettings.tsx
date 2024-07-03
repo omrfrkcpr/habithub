@@ -12,7 +12,7 @@ const UserSettings = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const settings = ["My Tasks", "Lists", "Logout"];
+  const settings = ["My Todos", "Lists", "Logout"];
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };

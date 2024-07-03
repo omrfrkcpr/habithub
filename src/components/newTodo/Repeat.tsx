@@ -11,7 +11,7 @@ import {
   generateDailyDueDates,
 } from "../../helpers/functions";
 
-const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
+const Repeat: React.FC<Repeat> = ({ newTodo, setNewTodo, startDate }) => {
   const [checked, setChecked] = useState(false);
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const [dailyDays, setDailyDays] = useState<string[]>([]);
@@ -66,42 +66,42 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
 
   useEffect(() => {
     if (!checked) {
-      setNewTask({ ...newTask, repeat: "daily", dueDates: [] });
+      setNewTodo({ ...newTodo, repeat: "daily", dueDates: [] });
     }
   }, [checked]);
 
   useEffect(() => {
-    if (newTask.repeat === "weekly") {
+    if (newTodo.repeat === "weekly") {
       setWeeklyOption("everyWeek");
-    } else if (newTask.repeat === "monthly") {
+    } else if (newTodo.repeat === "monthly") {
       setMonthlyOption("firstDay");
     }
-  }, [newTask.repeat]);
+  }, [newTodo.repeat]);
 
   useEffect(() => {
-    setNewTask({ ...newTask, dueDates: generateDueDates() });
-  }, [dailyDays, weeklyOption, monthlyOption, startDate, newTask.repeat]);
+    setNewTodo({ ...newTodo, dueDates: generateDueDates() });
+  }, [dailyDays, weeklyOption, monthlyOption, startDate, newTodo.repeat]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(e.target.checked);
   };
 
   const handleRepeatChange = (repeatOption: string) => {
-    setNewTask({
-      ...newTask,
+    setNewTodo({
+      ...newTodo,
       repeat: repeatOption,
       dueDates: generateDueDates(),
     });
   };
 
   const generateDueDates = () => {
-    setNewTask({
-      ...newTask,
+    setNewTodo({
+      ...newTodo,
       dueDates: [],
     });
     let newDueDates: Date[] = [];
 
-    switch (newTask.repeat) {
+    switch (newTodo.repeat) {
       case "daily":
         newDueDates = generateDailyDueDates(startDate, dailyDays);
         break;
@@ -176,7 +176,15 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
           color={darkMode ? "success" : "secondary"}
         />
       </div>
-      <p className={`${checked ? "" : "pointer-events-none opacity-50"}`}></p>
+      <p
+        className={`${
+          checked ? "" : "pointer-events-none opacity-50"
+        } mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]`}
+      >
+        Depending on the selections you make here, your new todo will
+        automatically be added to the dates in addition to or in conjunction
+        with the date you specified.
+      </p>
       <div className={`${checked ? "" : "pointer-events-none opacity-50"}`}>
         <div className="mt-3">
           <div className="flex gap-2 border-b border-gray-300 pb-4">
@@ -185,14 +193,14 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
                 key={value}
                 value={value}
                 label={label}
-                selectedValue={newTask.repeat}
+                selectedValue={newTodo.repeat}
                 onClick={handleRepeatChange}
               />
             ))}
           </div>
           {Object.entries(repeatConfigurations).map(
             ([key, config]) =>
-              newTask.repeat === key && (
+              newTodo.repeat === key && (
                 <RepeatSection
                   key={key}
                   options={config.options}

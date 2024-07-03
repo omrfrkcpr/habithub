@@ -1,9 +1,9 @@
 import React from "react";
 import { cardColors } from "../../helpers/constants";
 
-const CardColor: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
+const CardColor: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
   const handleCardColorClick = (color: string) => {
-    setNewTask({ ...newTask, cardColor: color });
+    setNewTodo({ ...newTodo, cardColor: color });
   };
 
   return (
@@ -17,13 +17,13 @@ const CardColor: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
             key={color}
             style={{ backgroundColor: color }}
             className={`w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full text-xs md:text-[16px] cursor-pointer border-[1px] md:border-[3px] font-bold ${
-              newTask.cardColor === color
+              newTodo.cardColor === color
                 ? "border-black/60 dark:border-[#EDEAEA]"
                 : "border-[#EDEAEA] dark:border-none"
             }`}
             onClick={() => handleCardColorClick(color)}
           >
-            {newTask.cardColor === color && "X"}
+            {newTodo.cardColor === color && "X"}
           </button>
         ))}
       </div>

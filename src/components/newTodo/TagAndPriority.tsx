@@ -3,7 +3,7 @@ import { TagsInput } from "react-tag-input-component";
 import PriorityBtn from "../buttons/PriorityBtn";
 import { priorities } from "../../helpers/constants";
 
-const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
+const TagAndPriority: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
   const [availableTags] = useState([
     "Daily Routine",
     "Study Routine",
@@ -11,12 +11,12 @@ const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
   ]);
 
   const handleTagClick = (tag: string) => {
-    setNewTask({ ...newTask, tag });
+    setNewTodo({ ...newTodo, tag });
   };
 
   const handleTagRemove = () => {
-    if (newTask.tag) {
-      setNewTask({ ...newTask, tag: "" });
+    if (newTodo.tag) {
+      setNewTodo({ ...newTodo, tag: "" });
     }
   };
 
@@ -35,8 +35,8 @@ const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
             return (
               <PriorityBtn
                 key={priority}
-                newTask={newTask}
-                setNewTask={setNewTask}
+                newTodo={newTodo}
+                setNewTodo={setNewTodo}
                 priority={priority}
               />
             );
@@ -53,16 +53,16 @@ const TagAndPriority: React.FC<ChildNewTask> = ({ newTask, setNewTask }) => {
           successfully add a new tag, please press Enter after typing.
         </p>
         <TagsInput
-          value={newTask.tag ? [newTask.tag] : []}
-          onChange={(tags) => setNewTask({ ...newTask, tag: tags[0] || "" })}
+          value={newTodo.tag ? [newTodo.tag] : []}
+          onChange={(tags) => setNewTodo({ ...newTodo, tag: tags[0] || "" })}
           name="tag"
-          placeHolder={newTask.tag ? "✔️" : "Set a tag"}
+          placeHolder={newTodo.tag ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
           classNames={{ tag: "tag-cls", input: "input-cls" }}
         />
         <div className="flex flex-wrap gap-2 mt-4">
           {availableTags
-            .filter((tag) => tag !== newTask.tag)
+            .filter((tag) => tag !== newTodo.tag)
             .map((tag) => (
               <button
                 key={tag}
