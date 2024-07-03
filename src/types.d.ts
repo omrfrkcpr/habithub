@@ -39,8 +39,12 @@ interface ExampleCustomInputProps {
   value?: string;
   onClick?: () => void;
 }
+
+type checked = boolean;
 interface Repeat extends ChildNewTodo {
   startDate: Date;
+  checked: checked;
+  setChecked: React.Dispatch<React.SetStateAction<checked>>;
 }
 interface RepeatSectionProps {
   options: { value: string; label: string; isDisabled?: boolean }[];
@@ -54,6 +58,11 @@ interface RepeatValueBtnProps {
   selectedValue: string | string[];
   onClick: (value: string) => void;
   isDisabled?: boolean;
+}
+
+interface ActionBtnsComp extends ChildNewTodo {
+  initialNewTodo: NewTodo;
+  setChecked: React.Dispatch<React.SetStateAction<checked>>;
 }
 
 interface ActionBtnProps {

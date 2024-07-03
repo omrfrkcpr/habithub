@@ -3,8 +3,16 @@ import SaveIcon from "@mui/icons-material/Save";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ActionBtn from "../buttons/ActionBtn";
 
-const ActionBtns: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
-  const handleResetNewTodo = () => {};
+const ActionBtns: React.FC<ActionBtnsComp> = ({
+  newTodo,
+  setNewTodo,
+  initialNewTodo,
+  setChecked,
+}) => {
+  const handleResetNewTodo = () => {
+    setNewTodo(initialNewTodo);
+    setChecked(false);
+  };
   const handleSaveNewTodo = () => {};
 
   return (

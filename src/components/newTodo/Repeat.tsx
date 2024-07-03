@@ -11,8 +11,13 @@ import {
   generateDailyDueDates,
 } from "../../helpers/functions";
 
-const Repeat: React.FC<Repeat> = ({ newTodo, setNewTodo, startDate }) => {
-  const [checked, setChecked] = useState(false);
+const Repeat: React.FC<Repeat> = ({
+  newTodo,
+  setNewTodo,
+  startDate,
+  checked,
+  setChecked,
+}) => {
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const [dailyDays, setDailyDays] = useState<string[]>([]);
   const [weeklyOption, setWeeklyOption] = useState<string>("");

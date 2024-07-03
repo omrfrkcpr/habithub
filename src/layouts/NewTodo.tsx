@@ -20,6 +20,7 @@ const NewTodo = () => {
 
   const [newTodo, setNewTodo] = useState<NewTodo>(initialNewTodo);
   const [startDate, setStartDate] = useState(new Date());
+  const [checked, setChecked] = useState(false);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
@@ -29,7 +30,7 @@ const NewTodo = () => {
     }
   };
 
-  console.log(newTodo);
+  // console.log(newTodo);
 
   return (
     <div className="mt-5 absolute">
@@ -70,11 +71,18 @@ const NewTodo = () => {
             newTodo={newTodo}
             setNewTodo={setNewTodo}
             startDate={startDate}
+            checked={checked}
+            setChecked={setChecked}
           />
           <TagAndPriority newTodo={newTodo} setNewTodo={setNewTodo} />
         </div>
       </div>
-      <ActionBtns newTodo={newTodo} setNewTodo={setNewTodo} />
+      <ActionBtns
+        newTodo={newTodo}
+        setNewTodo={setNewTodo}
+        initialNewTodo={initialNewTodo}
+        setChecked={setChecked}
+      />
     </div>
   );
 };
