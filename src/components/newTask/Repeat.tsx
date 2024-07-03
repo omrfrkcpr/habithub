@@ -1,28 +1,82 @@
 import { Switch } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  repeatOptions,
-  daysOfWeek,
-  monthlyOptions,
-  weeklyOptions,
-} from "../../helpers/constants";
+import { repeatOptions } from "../../helpers/constants";
 import { RootState } from "../../app/store";
 import RepeatValueBtn from "../buttons/RepeatValueBtn";
 import RepeatSection from "./RepeatSection";
+import {
+  generateMonthlyDueDates,
+  generateWeeklyDueDates,
+  generateDailyDueDates,
+} from "../../helpers/functions";
 
 const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
   const [checked, setChecked] = useState(false);
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const [dailyDays, setDailyDays] = useState<string[]>([]);
-  const [weeklyOption, setWeeklyOption] = useState<string>("everyWeek");
-  const [monthlyOption, setMonthlyOption] = useState<string>("firstDay");
+  const [weeklyOption, setWeeklyOption] = useState<string>("");
+  const [monthlyOption, setMonthlyOption] = useState<string>("");
+
+  const weeklyOptions = [
+    {
+      value: "everyWeek",
+      label: "Every Week",
+      dates: generateWeeklyDueDates("everyWeek", startDate),
+    },
+    {
+      value: "every2Weeks",
+      label: "1 in 2 Weeks",
+      dates: generateWeeklyDueDates("every2Weeks", startDate),
+    },
+    {
+      value: "everyWeekend",
+      label: "Every Weekends",
+      dates: generateWeeklyDueDates("everyWeekend", startDate),
+    },
+  ];
+
+  const monthlyOptions = [
+    {
+      value: "firstDay",
+      label: "Every Month's First Day",
+      dates: generateMonthlyDueDates("firstDay", startDate),
+    },
+    {
+      value: "lastDay",
+      label: "Every Month's Last Day",
+      dates: generateMonthlyDueDates("lastDay", startDate),
+    },
+    {
+      value: "specificDay-15",
+      label: "Every 15th Day",
+      dates: generateMonthlyDueDates("specificDay-15", startDate),
+    },
+  ];
+
+  const daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   useEffect(() => {
     if (!checked) {
-      setNewTask({ ...newTask, repeat: "", dueDates: [startDate] });
+      setNewTask({ ...newTask, repeat: "daily", dueDates: [] });
     }
   }, [checked]);
+
+  useEffect(() => {
+    if (newTask.repeat === "weekly") {
+      setWeeklyOption("everyWeek");
+    } else if (newTask.repeat === "monthly") {
+      setMonthlyOption("firstDay");
+    }
+  }, [newTask.repeat]);
 
   useEffect(() => {
     setNewTask({ ...newTask, dueDates: generateDueDates() });
@@ -41,54 +95,24 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
   };
 
   const generateDueDates = () => {
-    const currentDate = new Date(startDate);
+    setNewTask({
+      ...newTask,
+      dueDates: [],
+    });
     let newDueDates: Date[] = [];
 
-    if (newTask.repeat === "daily") {
-      for (let i = 0; i < 7; i++) {
-        dailyDays.forEach((day) => {
-          const dayIndex = daysOfWeek.indexOf(day);
-          const nextDate = new Date(currentDate);
-          nextDate.setDate(
-            currentDate.getDate() +
-              ((dayIndex - currentDate.getDay() + 7) % 7) +
-              i * 7
-          );
-          newDueDates.push(nextDate);
-        });
-      }
-    } else if (newTask.repeat === "weekly") {
-      for (let i = 0; i < 4; i++) {
-        const nextDate = new Date(currentDate);
-        if (weeklyOption === "everyWeek") {
-          nextDate.setDate(currentDate.getDate() + 7 * i);
-        } else if (weeklyOption === "every2Weeks") {
-          nextDate.setDate(currentDate.getDate() + 14 * i);
-        } else if (weeklyOption === "everyWeekend") {
-          const saturday = new Date(currentDate);
-          saturday.setDate(
-            currentDate.getDate() + (6 - currentDate.getDay() + 7 * i)
-          );
-          const sunday = new Date(saturday);
-          sunday.setDate(saturday.getDate() + 1);
-          newDueDates.push(saturday, sunday);
-          continue;
-        }
-        newDueDates.push(nextDate);
-      }
-    } else if (newTask.repeat === "monthly") {
-      for (let i = 0; i < 3; i++) {
-        const nextDate = new Date(currentDate);
-        if (monthlyOption === "firstDay") {
-          nextDate.setMonth(currentDate.getMonth() + i, 1);
-        } else if (monthlyOption === "lastDay") {
-          nextDate.setMonth(currentDate.getMonth() + i + 1, 0);
-        } else if (monthlyOption.startsWith("specificDay")) {
-          const day = parseInt(monthlyOption.split("-")[1]);
-          nextDate.setMonth(currentDate.getMonth() + i, day);
-        }
-        newDueDates.push(nextDate);
-      }
+    switch (newTask.repeat) {
+      case "daily":
+        newDueDates = generateDailyDueDates(startDate, dailyDays);
+        break;
+      case "weekly":
+        newDueDates = generateWeeklyDueDates(weeklyOption, startDate);
+        break;
+      case "monthly":
+        newDueDates = generateMonthlyDueDates(monthlyOption, startDate);
+        break;
+      default:
+        break;
     }
 
     return newDueDates;
@@ -110,13 +134,13 @@ const Repeat: React.FC<Repeat> = ({ newTask, setNewTask, startDate }) => {
   };
 
   const startDayIndex = new Date(startDate).getDay();
-  console.log(startDayIndex);
   const repeatConfigurations = {
     daily: {
       options: daysOfWeek.map((day: string, index: number) => ({
         value: day,
         label: day,
-        isDisabled: index < new Date().getDay() || index === startDayIndex,
+        isDisabled:
+          index + 1 < new Date().getDay() || index + 1 === startDayIndex,
       })),
       selectedValue: dailyDays,
       onClick: handleDailyDayClick,

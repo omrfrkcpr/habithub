@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardColor from "../components/newTask/CardColor";
@@ -10,7 +10,7 @@ const NewTask = () => {
     name: "",
     description: "",
     cardColor: "#ADF7B6",
-    repeat: "",
+    repeat: "daily",
     priority: "standard",
     dueDates: [],
     tag: "",
@@ -19,6 +19,16 @@ const NewTask = () => {
 
   const [newTask, setNewTask] = useState<NewTask>(initialNewTask);
   const [startDate, setStartDate] = useState(new Date());
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      const updatedDueDates = [date, ...newTask.dueDates]; // Add new date to the beginning
+      setNewTask({ ...newTask, dueDates: updatedDueDates });
+      setStartDate(date); // Update startDate to the selected date
+    }
+  };
+
+  console.log(newTask);
 
   return (
     <div className="mt-5 absolute">
@@ -46,7 +56,7 @@ const NewTask = () => {
           </h3>
           <DatePicker
             selected={startDate}
-            onChange={(date: any) => setStartDate(date)}
+            onChange={handleDateChange}
             customInput={<ExampleCustomInput />}
             dateFormat="dd/MM/yyyy - h:mm aa"
             timeInputLabel="Time:"
