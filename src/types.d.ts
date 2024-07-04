@@ -1,5 +1,35 @@
 /// <reference types="react-scripts" />
 
+interface SignUpFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface SignUpInputFields {
+  type: string;
+  name: string;
+  placeholder: string;
+  showToggle: boolean;
+  showPassword?: boolean;
+  onToggleShowPassword?: () => void;
+}
+
+interface SignUpInputProps {
+  type: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  error?: string;
+  touched?: boolean;
+  showToggle?: boolean;
+  showPassword?: boolean;
+  onToggleShowPassword?: () => void;
+}
+
 interface Rule {
   id: number;
   emoji: string;

@@ -2,17 +2,9 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AuthBtns from "../buttons/AuthBtns";
-import { FaRegEye } from "react-icons/fa";
-import { FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import line from "../../assets/straight-line.png";
-
-interface SignUpFormValues {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import SignUpInput from "../inputs/SignUpInput";
 
 export const passwordValidation = Yup.string()
   .min(6, "Password must be at least 6 characters")
@@ -25,10 +17,14 @@ export const passwordValidation = Yup.string()
   );
 
 export const validationSchema = Yup.object().shape({
-  username: Yup.string()
-    .required("Username is required")
-    .min(3, "Username must be at least 3 characters")
-    .max(20, "Username should not contain more than 20 characters"),
+  firstName: Yup.string()
+    .required("Please provide your firstname")
+    .min(3, "Firstname must be at least 2 characters")
+    .max(20, "Firstname should not contain more than 20 characters"),
+  lastName: Yup.string()
+    .required("Please provide your lastname")
+    .min(3, "Lastname must be at least 2 characters")
+    .max(20, "Lastname should not contain more than 20 characters"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: passwordValidation.required("Password is required"),
   confirmPassword: Yup.string().oneOf(
@@ -43,14 +39,7 @@ const SignUpForm: React.FC = () => {
   const [showConfirmPass, setShowConfirmPass] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  // const initialSignUpValues: SignUpFormValues = {
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  // };
-
-  const handleSubmit = async (values: SignUpFormValues) => {
+  const handleSubmit = async (values: any) => {
     setSubmitting(true);
     try {
       console.log(values);
@@ -63,7 +52,8 @@ const SignUpForm: React.FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -72,8 +62,45 @@ const SignUpForm: React.FC = () => {
     onSubmit: handleSubmit,
   });
 
+  const inputFields = [
+    {
+      type: "text",
+      name: "firstName",
+      placeholder: "Firstname",
+      showToggle: false,
+    },
+    {
+      type: "text",
+      name: "lastName",
+      placeholder: "Lastname",
+      showToggle: false,
+    },
+    {
+      type: "text",
+      name: "email",
+      placeholder: "Email",
+      showToggle: false,
+    },
+    {
+      type: showPass ? "text" : "password",
+      name: "password",
+      placeholder: "Password",
+      showToggle: true,
+      showPassword: showPass,
+      onToggleShowPassword: () => setShowPass((prevState) => !prevState),
+    },
+    {
+      type: showConfirmPass ? "text" : "password",
+      name: "confirmPassword",
+      placeholder: "Confirm Password",
+      showToggle: true,
+      showPassword: showConfirmPass,
+      onToggleShowPassword: () => setShowConfirmPass((prevState) => !prevState),
+    },
+  ];
+
   return (
-    <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fadb] shadow-md rounded-lg py-6 px-2 mt-[28px] md:mt-[35px] text-center flex flex-col justify-between">
+    <div className="z-50 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fadb] shadow-md rounded-lg py-6 px-2 mt-[28px] md:mt-[35px] text-center flex flex-col justify-between">
       <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px] mt-4">
         Get started with your account
       </h3>
@@ -87,104 +114,25 @@ const SignUpForm: React.FC = () => {
           Log in
         </span>
       </p>
-
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col justify-center items-center"
       >
-        <div className="w-[90%] md:w-[50%] mx-auto text-left relative">
-          <input
-            type="text"
-            name="email"
-            value={formik.values.email}
+        {inputFields.map((field: SignUpInputFields, index: number) => (
+          <SignUpInput
+            key={index}
+            type={field.type}
+            name={field.name}
+            value={(formik.values as any)[field.name]}
             onChange={formik.handleChange}
-            placeholder="Email"
-            className="w-full mx-auto text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
-            aria-describedby="emailError"
+            placeholder={field.placeholder}
+            error={(formik.errors as any)[field.name]}
+            touched={(formik.touched as any)[field.name]}
+            showToggle={field.showToggle}
+            showPassword={field.showPassword}
+            onToggleShowPassword={field.onToggleShowPassword}
           />
-          {formik.touched.email && formik.errors.email && (
-            <div
-              id="emailError"
-              className="text-red-600 text-[10px] mt-[10px] text-left ms-1"
-              aria-live="assertive"
-            >
-              {formik.errors.email}
-            </div>
-          )}
-        </div>
-        <div className="w-[90%] md:w-[50%] mx-auto text-left relative">
-          <input
-            type="text"
-            name="username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            placeholder="Username"
-            className="w-full mx-auto text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
-            aria-describedby="usernameError"
-          />
-          {formik.touched.username && formik.errors.username && (
-            <div
-              id="usernameError"
-              className="text-red-600 text-[10px] mt-[10px] text-left ms-1"
-              aria-live="assertive"
-            >
-              {formik.errors.username}
-            </div>
-          )}
-        </div>
-        <div className="w-[90%] md:w-[50%] mx-auto text-center relative">
-          <input
-            type={showPass ? "text" : "password"}
-            placeholder="Password"
-            name="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            className="w-full text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
-            aria-describedby="passwordError"
-          />
-          {formik.touched.password && formik.errors.password && (
-            <div
-              id="passwordError"
-              className="text-red-600 text-[10px] mt-[10px] text-left ms-1"
-              aria-live="assertive"
-            >
-              {formik.errors.password}
-            </div>
-          )}
-          <div
-            onClick={() => setShowPass((prevState) => !prevState)}
-            className="absolute right-4 top-6 md:top-7 text-gray-600 cursor-pointer"
-          >
-            {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
-          </div>
-        </div>
-        <div className="w-[90%] md:w-[50%] mx-auto text-center relative">
-          <input
-            type={showConfirmPass ? "text" : "password"}
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            className="w-full text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
-            aria-describedby="confirmPasswordError"
-          />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-            <div
-              id="confirmPasswordError"
-              className="text-red-600 text-[10px] mt-[10px] text-left ms-1"
-              aria-live="assertive"
-            >
-              {formik.errors.confirmPassword}
-            </div>
-          )}
-          <div
-            onClick={() => setShowConfirmPass((prevState) => !prevState)}
-            className="absolute right-4 top-6 md:top-7 text-gray-600 cursor-pointer"
-          >
-            {showConfirmPass ? <FaRegEyeSlash /> : <FaRegEye />}
-          </div>
-        </div>
-
+        ))}
         <p className="text-[10px] font-light mt-5 w-[80%] max-w-[400px]">
           By clicking the "Get Started!" button, you are creating a HabitHUB
           account, and you agree to HabitHUB's{" "}
@@ -204,7 +152,6 @@ const SignUpForm: React.FC = () => {
           {submitting ? "Submitting..." : "Get Started!"}
         </button>
       </form>
-
       <div className="flex justify-center items-center mt-7">
         <img src={line} alt="" className="w-[60px] md:w-[100px] opacity-50" />
         <p className="text-xs">or sign up with</p>
