@@ -1,10 +1,11 @@
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardColor from "../components/newTodo/CardColor";
 import Repeat from "../components/newTodo/Repeat";
 import TagAndPriority from "../components/newTodo/TagAndPriority";
 import ActionBtns from "../components/newTodo/ActionBtns";
+import ExampleCustomInput from "../components/inputs/ExampleCustumInput";
 
 const NewTodo = () => {
   const initialNewTodo: NewTodo = {
@@ -88,16 +89,3 @@ const NewTodo = () => {
 };
 
 export default NewTodo;
-
-export const ExampleCustomInput = forwardRef<
-  HTMLButtonElement,
-  ExampleCustomInputProps
->(({ value = "", onClick = () => {} }, ref) => (
-  <button
-    className="bg-habit-light-purple hover:bg-habit-light-purple/50 text-sm md:text-md p-1 md:p-2 text-white rounded-lg"
-    onClick={onClick}
-    ref={ref}
-  >
-    {value}
-  </button>
-));
