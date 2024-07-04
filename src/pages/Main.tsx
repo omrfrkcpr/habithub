@@ -12,7 +12,7 @@ import appStore from "../assets/app-store.svg";
 const Main = () => {
   const navigate = useNavigate();
   return (
-    <div className="relative min-h-[100rem] md:min-h-[85rem] max-w-[1800px] mx-auto">
+    <div className="relative min-h-[100rem] md:min-h-[87rem] max-w-[1800px] mx-auto">
       <Navbar />
       <MainBg />
       <div className="flex flex-col items-center">

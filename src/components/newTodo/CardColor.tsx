@@ -7,7 +7,7 @@ const CardColor: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
   };
 
   return (
-    <div>
+    <div className="mx-2 md:mx-0">
       <h3 className="font-bold text-habit-gray dark:text-habit-white mb-3 text-[12px] md:text-[16px]">
         Card Color
       </h3>
