@@ -13,7 +13,7 @@ const NewTodo = () => {
     description: "",
     cardColor: "#ADF7B6",
     repeat: "daily",
-    priority: "standard",
+    priority: 0,
     dueDates: [],
     tag: "",
     isCompleted: false,

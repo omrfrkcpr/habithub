@@ -50,7 +50,7 @@ interface NewTodo {
   description: string;
   cardColor: string;
   repeat: string;
-  priority: string;
+  priority: number;
   dueDates: Date[];
   tag: string;
   isCompleted: false;
@@ -61,8 +61,13 @@ interface ChildNewTodo {
   setNewTodo: React.Dispatch<React.SetStateAction<NewTodo>>;
 }
 
+interface Priorities {
+  value: number;
+  label: string;
+}
+
 interface PriorityBtn extends ChildNewTodo {
-  priority: string;
+  priority: Priorities;
 }
 
 interface ExampleCustomInputProps {

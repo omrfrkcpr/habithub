@@ -31,10 +31,10 @@ const TagAndPriority: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
           the priority levels below.
         </p>
         <div className="bg-gray-200 rounded-full mb-4 flex justify-evenly">
-          {priorities.map((priority: string) => {
+          {priorities.map((priority: Priorities) => {
             return (
               <PriorityBtn
-                key={priority}
+                key={priority?.value}
                 newTodo={newTodo}
                 setNewTodo={setNewTodo}
                 priority={priority}

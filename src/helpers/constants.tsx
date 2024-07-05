@@ -21,4 +21,8 @@ export const cardColors = [
   "#554E55",
 ];
 
-export const priorities = ["low", "standard", "high"];
+export const priorities = [
+  { value: -1, label: "low" },
+  { value: 0, label: "standard" },
+  { value: 1, label: "high" },
+];
