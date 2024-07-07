@@ -28,12 +28,10 @@ const useAuthCalls = () => {
       dispatch(registerSuccess(data));
       navigate("/");
       toastNotify("success", "You're successfully registered!");
-    } catch (error) {
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
-      toastNotify(
-        "error",
-        "The register request could not be performed, Please try again!"
-      );
+      toastNotify("error", error.response.data.message);
       console.log(error);
     }
   };
@@ -52,12 +50,10 @@ const useAuthCalls = () => {
       );
       dispatch(updateSuccess(data));
       toastNotify("success", "Your profile has been updated successfully!");
-    } catch (error) {
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
-      toastNotify(
-        "error",
-        "The update request could not be performed, Please try again!"
-      );
+      toastNotify("error", error.response.data.message);
       console.log(error);
     }
   };
@@ -69,13 +65,10 @@ const useAuthCalls = () => {
       dispatch(loginSuccess(data));
       toastNotify("success", "You're successfully logged in!");
       navigate("/contract");
-    } catch (error) {
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
-      toastNotify(
-        "error",
-        "The login request could not be performed, Please try again!"
-      );
-      console.log(error);
+      toastNotify("error", error.response.data.message);
     }
   };
 
@@ -90,14 +83,10 @@ const useAuthCalls = () => {
       dispatch(logoutSuccess());
       showNotify && toastNotify("success", "You're successfully logged out!");
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       dispatch(fetchFail());
-      showNotify &&
-        toastNotify(
-          "error",
-          "The logout request could not be performed, Please try again!"
-        );
-      console.log(error);
+      showNotify && toastNotify("error", error.response.data.message);
+      // console.log(error);
     }
   };
 
