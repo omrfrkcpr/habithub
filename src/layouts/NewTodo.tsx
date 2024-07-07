@@ -9,26 +9,27 @@ import ActionBtns from "../components/newTodo/ActionBtns";
 import ExampleCustomInput from "../components/inputs/ExampleCustumInput";
 import { RootState } from "../app/store";
 import { setNewTodo } from "../features/newTodoSlice";
+import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
 
 const NewTodo = () => {
-  //! Dont forget to convert dueDates before creating a new todo
-  //! const convertedDueDates = useConvertDates(newTodo.dueDates)
-
   const newTodo = useSelector((state: RootState) => state.newTodo);
   const dispatch = useDispatch();
+
+  //! Dont forget to convert dueDates before creating a new todo
+  console.log(deserify(newTodo.dueDates, defaultOptions));
 
   const [startDate, setStartDate] = useState(new Date());
   const [checked, setChecked] = useState(false);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const updatedDueDates = [date, ...newTodo.dueDates]; // Add new date to the beginning
+      const updatedDueDates = [date.toISOString(), ...newTodo.dueDates]; // Add new date to the beginning
       dispatch(setNewTodo({ ...newTodo, dueDates: updatedDueDates }));
       setStartDate(date); // Update startDate to the selected date
     }
   };
 
-  // console.log(newTodo);
+  console.log(newTodo);
 
   return (
     <div className="mt-5 absolute">

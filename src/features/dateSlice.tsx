@@ -6,7 +6,7 @@ interface DateState {
 }
 
 const initialState: DateState = {
-  date: new Date().toDateString(),
+  date: new Date().toISOString(),
   time: `${new Date().getHours()}:${String(new Date().getMinutes()).padStart(
     2,
     "0"

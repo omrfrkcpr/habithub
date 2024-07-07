@@ -6,7 +6,7 @@ const useDate = () => {
   // Update date in Redux when selectedDate changes
   const handleDateChange = (selectedDate: Date | null) => {
     if (selectedDate) {
-      dispatch(setDate(selectedDate.toDateString()));
+      dispatch(setDate(selectedDate.toISOString()));
     }
   };
 

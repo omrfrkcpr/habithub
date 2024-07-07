@@ -10,6 +10,10 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import {
+  createReduxMiddleware,
+  defaultOptions,
+} from "@karmaniverous/serify-deserify";
 import authReducer from "../features/authSlice";
 import todoReducer from "../features/todoSlice";
 import newTodoReducer from "../features/newTodoSlice";
@@ -20,6 +24,9 @@ const persistConfig = {
   key: "root",
   storage,
 };
+
+// Create middleware.
+const serifyMiddleware = createReduxMiddleware(defaultOptions);
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
@@ -35,8 +42,10 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActionPaths: ["meta.arg", "payload.timestamp"],
+        ignoredPaths: ["items.dates"],
       },
-    }),
+    }).concat(serifyMiddleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 

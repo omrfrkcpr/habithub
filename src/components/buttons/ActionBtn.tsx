@@ -10,8 +10,8 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
   hoverColor,
 }) => {
   return (
-    <button
-      className={`${color} hover:${hoverColor} text-white hover:text-white/90 rounded-lg`}
+    <div
+      className={`${color} hover:${hoverColor} text-white hover:text-white/90 rounded-lg cursor-pointer`}
     >
       <LoadingButton
         onClick={onClick}
@@ -33,7 +33,7 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
       >
         {label}
       </LoadingButton>
-    </button>
+    </div>
   );
 };
 

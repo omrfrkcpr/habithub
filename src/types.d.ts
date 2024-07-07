@@ -51,7 +51,7 @@ interface NewTodo {
   cardColor: string;
   repeat: string;
   priority: number;
-  dueDates: Date[];
+  dueDates: string[];
   tagId: string;
   isCompleted: false;
 }
