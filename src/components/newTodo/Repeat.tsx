@@ -1,6 +1,6 @@
 import { Switch } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { repeatOptions } from "../../helpers/constants";
 import { RootState } from "../../app/store";
 import RepeatValueBtn from "../buttons/RepeatValueBtn";
@@ -10,14 +10,11 @@ import {
   generateWeeklyDueDates,
   generateDailyDueDates,
 } from "../../helpers/functions";
+import { setNewTodo } from "../../features/newTodoSlice";
 
-const Repeat: React.FC<Repeat> = ({
-  newTodo,
-  setNewTodo,
-  startDate,
-  checked,
-  setChecked,
-}) => {
+const Repeat: React.FC<Repeat> = ({ startDate, checked, setChecked }) => {
+  const newTodo = useSelector((state: RootState) => state.newTodo);
+  const dispatch = useDispatch();
   const darkMode = useSelector((state: RootState) => state.theme.darkMode);
   const [dailyDays, setDailyDays] = useState<string[]>([]);
   const [weeklyOption, setWeeklyOption] = useState<string>("");
@@ -71,7 +68,7 @@ const Repeat: React.FC<Repeat> = ({
 
   useEffect(() => {
     if (!checked) {
-      setNewTodo({ ...newTodo, repeat: "daily", dueDates: [] });
+      dispatch(setNewTodo({ ...newTodo, repeat: "daily", dueDates: [] }));
     }
   }, [checked]);
 
@@ -84,7 +81,7 @@ const Repeat: React.FC<Repeat> = ({
   }, [newTodo.repeat]);
 
   useEffect(() => {
-    setNewTodo({ ...newTodo, dueDates: generateDueDates() });
+    dispatch(setNewTodo({ ...newTodo, dueDates: generateDueDates() }));
   }, [dailyDays, weeklyOption, monthlyOption, startDate, newTodo.repeat]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,18 +89,22 @@ const Repeat: React.FC<Repeat> = ({
   };
 
   const handleRepeatChange = (repeatOption: string) => {
-    setNewTodo({
-      ...newTodo,
-      repeat: repeatOption,
-      dueDates: generateDueDates(),
-    });
+    dispatch(
+      setNewTodo({
+        ...newTodo,
+        repeat: repeatOption,
+        dueDates: generateDueDates(),
+      })
+    );
   };
 
   const generateDueDates = () => {
-    setNewTodo({
-      ...newTodo,
-      dueDates: [],
-    });
+    dispatch(
+      setNewTodo({
+        ...newTodo,
+        dueDates: [],
+      })
+    );
     let newDueDates: Date[] = [];
 
     switch (newTodo.repeat) {

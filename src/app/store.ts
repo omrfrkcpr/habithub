@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import authReducer from "../features/authSlice";
 import todoReducer from "../features/todoSlice";
+import newTodoReducer from "../features/newTodoSlice";
 import themeReducer from "../features/themeSlice";
 import dateReducer from "../features/dateSlice";
 
@@ -26,6 +27,7 @@ const store = configureStore({
   reducer: {
     auth: persistedReducer,
     todo: todoReducer,
+    newTodo: newTodoReducer,
     theme: themeReducer,
     date: dateReducer,
   },

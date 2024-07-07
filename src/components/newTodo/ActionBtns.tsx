@@ -1,16 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import SaveIcon from "@mui/icons-material/Save";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ActionBtn from "../buttons/ActionBtn";
+import { resetNewTodo } from "../../features/newTodoSlice";
 
-const ActionBtns: React.FC<ActionBtnsComp> = ({
-  newTodo,
-  setNewTodo,
-  initialNewTodo,
-  setChecked,
-}) => {
+const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
+  const dispatch = useDispatch();
+
   const handleResetNewTodo = () => {
-    setNewTodo(initialNewTodo);
+    dispatch(resetNewTodo());
     setChecked(false);
   };
   const handleSaveNewTodo = () => {};

@@ -1,13 +1,14 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../app/store";
+import { setNewTodo } from "../../features/newTodoSlice";
 
-const PriorityBtn: React.FC<PriorityBtn> = ({
-  newTodo,
-  setNewTodo,
-  priority,
-}) => {
+const PriorityBtn: React.FC<PriorityBtn> = ({ priority }) => {
+  const newTodo = useSelector((state: RootState) => state.newTodo);
+  const dispatch = useDispatch();
   const { value, label } = priority;
   const handlePriorityClick = (value: number) => {
-    setNewTodo({ ...newTodo, priority: value });
+    dispatch(setNewTodo({ ...newTodo, priority: value }));
   };
 
   return (

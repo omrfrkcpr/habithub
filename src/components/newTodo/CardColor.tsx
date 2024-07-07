@@ -1,9 +1,15 @@
 import React from "react";
 import { cardColors } from "../../helpers/constants";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../app/store";
+import { setNewTodo } from "../../features/newTodoSlice";
 
-const CardColor: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
+const CardColor = () => {
+  const newTodo = useSelector((state: RootState) => state.newTodo);
+  const dispatch = useDispatch();
+
   const handleCardColorClick = (color: string) => {
-    setNewTodo({ ...newTodo, cardColor: color });
+    dispatch(setNewTodo({ ...newTodo, cardColor: color }));
   };
 
   return (

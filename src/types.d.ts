@@ -55,18 +55,12 @@ interface NewTodo {
   tagId: string;
   isCompleted: false;
 }
-
-interface ChildNewTodo {
-  newTodo: NewTodo;
-  setNewTodo: React.Dispatch<React.SetStateAction<NewTodo>>;
-}
-
 interface Priorities {
   value: number;
   label: string;
 }
 
-interface PriorityBtn extends ChildNewTodo {
+interface PriorityBtn {
   priority: Priorities;
 }
 
@@ -76,7 +70,7 @@ interface ExampleCustomInputProps {
 }
 
 type checked = boolean;
-interface Repeat extends ChildNewTodo {
+interface Repeat {
   startDate: Date;
   checked: checked;
   setChecked: React.Dispatch<React.SetStateAction<checked>>;
@@ -95,8 +89,7 @@ interface RepeatValueBtnProps {
   isDisabled?: boolean;
 }
 
-interface ActionBtnsComp extends ChildNewTodo {
-  initialNewTodo: NewTodo;
+interface ActionBtnsComp {
   setChecked: React.Dispatch<React.SetStateAction<checked>>;
 }
 

@@ -1,22 +1,28 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import PriorityBtn from "../buttons/PriorityBtn";
 import { priorities } from "../../helpers/constants";
+import { setNewTodo } from "../../features/newTodoSlice";
+import { RootState } from "../../app/store";
 
-const TagAndPriority: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
+const TagAndPriority = () => {
+  const newTodo = useSelector((state: RootState) => state.newTodo);
+  const dispatch = useDispatch();
+
   const [availableTags] = useState([
     "Daily Routine",
     "Study Routine",
     "Work Routine",
   ]);
 
-  const handleTagClick = (tag: string) => {
-    setNewTodo({ ...newTodo, tag });
+  const handleTagClick = (tagId: string) => {
+    dispatch(setNewTodo({ ...newTodo, tagId }));
   };
 
   const handleTagRemove = () => {
-    if (newTodo.tag) {
-      setNewTodo({ ...newTodo, tag: "" });
+    if (newTodo.tagId) {
+      dispatch(setNewTodo({ ...newTodo, tagId: "" }));
     }
   };
 
@@ -32,14 +38,7 @@ const TagAndPriority: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
         </p>
         <div className="bg-gray-200 rounded-full mb-4 flex justify-evenly">
           {priorities.map((priority: Priorities) => {
-            return (
-              <PriorityBtn
-                key={priority?.value}
-                newTodo={newTodo}
-                setNewTodo={setNewTodo}
-                priority={priority}
-              />
-            );
+            return <PriorityBtn key={priority?.value} priority={priority} />;
           })}
         </div>
       </div>
@@ -53,16 +52,16 @@ const TagAndPriority: React.FC<ChildNewTodo> = ({ newTodo, setNewTodo }) => {
           successfully add a new tag, please press Enter after typing.
         </p>
         <TagsInput
-          value={newTodo.tag ? [newTodo.tag] : []}
+          value={newTodo.tagId ? [newTodo.tagId] : []}
           onChange={(tags) => setNewTodo({ ...newTodo, tag: tags[0] || "" })}
           name="tag"
-          placeHolder={newTodo.tag ? "✔️" : "Set a tag"}
+          placeHolder={newTodo.tagId ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
           classNames={{ tag: "tag-cls", input: "input-cls" }}
         />
         <div className="flex flex-wrap gap-2 mt-4">
           {availableTags
-            .filter((tag) => tag !== newTodo.tag)
+            .filter((tag) => tag !== newTodo.tagId)
             .map((tag) => (
               <button
                 key={tag}
