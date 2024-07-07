@@ -15,7 +15,7 @@ const NewTodo = () => {
     repeat: "daily",
     priority: 0,
     dueDates: [],
-    tag: "",
+    tagId: "",
     isCompleted: false,
   };
 

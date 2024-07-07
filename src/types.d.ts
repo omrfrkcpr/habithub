@@ -52,7 +52,7 @@ interface NewTodo {
   repeat: string;
   priority: number;
   dueDates: Date[];
-  tag: string;
+  tagId: string;
   isCompleted: false;
 }
 
