@@ -7,12 +7,38 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import useAuthCalls from "../hooks/useAuthCalls";
 
 const UserSettings = () => {
+  const { logout } = useAuthCalls();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const settings = ["My Todos", "Lists", "Logout"];
+
+  const settings = [
+    {
+      value: "My Todos",
+      onClick: () => {
+        console.log("My Todos clicked");
+        handleCloseUserMenu();
+      },
+    },
+    {
+      value: "Lists",
+      onClick: () => {
+        console.log("Lists clicked");
+        handleCloseUserMenu();
+      },
+    },
+    {
+      value: "Logout",
+      onClick: () => {
+        logout(true);
+        handleCloseUserMenu();
+      },
+    },
+  ];
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -45,11 +71,13 @@ const UserSettings = () => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">{setting}</Typography>
-            </MenuItem>
-          ))}
+          {settings.map(
+            ({ onClick, value }: { onClick: () => void; value: string }) => (
+              <MenuItem key={value} onClick={onClick}>
+                <Typography textAlign="center">{value}</Typography>
+              </MenuItem>
+            )
+          )}
         </Menu>
       </Box>
     </div>

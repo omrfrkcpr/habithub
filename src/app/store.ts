@@ -25,7 +25,7 @@ const persistConfig = {
   storage,
 };
 
-// Create middleware.
+// Create a middleware to store non-serialized values like Date.
 const serifyMiddleware = createReduxMiddleware(defaultOptions);
 
 const persistedReducer = persistReducer(persistConfig, authReducer);

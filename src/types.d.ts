@@ -1,5 +1,29 @@
 /// <reference types="react-scripts" />
 
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  isActive: string;
+  isAdmin: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface InitialAuthState {
+  currentUser: null | User;
+  loading: boolean;
+  error: boolean;
+  token: null | string;
+}
+
+interface SignInFormValues {
+  email: string;
+  password: string;
+}
+
 interface SignUpFormValues {
   firstName: string;
   lastName: string;

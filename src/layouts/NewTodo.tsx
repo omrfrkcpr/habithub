@@ -9,14 +9,11 @@ import ActionBtns from "../components/newTodo/ActionBtns";
 import ExampleCustomInput from "../components/inputs/ExampleCustumInput";
 import { RootState } from "../app/store";
 import { setNewTodo } from "../features/newTodoSlice";
-import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
+
 
 const NewTodo = () => {
   const newTodo = useSelector((state: RootState) => state.newTodo);
   const dispatch = useDispatch();
-
-  //! Dont forget to convert dueDates before creating a new todo
-  console.log(deserify(newTodo.dueDates, defaultOptions));
 
   const [startDate, setStartDate] = useState(new Date());
   const [checked, setChecked] = useState(false);

@@ -3,13 +3,27 @@ import AuthBtns from "../buttons/AuthBtns";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useAuthCalls from "../../hooks/useAuthCalls";
 
 const SignInForm = () => {
   const navigate = useNavigate();
+  const { login } = useAuthCalls();
   const [showPass, setShowPass] = useState<boolean>(false);
+
+  const initialSignInForm: SignInFormValues = {
+    email: "",
+    password: "",
+  };
+
+  const [signInForm, setSignInForm] =
+    useState<SignInFormValues>(initialSignInForm);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    const { email, password } = signInForm;
+    if (email && password) {
+      login(signInForm);
+    }
   };
 
   return (
@@ -29,12 +43,22 @@ const SignInForm = () => {
           type="text"
           placeholder="Email"
           className="w-[90%] md:w-[50%] mx-auto text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
+          required
+          value={signInForm.email}
+          onChange={(e) =>
+            setSignInForm({ ...signInForm, email: e.target.value })
+          }
         />
         <div className="w-[90%] md:w-[50%] mx-auto text-center relative">
           <input
             type={showPass ? "text" : "password"}
             placeholder="Password"
             className="w-full text-[10px] md:text-[13px] placeholder:font-light outline-none mt-4 py-2 px-3 rounded-lg "
+            required
+            value={signInForm.password}
+            onChange={(e) =>
+              setSignInForm({ ...signInForm, password: e.target.value })
+            }
           />
           <div
             onClick={() => setShowPass((prevState) => !prevState)}

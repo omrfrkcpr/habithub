@@ -1,12 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SaveIcon from "@mui/icons-material/Save";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ActionBtn from "../buttons/ActionBtn";
 import { resetNewTodo } from "../../features/newTodoSlice";
+import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
+import { RootState } from "../../app/store";
 
 const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const dispatch = useDispatch();
+  const newTodo = useSelector((state: RootState) => state.newTodo);
+
+  //! Dont forget to convert dueDates before creating a new todo
+  console.log(deserify(newTodo.dueDates, defaultOptions));
 
   const handleResetNewTodo = () => {
     dispatch(resetNewTodo());

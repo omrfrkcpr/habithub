@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState: InitialAuthState = {
+  currentUser: null,
+  loading: false,
+  error: false,
+  token: null,
+  // isAdmin: false,
+};
+
 const authSlice = createSlice({
   name: "auth",
 
-  initialState: {
-    currentUser: null,
-    loading: false,
-    error: false,
-    token: null,
-    // isAdmin: false,
-  },
+  initialState,
   reducers: {
     fetchStart: (state) => {
       state.loading = true;
