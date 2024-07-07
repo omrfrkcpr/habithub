@@ -19,6 +19,9 @@ const NewTodo = () => {
     isCompleted: false,
   };
 
+  //! Dont forget to convert dueDates before creating a new todo
+  //! const convertedDueDates = useConvertDates(newTodo.dueDates)
+
   const [newTodo, setNewTodo] = useState<NewTodo>(initialNewTodo);
   const [startDate, setStartDate] = useState(new Date());
   const [checked, setChecked] = useState(false);
