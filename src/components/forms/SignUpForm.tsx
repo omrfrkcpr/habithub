@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AuthBtns from "../buttons/AuthBtns";
 import { useNavigate } from "react-router-dom";
 import line from "../../assets/straight-line.png";
 import SignUpInput from "../inputs/SignUpInput";
+import PasswordCheckList from "../inputs/PasswordCheckList";
 
 export const passwordValidation = Yup.string()
   .min(6, "Password must be at least 6 characters")
@@ -38,6 +39,25 @@ const SignUpForm: React.FC = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [showConfirmPass, setShowConfirmPass] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [showChecklist, setShowChecklist] = useState<boolean>(false);
+  const checklistRef = useRef<HTMLDivElement>(null);
+
+  // Close the checklist when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        checklistRef.current &&
+        !(checklistRef.current as HTMLElement).contains(event.target as Node)
+      ) {
+        setShowChecklist(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [checklistRef]);
 
   const handleSubmit = async (values: any) => {
     setSubmitting(true);
@@ -116,7 +136,7 @@ const SignUpForm: React.FC = () => {
       </p>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col justify-center items-center"
+        className="flex flex-col justify-center items-center relative"
       >
         {inputFields.map((field: SignUpInputFields, index: number) => (
           <SignUpInput
@@ -131,8 +151,23 @@ const SignUpForm: React.FC = () => {
             showToggle={field.showToggle}
             showPassword={field.showPassword}
             onToggleShowPassword={field.onToggleShowPassword}
+            onFocus={() => {
+              field.type === "password" && setShowChecklist(true);
+            }}
           />
         ))}
+        {showChecklist && (
+          <div
+            ref={checklistRef}
+            className="bg-gray-100 w-[310px] md:w-[380px] text-left z-50 absolute top-2 md:top-5 shadow-md "
+          >
+            <PasswordCheckList
+              password={formik.values.password}
+              confirmPassword={formik.values.confirmPassword}
+              setShowChecklist={setShowChecklist}
+            />
+          </div>
+        )}
         <p className="text-[10px] font-light mt-5 w-[80%] max-w-[400px]">
           By clicking the "Get Started!" button, you are creating a HabitHUB
           account, and you agree to HabitHUB's{" "}

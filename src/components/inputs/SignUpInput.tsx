@@ -12,12 +12,19 @@ const SignUpInput: React.FC<SignUpInputProps> = ({
   showToggle,
   showPassword,
   onToggleShowPassword,
+  onFocus,
 }) => {
   return (
     <div className="w-[90%] md:w-[50%] mx-auto text-left relative">
       <input
         type={type}
         name={name}
+        id={
+          name === "password"
+            ? "hs-strong-password-api-with-indicator-and-hint-in-popover"
+            : ""
+        }
+        onFocus={onFocus}
         value={value}
         onChange={onChange}
         placeholder={placeholder}

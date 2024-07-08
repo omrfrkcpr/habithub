@@ -52,6 +52,14 @@ interface SignUpInputProps {
   showToggle?: boolean;
   showPassword?: boolean;
   onToggleShowPassword?: () => void;
+  onFocus?: () => void;
+}
+
+type showChecklist = boolean;
+interface PasswordCheckListProps {
+  password: string;
+  confirmPassword: string;
+  setShowChecklist: React.Dispatch<React.SetStateAction<showChecklist>>;
 }
 
 interface Rule {
