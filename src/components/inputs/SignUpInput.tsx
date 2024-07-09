@@ -24,11 +24,6 @@ const SignUpInput: React.FC<SignUpInputProps> = ({
       <input
         type={type}
         name={name}
-        id={
-          name === "password"
-            ? "hs-strong-password-api-with-indicator-and-hint-in-popover"
-            : ""
-        }
         disabled={name === "confirmPassword" && !password}
         onFocus={onFocus}
         autoComplete="off"

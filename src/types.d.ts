@@ -33,6 +33,7 @@ interface SignUpFormValues {
 }
 
 interface SignUpInputFields {
+  id: number;
   type: string;
   name: string;
   placeholder: string;

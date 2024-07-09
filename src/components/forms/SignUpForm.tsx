@@ -89,24 +89,28 @@ const SignUpForm: React.FC = () => {
 
   const inputFields = [
     {
+      id: 1,
       type: "text",
       name: "firstName",
       placeholder: "Firstname",
       showToggle: false,
     },
     {
+      id: 2,
       type: "text",
       name: "lastName",
       placeholder: "Lastname",
       showToggle: false,
     },
     {
+      id: 3,
       type: "text",
       name: "email",
       placeholder: "Email",
       showToggle: false,
     },
     {
+      id: 4,
       type: showPass ? "text" : "password",
       name: "password",
       placeholder: "Password",
@@ -115,6 +119,7 @@ const SignUpForm: React.FC = () => {
       onToggleShowPassword: () => setShowPass((prevState) => !prevState),
     },
     {
+      id: 5,
       type: showConfirmPass ? "text" : "password",
       name: "confirmPassword",
       placeholder: "Confirm Password",
@@ -143,9 +148,9 @@ const SignUpForm: React.FC = () => {
         onSubmit={formik.handleSubmit}
         className="flex flex-col justify-center items-center relative"
       >
-        {inputFields.map((field: SignUpInputFields, index: number) => (
+        {inputFields.map((field: SignUpInputFields) => (
           <SignUpInput
-            key={index}
+            key={field.id}
             type={field.type}
             name={field.name}
             value={(formik.values as any)[field.name]}
@@ -167,7 +172,7 @@ const SignUpForm: React.FC = () => {
         {showChecklist && (
           <div
             ref={checklistRef}
-            className="bg-[#ededed] w-[310px] pt-2 md:w-[500px] text-left z-50 absolute top-[315px] md:top-[340px] shadow-md clip-message-box"
+            className="bg-[#ededed] w-[90%] xl:w-[500px] pt-2  text-left z-50 absolute top-[315px] md:top-[330px] shadow-md clip-message-box"
           >
             <PasswordCheckList
               password={formik.values.password}
