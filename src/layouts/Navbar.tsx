@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex justify-between items-center absolute top-0 px-5 md:px-20 w-full border-b z-50 border-gray-300 h-[60px] md:h-[75px]">
+    <div className="flex justify-between items-center absolute top-0 px-5 md:px-20 w-full border-b z-50 border-gray-300 h-[60px]">
       <div
         className="flex gap-1 justify-center items-center"
         onClick={() => navigate("/")}

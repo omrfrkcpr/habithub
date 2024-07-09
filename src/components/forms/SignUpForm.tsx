@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AuthBtns from "../buttons/AuthBtns";
 import { useNavigate } from "react-router-dom";
-import line from "../../assets/straight-line.png";
 import SignUpInput from "../inputs/SignUpInput";
 import PasswordCheckList from "../inputs/PasswordCheckList";
 
@@ -61,10 +60,14 @@ const SignUpForm: React.FC = () => {
     };
   }, [checklistRef]);
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: SignUpFormValues) => {
     setSubmitting(true);
+
+    const formValues = { ...values };
+    delete formValues.confirmPassword; // confirmPassword is not needed in database. Its just for client and security requirements.
+
     try {
-      console.log(values);
+      console.log(formValues);
       setSubmitting(false);
     } catch (error) {
       console.error(error);
@@ -122,11 +125,11 @@ const SignUpForm: React.FC = () => {
   ];
 
   return (
-    <div className="z-50 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fadb] shadow-md rounded-lg py-5 md:py-9 px-2 mt-[36px] md:mt-[35px] text-center flex flex-col justify-between">
-      <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px] md:mt-4">
+    <div className="z-50 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[700px] max-h-[fit-content] xl:h-[625px] bg-[#f8f9fadb] shadow-md rounded-lg py-5 md:py-3 px-2 mt-[36px] md:mt-[28px] text-center flex flex-col justify-between">
+      <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px]">
         Get started with your account
       </h3>
-      <p className="w-[95%] md:w-[70%] mx-auto text-[10px] md:text-[12px] font-light text-center">
+      <p className="w-[95%] md:w-[80%] mx-auto text-[10px] md:text-[12px] font-light text-center">
         Track your habits. Achieve your goals. Do it all with HabitHub's Todo
         Management Platform. Already have an account?{" "}
         <span
@@ -164,7 +167,7 @@ const SignUpForm: React.FC = () => {
         {showChecklist && (
           <div
             ref={checklistRef}
-            className="bg-[#ededed] w-[310px] pt-2 md:w-[390px] text-left z-50 absolute top-[315px] md:top-[330px] shadow-md clip-message-box"
+            className="bg-[#ededed] w-[310px] pt-2 md:w-[500px] text-left z-50 absolute top-[315px] md:top-[340px] shadow-md clip-message-box"
           >
             <PasswordCheckList
               password={formik.values.password}
@@ -194,11 +197,6 @@ const SignUpForm: React.FC = () => {
           {submitting ? "Submitting..." : "Get Started!"}
         </button>
       </form>
-      <div className="flex justify-center items-center mt-7">
-        <img src={line} alt="" className="w-[60px] md:w-[100px] opacity-50" />
-        <p className="text-xs">or sign up with</p>
-        <img src={line} alt="" className="w-[60px] md:w-[100px] opacity-50" />
-      </div>
       <AuthBtns />
     </div>
   );

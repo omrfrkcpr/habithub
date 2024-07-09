@@ -29,7 +29,7 @@ interface SignUpFormValues {
   lastName: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 }
 
 interface SignUpInputFields {

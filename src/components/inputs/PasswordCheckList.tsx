@@ -17,9 +17,9 @@ const PasswordCheckList: React.FC<PasswordCheckListProps> = ({
       />
       <div className="p-3">
         <p className="text-[9px] md:text-[10px]">
-          To ensure your account's security, your password must meet the
-          following requirements. And for the best security, make sure your
-          password strength bar is at the maximum level.
+          To ensure account's security, password must meet the following
+          requirements. For the best security, make sure your password strength
+          bar is at the maximum level.
         </p>
         <p className="text-[9px] md:text-[10px] font-light mb-3">
           (Example valid password: StrongPass@3000)

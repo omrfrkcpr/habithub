@@ -52,7 +52,7 @@ const SignUpInput: React.FC<SignUpInputProps> = ({
       {touched && error && (
         <div
           id={`${name}Error`}
-          className={`absolute z-40 text-red-600 text-[10px] ${
+          className={`absolute text-red-600 text-[10px] ${
             name === "password" ? "-mt-4" : "mt-[5px]"
           } text-left ms-1`}
           aria-live="assertive"
