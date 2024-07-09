@@ -39,6 +39,7 @@ interface SignUpInputFields {
   showToggle: boolean;
   showPassword?: boolean;
   onToggleShowPassword?: () => void;
+  password?: string; // for confirmPassword
 }
 
 interface SignUpInputProps {
@@ -53,6 +54,7 @@ interface SignUpInputProps {
   showPassword?: boolean;
   onToggleShowPassword?: () => void;
   onFocus?: () => void;
+  password?: string; // for confirmPassword
 }
 
 type showChecklist = boolean;

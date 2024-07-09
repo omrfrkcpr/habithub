@@ -23,6 +23,20 @@
 @layer components {
 }
 
+@layer utilities {
+  .clip-message-box {
+    clip-path: polygon(
+      0 4%,
+      100% 4%,
+      100% 100%,
+      0 100%,
+      72% 0,
+      91% 25%,
+      0 100%
+    );
+  }
+}
+
 .main-container {
   background-image: url("./assets/mainBg.png");
   background-size: cover;

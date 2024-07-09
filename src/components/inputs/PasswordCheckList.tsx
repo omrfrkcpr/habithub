@@ -16,6 +16,14 @@ const PasswordCheckList: React.FC<PasswordCheckListProps> = ({
         className="absolute top-1 right-1 cursor-pointer w-5 h-5 text-habit-purple hover:text-habit-light-purple"
       />
       <div className="p-3">
+        <p className="text-[9px] md:text-[10px]">
+          To ensure your account's security, your password must meet the
+          following requirements. And for the best security, make sure your
+          password strength bar is at the maximum level.
+        </p>
+        <p className="text-[9px] md:text-[10px] font-light mb-3">
+          (Example valid password: StrongPass@3000)
+        </p>
         <PasswordChecklist
           rules={[
             "minLength",

@@ -45,10 +45,12 @@ const SignUpForm: React.FC = () => {
   // Close the checklist when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      // Check if checklistRef, passwordDivRef, or confirmPasswordDivRef exist
       if (
         checklistRef.current &&
-        !(checklistRef.current as HTMLElement).contains(event.target as Node)
+        !checklistRef.current.contains(event.target as Node)
       ) {
+        // Close the checklist
         setShowChecklist(false);
       }
     }
@@ -120,11 +122,11 @@ const SignUpForm: React.FC = () => {
   ];
 
   return (
-    <div className="z-50 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fadb] shadow-md rounded-lg py-6 px-2 mt-[28px] md:mt-[35px] text-center flex flex-col justify-between">
-      <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px] mt-4">
+    <div className="z-50 absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] md:w-[80%] lg:w-[60%] h-auto max-w-[750px] max-h-[fit-content] xl:h-[615px] bg-[#f8f9fadb] shadow-md rounded-lg py-5 md:py-9 px-2 mt-[36px] md:mt-[35px] text-center flex flex-col justify-between">
+      <h3 className="text-habit-light-purple font-bold text-center text-[15px] md:text-[20px] md:mt-4">
         Get started with your account
       </h3>
-      <p className="w-[70%] mx-auto text-[10px] md:text-[12px] font-light text-center">
+      <p className="w-[95%] md:w-[70%] mx-auto text-[10px] md:text-[12px] font-light text-center">
         Track your habits. Achieve your goals. Do it all with HabitHub's Todo
         Management Platform. Already have an account?{" "}
         <span
@@ -154,12 +156,15 @@ const SignUpForm: React.FC = () => {
             onFocus={() => {
               field.type === "password" && setShowChecklist(true);
             }}
+            password={
+              field.name === "confirmPassword" ? formik.values.password : ""
+            }
           />
         ))}
         {showChecklist && (
           <div
             ref={checklistRef}
-            className="bg-gray-100 w-[310px] md:w-[380px] text-left z-50 absolute top-2 md:top-5 shadow-md "
+            className="bg-[#ededed] w-[310px] pt-2 md:w-[390px] text-left z-50 absolute top-[315px] md:top-[330px] shadow-md clip-message-box"
           >
             <PasswordCheckList
               password={formik.values.password}
@@ -168,7 +173,9 @@ const SignUpForm: React.FC = () => {
             />
           </div>
         )}
-        <p className="text-[10px] font-light mt-5 w-[80%] max-w-[400px]">
+        <p
+          className={`text-[10px] font-light mt-8 md:mt-10 w-[80%] max-w-[400px]`}
+        >
           By clicking the "Get Started!" button, you are creating a HabitHUB
           account, and you agree to HabitHUB's{" "}
           <span className="font-semibold text-blue-400 underline hover:text-blue-600 cursor-pointer">
