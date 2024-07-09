@@ -134,5 +134,4 @@ interface ActionBtnProps {
   icon: React.ReactNode;
   label: string;
   color: string;
-  hoverColor: string;
 }

@@ -7,12 +7,9 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
   icon,
   label,
   color,
-  hoverColor,
 }) => {
   return (
-    <div
-      className={`${color} hover:${hoverColor} text-white hover:text-white/90 rounded-lg cursor-pointer`}
-    >
+    <div className="rounded-lg cursor-pointer">
       <LoadingButton
         onClick={onClick}
         sx={{
@@ -20,11 +17,15 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
             xs: "4px 10px",
             sm: "8px 14px",
           },
+          backgroundColor: color === "orange" ? "#f89233" : "#11a91d",
           borderRadius: "5px",
           color: "white",
           fontSize: {
-            xs: "14px",
-            sm: "16px",
+            xs: "10px",
+            sm: "12px",
+          },
+          "&:hover": {
+            backgroundColor: color === "orange" ? "#ffbe80" : "#3ddb4a",
           },
         }}
         loading={loading}

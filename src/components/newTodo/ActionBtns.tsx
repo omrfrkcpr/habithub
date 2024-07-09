@@ -27,16 +27,14 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
         loading={false}
         icon={<RestartAltIcon sx={{ color: "white" }} />}
         label="Reset"
-        color="bg-orange-600"
-        hoverColor="bg-orange-500"
+        color="orange"
       />
       <ActionBtn
         onClick={handleSaveNewTodo}
         loading={false}
         icon={<SaveIcon sx={{ color: "white" }} />}
         label="Save"
-        color="bg-green-600"
-        hoverColor="bg-green-500"
+        color="green"
       />
     </div>
   );
