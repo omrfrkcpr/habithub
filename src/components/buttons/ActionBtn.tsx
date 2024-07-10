@@ -20,7 +20,12 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
             xs: "4px 10px",
             sm: "8px 14px",
           },
-          backgroundColor: color === "orange" ? "#f89233" : "#11a91d",
+          backgroundColor:
+            color === "orange"
+              ? "#f89233"
+              : color === "green"
+              ? "#11a91d"
+              : "#a439e7",
           borderRadius: "5px",
           color: "white",
           fontSize: {
@@ -28,7 +33,12 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
             sm: "12px",
           },
           "&:hover": {
-            backgroundColor: color === "orange" ? "#ffbe80" : "#3ddb4a",
+            backgroundColor:
+              color === "orange"
+                ? "#ffbe80"
+                : color === "green"
+                ? "#3ddb4a"
+                : "#ca87f4",
           },
         }}
         loading={loading}
