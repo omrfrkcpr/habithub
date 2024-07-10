@@ -7,11 +7,14 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
   icon,
   label,
   color,
+  type,
+  disabled,
 }) => {
   return (
     <div className="rounded-lg cursor-pointer">
       <LoadingButton
         onClick={onClick}
+        disabled={disabled || false}
         sx={{
           padding: {
             xs: "4px 10px",

@@ -14,6 +14,9 @@ import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import Contract from "../pages/Contract";
 import Setup from "../pages/Setup";
+import Verify from "../pages/Verify";
+import Forgot from "../pages/Forgot";
+import Reset from "../pages/Reset";
 
 const AppRouter = () => {
   return (
@@ -26,6 +29,9 @@ const AppRouter = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/verify-email/:token" element={<Verify />} />
+          <Route path="/forgot-password" element={<Forgot />} />
+          <Route path="/reset-password/:token" element={<Reset />} />
           {/* <Route path="/contract" element={<Contract />} />
           <Route path="/home" element={<Home />} /> */}
           <Route path="" element={<PrivateRouter />}>

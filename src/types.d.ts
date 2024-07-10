@@ -58,6 +58,21 @@ interface SignUpInputProps {
   password?: string; // for confirmPassword
 }
 
+interface ResetValues {
+  email: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+interface ResetInputFields {
+  id: number;
+  name: string;
+  type: string;
+  label: string;
+  toggleIcon?: React.ReactNode;
+  onToggleClick?: () => void; // for toggling password visibility
+}
+
 type showChecklist = boolean;
 interface PasswordCheckListProps {
   password: string;
@@ -124,9 +139,11 @@ interface ActionBtnsComp {
 }
 
 interface ActionBtnProps {
-  onClick: () => void;
+  onClick?: () => void;
   loading: boolean;
   icon: React.ReactNode;
   label: string;
   color: string;
+  disabled?: boolean;
+  type?: string;
 }
