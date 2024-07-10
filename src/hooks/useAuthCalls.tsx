@@ -24,10 +24,12 @@ const useAuthCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
-      // console.log(data);
+      console.log(data);
       dispatch(registerSuccess(data));
-      navigate("/");
-      toastNotify("success", "You're successfully registered!");
+      toastNotify(
+        "success",
+        "You're successfully registered!. Please check your mailbox to verify your account."
+      );
     } catch (error: any) {
       // console.log(error);
       dispatch(fetchFail());
