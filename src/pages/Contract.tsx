@@ -1,10 +1,9 @@
 import Navbar from "../layouts/Navbar";
 import aggrement from "../assets/aggrement.png";
-import { useState } from "react";
-import Setup from "../layouts/Setup";
+import { useNavigate } from "react-router-dom";
 
 const Contract: React.FC = () => {
-  const [showSetup, setShowSetup] = useState<boolean>(false);
+  const navigate = useNavigate();
   const contractRules: Rule[] = [
     {
       id: 1,
@@ -79,13 +78,12 @@ const Contract: React.FC = () => {
           />
         </div>
         <button
-          onClick={() => setShowSetup(true)}
+          onClick={() => navigate("/home")}
           className="absolute -bottom-24 md:-bottom-40 lg:-bottom-32 left-[50%] -translate-x-[50%] -translate-y-[50%] w-[130px] bg-habit-light-gray hover:bg-gray-200 duration-300 rounded-md shadow-md mb-10 h-[30px] justify-center items-center"
         >
           I Agree
         </button>
       </div>
-      <Setup showSetup={showSetup} setShowSetup={setShowSetup} />
       {/* <Footer /> */}
     </div>
   );

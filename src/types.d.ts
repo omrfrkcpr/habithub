@@ -71,11 +71,6 @@ interface Rule {
   content: string;
 }
 
-interface SetupProps {
-  showSetup: boolean;
-  setShowSetup: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 interface ThemeState {
   darkMode: boolean;
 }

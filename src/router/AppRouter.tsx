@@ -13,6 +13,7 @@ import Home from "../pages/Home";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import Contract from "../pages/Contract";
+import Setup from "../pages/Setup";
 
 const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
           {/* <Route path="/contract" element={<Contract />} />
           <Route path="/home" element={<Home />} /> */}
           <Route path="" element={<PrivateRouter />}>
+            <Route path="/setup" element={<Setup />} />
             <Route path="/contract" element={<Contract />} />
             <Route path="/home" element={<Home />} />
           </Route>
