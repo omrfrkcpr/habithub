@@ -68,9 +68,9 @@ interface ResetInputFields {
   id: number;
   name: string;
   type: string;
-  label: string;
   toggleIcon?: React.ReactNode;
   onToggleClick?: () => void; // for toggling password visibility
+  placeholder: string;
 }
 
 type showChecklist = boolean;

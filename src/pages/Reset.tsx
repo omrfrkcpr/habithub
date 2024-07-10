@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toastNotify from "../helpers/toastNotify";
 import ActionBtn from "../components/buttons/ActionBtn";
 import LockResetIcon from "@mui/icons-material/LockReset";
-import Logo from "../components/commons/Logo";
+import authBg from "../assets/auth-Bg.jpg";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import Navbar from "../layouts/Navbar";
+import Footer from "../layouts/Footer";
 
 const resetValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -32,6 +34,7 @@ const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
   const [loading, setLoading] = useState<boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
+  const navigate = useNavigate();
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
@@ -56,94 +59,136 @@ const ResetPassword = () => {
       );
       if (response.status === 200) {
         toastNotify("success", "Your password has been successfully reset.");
-        resetForm();
+
+        setTimeout(() => {
+          navigate("/signin");
+        }, 3000);
       }
     } catch (error) {
       toastNotify("error", "An error occurred. Please try again.");
     } finally {
       setLoading(false);
+      resetForm();
     }
   };
+
+  const togglePassStyle = "w-3 h-3 md:w-4 md:h-4 hover:text-black/60";
 
   const resetInputFields = [
     {
       id: 1,
       name: "email",
       type: "email",
-      label: "Email",
+      placeholder: "Enter your email",
     },
     {
       id: 2,
       name: "newPassword",
       type: showNewPassword ? "text" : "password",
-      label: "New Password",
-      toggleIcon: showNewPassword ? <FaRegEyeSlash /> : <FaRegEye />,
+      toggleIcon: showNewPassword ? (
+        <FaRegEyeSlash className={`${togglePassStyle}`} />
+      ) : (
+        <FaRegEye className={`${togglePassStyle}`} />
+      ),
       onToggleClick: toggleNewPasswordVisibility,
+      placeholder: "New password",
     },
     {
       id: 3,
       name: "confirmNewPassword",
       type: showConfirmPassword ? "text" : "password",
-      label: "Confirm New Password",
-      toggleIcon: showConfirmPassword ? <FaRegEyeSlash /> : <FaRegEye />,
+      toggleIcon: showConfirmPassword ? (
+        <FaRegEyeSlash className={`${togglePassStyle}`} />
+      ) : (
+        <FaRegEye className={`${togglePassStyle}`} />
+      ),
       onToggleClick: toggleConfirmPasswordVisibility,
+      placeholder: "Confirm new password",
     },
   ];
 
+  const CustomErrorMessage = ({ name }: { name: string }) => (
+    <ErrorMessage
+      name={name}
+      render={(msg) => (
+        <span className="text-red-500 text-[11px] md:text-[14px] ">{msg}</span>
+      )}
+    />
+  );
+
   return (
-    <div className="w-screen h-screen z-50 relative bg-habit-light-gray">
-      <div className="absolute w-[fit-content] p-4 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]  flex flex-col justify-center items-center">
-        <div className="flex gap-1 justify-center items-center">
-          <Logo />
-          <h1 className="text-md md:text-xl lg:text-2xl font-bold">HabitHUB</h1>
-        </div>
-        <h2 className="text-lg md:text-xl lg:text-2xl">Reset Password</h2>
-        <Formik
-          initialValues={{
-            email: "",
-            newPassword: "",
-            confirmNewPassword: "",
-          }}
-          validationSchema={resetValidationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              {resetInputFields.map((field: ResetInputFields) => (
-                <div key={field.name}>
-                  <label htmlFor={field.name}>{field.label}:</label>
-                  <Field
-                    type={field.type}
-                    id={field.name}
-                    name={field.name}
-                    className="my-2"
-                    required
-                  />
-                  <ErrorMessage
-                    name={field.name}
-                    component="div"
-                    className="text-red-500 text-sm"
-                  />
-                  <span
-                    onClick={field.onToggleClick}
-                    className="cursor-pointer absolute right-2 top-[50%] -translate-y-[50%]"
+    <div
+      className="w-screen h-screen z-50 relative bg-habit-light-gray"
+      style={{
+        backgroundImage: `url(${authBg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        overflow: "hidden",
+      }}
+    >
+      <Navbar />
+      <div className="absolute w-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-between text-center w-[320px] md:w-[500px] p-5 h-auto md:h-[420px] rounded-xl">
+          <div>
+            <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">
+              Reset Password
+            </h2>
+            <p className="text-xs md:text-md lg:text-[14px] mt-2 mb-3 font-light md:font-normal">
+              Please enter your new password below. Make sure it is strong and
+              unique. Confirm your new password to complete the reset process.
+            </p>
+          </div>
+          <Formik
+            initialValues={{
+              email: "",
+              newPassword: "",
+              confirmNewPassword: "",
+            }}
+            validationSchema={resetValidationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                {resetInputFields.map((field: ResetInputFields) => (
+                  <div
+                    key={field.name}
+                    className="relative flex flex-col text-left items-center"
                   >
-                    {field.toggleIcon}
-                  </span>
+                    <Field
+                      type={field.type}
+                      id={field.name}
+                      name={field.name}
+                      autoComplete="off"
+                      placeholder={field.placeholder}
+                      className="my-2 w-[270px] md:w-[350px] mx-auto px-2 py-1 outline-none rounded-md md:mx-4 text-[13px] md:text-[15px]"
+                      required
+                    />
+                    <CustomErrorMessage name={field.name} />
+                    <span
+                      onClick={field.onToggleClick}
+                      className="cursor-pointer absolute right-[12px] md:right-[65px] top-[22px] md:top-[24px] -translate-y-[50%]"
+                    >
+                      {field.toggleIcon}
+                    </span>
+                  </div>
+                ))}
+                <div className="mt-5">
+                  <ActionBtn
+                    type="submit"
+                    loading={loading}
+                    label="Reset"
+                    color="purple"
+                    icon={<LockResetIcon sx={{ color: "white" }} />}
+                    disabled={isSubmitting}
+                  />
                 </div>
-              ))}
-              <ActionBtn
-                type="submit"
-                loading={loading}
-                label="Reset"
-                color="purple"
-                icon={<LockResetIcon sx={{ color: "white" }} />}
-                disabled={isSubmitting}
-              />
-            </Form>
-          )}
-        </Formik>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

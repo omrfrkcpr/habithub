@@ -6,13 +6,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center absolute top-0 px-5 md:px-20 w-full border-b z-50 border-gray-300 h-[60px]">
-      <div
-        className="flex gap-1 justify-center items-center"
-        onClick={() => navigate("/")}
-      >
-        <Logo />
-        <h1 className="text-md md:text-xl lg:text-2xl font-bold">HabitHUB</h1>
-      </div>
+      <Logo single={false} />
       <div className="flex md:gap-3">
         <button
           onClick={() => navigate("/")}

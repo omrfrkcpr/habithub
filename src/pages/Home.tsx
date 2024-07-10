@@ -71,10 +71,7 @@ const Home = () => {
             <MdClose size={30} />
           </button>
         </div>
-        <div className="flex gap-1 justify-center items-center">
-          <Logo />
-          <h1 className="text-md md:text-xl lg:text-2xl font-bold">HabitHUB</h1>
-        </div>
+        <Logo single={false} />
         <DateTimePicker />
       </div>
 
