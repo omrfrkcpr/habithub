@@ -5,6 +5,10 @@ import {
   loginSuccess,
   logoutSuccess,
   registerSuccess,
+  forgotSuccess,
+  resetSuccess,
+  verifySuccess,
+  refreshSuccess,
   updateSuccess,
 } from "../features/authSlice";
 import axios from "axios";
@@ -26,15 +30,11 @@ const useAuthCalls = () => {
       const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
       console.log(data);
       dispatch(registerSuccess(data));
-      toastNotify(
-        "success",
-        "You're successfully registered!. Please check your mailbox to verify your account."
-      );
+      toastNotify("success", data.message);
     } catch (error: any) {
-      // console.log(error);
+      console.log(error);
       dispatch(fetchFail());
       toastNotify("error", error.response.data.message);
-      console.log(error);
     }
   };
 
@@ -51,7 +51,7 @@ const useAuthCalls = () => {
         }
       );
       dispatch(updateSuccess(data));
-      toastNotify("success", "Your profile has been updated successfully!");
+      toastNotify("success", data.message);
     } catch (error: any) {
       // console.log(error);
       dispatch(fetchFail());
@@ -65,7 +65,7 @@ const useAuthCalls = () => {
     try {
       const { data } = await axios.post(`${BASE_URL}auth/login`, userInfo);
       dispatch(loginSuccess(data));
-      toastNotify("success", "You're successfully logged in!");
+      toastNotify("success", data.message);
       navigate("/home");
     } catch (error: any) {
       // console.log(error);
@@ -77,13 +77,13 @@ const useAuthCalls = () => {
   const logout = async (showNotify: boolean) => {
     dispatch(fetchStart());
     try {
-      await axios.get(`${BASE_URL}auth/logout`, {
+      const { data } = await axios.get(`${BASE_URL}auth/logout`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       });
       dispatch(logoutSuccess());
-      showNotify && toastNotify("success", "You're successfully logged out!");
+      showNotify && toastNotify("success", data.message);
       navigate("/");
     } catch (error: any) {
       dispatch(fetchFail());
@@ -92,7 +92,73 @@ const useAuthCalls = () => {
     }
   };
 
-  return { register, login, logout, updateUser };
+  const refresh = async (refreshToken: string) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(`${BASE_URL}auth/refresh`, {
+        bearer: { refresh: refreshToken },
+      });
+      dispatch(refreshSuccess(data));
+      // toastNotify("success", "Token refreshed successfully!");
+    } catch (error: any) {
+      dispatch(fetchFail());
+      toastNotify("error", error.response.data.message);
+    }
+  };
+
+  const forgotPassword = async (email: string) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(`${BASE_URL}auth/forgot`, { email });
+      dispatch(forgotSuccess(data));
+      toastNotify("success", data.message);
+    } catch (error: any) {
+      dispatch(fetchFail());
+      toastNotify("error", error.response.data.message);
+    }
+  };
+
+  const resetPassword = async (
+    token: string,
+    email: string,
+    newPassword: string
+  ) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.post(`${BASE_URL}auth/reset/${token}`, {
+        email,
+        newPassword,
+      });
+      dispatch(resetSuccess(data));
+      toastNotify("success", data.message);
+    } catch (error: any) {
+      dispatch(fetchFail());
+      toastNotify("error", error.response.data.message);
+    }
+  };
+
+  const verifyAccount = async (token: string) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axios.get(`${BASE_URL}auth/verify-email/${token}`);
+      dispatch(verifySuccess(data));
+      toastNotify("success", data.message);
+    } catch (error: any) {
+      dispatch(fetchFail());
+      toastNotify("error", error.response.data.message);
+    }
+  };
+
+  return {
+    register,
+    login,
+    logout,
+    updateUser,
+    refresh,
+    forgotPassword,
+    resetPassword,
+    verifyAccount,
+  };
 };
 
 export default useAuthCalls;

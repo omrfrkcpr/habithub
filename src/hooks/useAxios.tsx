@@ -10,7 +10,7 @@ const useAxios = () => {
   const { token } = useSelector((state: RootState) => state.auth);
   const axiosWithToken = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
-    headers: { Authorization: `Token ${token}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
   return axiosWithToken;
 };
