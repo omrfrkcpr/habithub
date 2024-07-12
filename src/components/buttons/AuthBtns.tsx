@@ -1,10 +1,13 @@
 import React from "react";
 import gmail from "../../assets/gmail.png";
-import apple from "../../assets/apple.png";
-import facebook from "../../assets/facebook.png";
+import twitter from "../../assets/twitter.png";
+import github from "../../assets/github.png";
 import line from "../../assets/straight-line.png";
+import useAuthCalls from "../../hooks/useAuthCalls";
 
 const AuthBtns = () => {
+  const { signInWithSocial } = useAuthCalls();
+
   return (
     <>
       <div className="flex justify-center items-center mt-5">
@@ -22,15 +25,18 @@ const AuthBtns = () => {
         </div>
         <div className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer">
           <img
-            src={apple}
-            alt="apple"
+            src={twitter}
+            alt="twitter"
             className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
           />
         </div>
-        <div className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer">
+        <div
+          className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
+          onClick={() => signInWithSocial("github")}
+        >
           <img
-            src={facebook}
-            alt="facebook"
+            src={github}
+            alt="github"
             className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
           />
         </div>

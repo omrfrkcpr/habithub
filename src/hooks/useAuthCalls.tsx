@@ -149,6 +149,18 @@ const useAuthCalls = () => {
     }
   };
 
+  const signInWithSocial = async (consumerName: string) => {
+    dispatch(fetchStart());
+    try {
+      window.location.href = `${BASE_URL}auth/${consumerName}`;
+      // toastNotify("success", data.message);
+    } catch (error) {
+      dispatch(fetchFail());
+      // toastNotify("error", error.response.data.message);
+      console.log(error);
+    }
+  };
+
   return {
     register,
     login,
@@ -158,6 +170,7 @@ const useAuthCalls = () => {
     forgotPassword,
     resetPassword,
     verifyAccount,
+    signInWithSocial,
   };
 };
 
