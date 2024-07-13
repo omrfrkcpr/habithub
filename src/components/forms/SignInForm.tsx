@@ -79,15 +79,26 @@ const SignInForm = () => {
           {submitting ? <CircleLoader size={20} /> : "Login"}
         </button>
       </form>
-      <button className="font-light mt-5 text-[10px] md:text-[14px]">
-        Need an account?{" "}
-        <span
-          onClick={() => navigate("/signup")}
-          className="text-blue-400 font-medium hover:underline cursor-pointer"
-        >
-          Sign Up
-        </span>
-      </button>
+      <div className="flex flex-col">
+        <button className="font-light mt-5 text-[10px] md:text-[14px]">
+          Need an account?{" "}
+          <span
+            onClick={() => navigate("/signup")}
+            className="text-blue-400 font-medium hover:underline cursor-pointer"
+          >
+            Sign Up
+          </span>
+        </button>
+        <button className="font-light mt-2 text-[10px] md:text-[14px]">
+          Forgot password?{" "}
+          <span
+            onClick={() => navigate("/forgot-password")}
+            className="text-blue-400 font-medium hover:underline cursor-pointer"
+          >
+            Reset
+          </span>
+        </button>
+      </div>
     </div>
   );
 };

@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toastNotify from "../helpers/toastNotify";
-import ActionBtn from "../components/buttons/ActionBtn";
-import LockResetIcon from "@mui/icons-material/LockReset";
 import authBg from "../assets/auth-Bg.jpg";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Navbar from "../layouts/Navbar";
 import Footer from "../layouts/Footer";
+import { CircleLoader } from "react-spinners";
 
 const resetValidationSchema = Yup.object().shape({
   email: Yup.string()
@@ -32,7 +31,6 @@ const resetValidationSchema = Yup.object().shape({
 
 const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
-  const [loading, setLoading] = useState<boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   const navigate = useNavigate();
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -50,13 +48,17 @@ const ResetPassword = () => {
     values: ResetValues,
     { resetForm }: FormikHelpers<ResetValues>
   ) => {
-    setLoading(true);
     try {
       const { confirmNewPassword, ...requestData } = values;
+      console.log("Request Data:", requestData); // Debugging
+
       const response = await axios.post(
         `http://127.0.0.1:8000/auth/reset/${token}`,
         requestData
       );
+
+      console.log("Response:", response); // Debugging
+
       if (response.status === 200) {
         toastNotify("success", "Your password has been successfully reset.");
 
@@ -65,9 +67,9 @@ const ResetPassword = () => {
         }, 3000);
       }
     } catch (error) {
+      console.log("Error: ", error);
       toastNotify("error", "An error occurred. Please try again.");
     } finally {
-      setLoading(false);
       resetForm();
     }
   };
@@ -174,14 +176,13 @@ const ResetPassword = () => {
                   </div>
                 ))}
                 <div className="mt-5">
-                  <ActionBtn
+                  <button
                     type="submit"
-                    loading={loading}
-                    label="Reset"
-                    color="purple"
-                    icon={<LockResetIcon sx={{ color: "white" }} />}
                     disabled={isSubmitting}
-                  />
+                    className="py-1 px-2 bg-white hover:bg-habit-light-gray rounded-xl w-[100px] text-[10px] md:text-[14px] h-[28px]"
+                  >
+                    {isSubmitting ? <CircleLoader size={18} /> : "Reset"}
+                  </button>
                 </div>
               </Form>
             )}

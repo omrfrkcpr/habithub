@@ -14,14 +14,18 @@ const Forgot = () => {
   const handleForgotSubmit = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/auth/forgot", {
-        email,
-      });
-      if (response.status === 200) {
-        toastNotify(
-          "success",
-          "Password reset instructions have been sent to your email. Please check your mailbox"
-        );
+      if (email) {
+        const response = await axios.post("http://127.0.0.1:8000/auth/forgot", {
+          email,
+        });
+        if (response.status === 200) {
+          toastNotify(
+            "success",
+            "Password reset instructions have been sent to your email. Please check your mailbox"
+          );
+        }
+      } else {
+        toastNotify("error", "Please enter your email address!");
       }
     } catch (error) {
       toastNotify("error", "An error occurred. Please try again.");

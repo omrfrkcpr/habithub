@@ -29,7 +29,7 @@ const AppRouter = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/verify-email/:token" element={<Verify />} />
+          <Route path="/verify-email" element={<Verify />} />
           <Route path="/forgot-password" element={<Forgot />} />
           <Route path="/reset-password/:token" element={<Reset />} />
           {/* <Route path="/contract" element={<Contract />} />
