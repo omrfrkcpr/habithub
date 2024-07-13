@@ -9,6 +9,7 @@ const SignInForm = () => {
   const navigate = useNavigate();
   const { login } = useAuthCalls();
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const initialSignInForm: SignInFormValues = {
     email: "",
@@ -18,12 +19,15 @@ const SignInForm = () => {
   const [signInForm, setSignInForm] =
     useState<SignInFormValues>(initialSignInForm);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { email, password } = signInForm;
-    if (email && password) {
-      login(signInForm);
-    }
+    setSubmitting(true);
+
+    // console.log(signInForm);
+    await login(signInForm);
+
+    setSubmitting(false);
+    setSignInForm(initialSignInForm);
   };
 
   return (
@@ -71,7 +75,7 @@ const SignInForm = () => {
           type="submit"
           className="w-[100px] py-1 shadow-md rounded-xl mx-auto text-[13px] md:text-[18px] text-center mt-10 bg-white hover:bg-gray-200 font-medium"
         >
-          Login
+          {submitting ? "Logging in..." : "Login"}
         </button>
       </form>
       <button className="font-light mt-5 text-[10px] md:text-[14px]">

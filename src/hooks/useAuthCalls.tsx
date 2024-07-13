@@ -30,11 +30,11 @@ const useAuthCalls = () => {
       const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
       console.log(data);
       dispatch(registerSuccess(data));
-      toastNotify("success", data.message);
+      toastNotify("success", data?.message);
     } catch (error: any) {
+      toastNotify("error", error?.response?.data?.message);
       console.log(error);
       dispatch(fetchFail());
-      toastNotify("error", error.response.data.message);
     }
   };
 
@@ -64,13 +64,14 @@ const useAuthCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/login`, userInfo);
+      console.log(data);
       dispatch(loginSuccess(data));
       toastNotify("success", data.message);
-      navigate("/home");
+      navigate("/contract");
     } catch (error: any) {
-      // console.log(error);
+      console.log(error);
       dispatch(fetchFail());
-      toastNotify("error", error.response.data.message);
+      toastNotify("error", error?.response?.data?.message);
     }
   };
 
@@ -152,7 +153,11 @@ const useAuthCalls = () => {
   const signInWithSocial = async (consumerName: string) => {
     dispatch(fetchStart());
     try {
-      window.location.href = `${BASE_URL}auth/${consumerName}`;
+      // window.location.href = `${BASE_URL}auth/${consumerName}`;
+      window.open(
+        `http://127.0.0.1:8000/auth/${consumerName}/callback`,
+        "_self"
+      );
       // toastNotify("success", data.message);
     } catch (error) {
       dispatch(fetchFail());

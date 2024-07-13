@@ -5,6 +5,7 @@ import AuthBtns from "../buttons/AuthBtns";
 import { useNavigate } from "react-router-dom";
 import SignUpInput from "../inputs/SignUpInput";
 import PasswordCheckList from "../inputs/PasswordCheckList";
+import useAuthCalls from "../../hooks/useAuthCalls";
 
 export const passwordValidation = Yup.string()
   .min(6, "Password must be at least 6 characters")
@@ -34,6 +35,7 @@ export const validationSchema = Yup.object().shape({
 });
 
 const SignUpForm: React.FC = () => {
+  const { register } = useAuthCalls();
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState<boolean>(false);
   const [showConfirmPass, setShowConfirmPass] = useState<boolean>(false);
@@ -66,13 +68,11 @@ const SignUpForm: React.FC = () => {
     const formValues = { ...values };
     delete formValues.confirmPassword; // confirmPassword is not needed in database. Its just for client and security requirements.
 
-    try {
-      console.log(formValues);
-      setSubmitting(false);
-    } catch (error) {
-      console.error(error);
-      setSubmitting(false);
-    }
+    console.log(formValues);
+    await register(formValues);
+
+    setSubmitting(false);
+    formik.resetForm(); // Reset the form after submission
   };
 
   const formik = useFormik({

@@ -18,7 +18,7 @@ const Setup = () => {
 
   // After all messages redirect to contract page
   if (currentMessageIndex === messages.length) {
-    navigate("/contract");
+    navigate("/home");
   }
 
   return (
