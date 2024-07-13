@@ -15,6 +15,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../app/store";
 import toastNotify from "../helpers/toastNotify";
+import { getCookies } from "../helpers/functions";
+import { useEffect } from "react";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -154,14 +156,37 @@ const useAuthCalls = () => {
     dispatch(fetchStart());
     try {
       // window.location.href = `${BASE_URL}auth/${consumerName}`;
-      window.open(
-        `http://127.0.0.1:8000/auth/${consumerName}/callback`,
-        "_self"
-      );
-      // toastNotify("success", data.message);
-    } catch (error) {
+      window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
+
+      // // Handle the response after redirection
+      // const handleSocialCallback = () => {
+      //   const cookies = getCookies();
+
+      //   const accessToken = cookies.accessToken;
+      //   const refreshToken = cookies.refreshToken;
+      //   const user = JSON.parse(cookies.user || "{}");
+      //   const tokenData = JSON.parse(cookies.tokenData || "{}");
+
+      //   if (accessToken && refreshToken && user && tokenData) {
+      //     const data = {
+      //       bearer: { access: accessToken, refresh: refreshToken },
+      //       token: tokenData.token,
+      //       user,
+      //     };
+      //     console.log(data);
+      //     dispatch(loginSuccess(data));
+      //     toastNotify("success", "You are successfully logged in!");
+      //   } else {
+      //     dispatch(fetchFail());
+      //     toastNotify("error", "Authentication failed");
+      //   }
+      // };
+
+      // // Call the callback function to handle the response
+      // handleSocialCallback();
+    } catch (error: any) {
       dispatch(fetchFail());
-      // toastNotify("error", error.response.data.message);
+      toastNotify("error", error.message);
       console.log(error);
     }
   };

@@ -16,7 +16,10 @@ const AuthBtns = () => {
         <img src={line} alt="" className="w-[60px] md:w-[100px] opacity-50" />
       </div>
       <div className="flex gap-2 md:gap-5 justify-center items-center mt-2">
-        <div className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer">
+        <div
+          className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
+          onClick={() => signInWithSocial("google")}
+        >
           <img
             src={gmail}
             alt="gmail"
