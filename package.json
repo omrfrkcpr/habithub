@@ -34,6 +34,7 @@
     "react-password-strength-bar": "^0.4.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.14.1",
     "react-tag-input-component": "^2.0.2",
     "react-time-picker": "^7.0.0",
     "react-toastify": "^10.0.5",

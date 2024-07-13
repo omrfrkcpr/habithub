@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import SignUpInput from "../inputs/SignUpInput";
 import PasswordCheckList from "../inputs/PasswordCheckList";
 import useAuthCalls from "../../hooks/useAuthCalls";
+import { CircleLoader } from "react-spinners";
 
 export const passwordValidation = Yup.string()
   .min(6, "Password must be at least 6 characters")
@@ -197,9 +198,9 @@ const SignUpForm: React.FC = () => {
         <button
           type="submit"
           disabled={submitting}
-          className="w-[130px] py-1 shadow-md rounded-xl mx-auto text-[15px] text-center mt-5 bg-white hover:bg-gray-200 font-medium"
+          className="w-[130px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex items-center justify-center text-[15px] text-center mt-5 bg-white hover:bg-gray-200 font-medium"
         >
-          {submitting ? "Submitting..." : "Get Started!"}
+          {submitting ? <CircleLoader size={20} /> : "Get Started!"}
         </button>
       </form>
       <AuthBtns />

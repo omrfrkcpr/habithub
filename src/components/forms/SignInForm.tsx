@@ -4,6 +4,7 @@ import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useAuthCalls from "../../hooks/useAuthCalls";
+import { CircleLoader } from "react-spinners";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -73,9 +74,9 @@ const SignInForm = () => {
         </div>
         <button
           type="submit"
-          className="w-[100px] py-1 shadow-md rounded-xl mx-auto text-[13px] md:text-[18px] text-center mt-10 bg-white hover:bg-gray-200 font-medium"
+          className="w-[100px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex justify-center items-center text-[13px] md:text-[18px] text-center mt-10 bg-white hover:bg-gray-200 font-medium"
         >
-          {submitting ? "Logging in..." : "Login"}
+          {submitting ? <CircleLoader size={20} /> : "Login"}
         </button>
       </form>
       <button className="font-light mt-5 text-[10px] md:text-[14px]">
