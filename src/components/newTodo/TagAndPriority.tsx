@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import PriorityBtn from "../buttons/PriorityBtn";
@@ -8,16 +8,19 @@ import { RootState } from "../../app/store";
 
 const TagAndPriority = () => {
   const newTodo = useSelector((state: RootState) => state.newTodo);
+  const { tags } = useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch();
 
-  const [availableTags] = useState([
-    "Daily Routine",
-    "Study Routine",
-    "Work Routine",
-  ]);
+  // const [availableTags] = useState([
+  //   "Daily Routine",
+  //   "Study Routine",
+  //   "Work Routine",
+  // ]);
 
-  const handleTagClick = (tagId: string) => {
-    dispatch(setNewTodo({ ...newTodo, tagId }));
+  // console.log(tags);
+
+  const handleTagClick = (tagName: string) => {
+    dispatch(setNewTodo({ ...newTodo, tagId: tagName }));
   };
 
   const handleTagRemove = () => {
@@ -53,22 +56,22 @@ const TagAndPriority = () => {
         </p>
         <TagsInput
           value={newTodo.tagId ? [newTodo.tagId] : []}
-          onChange={(tags) => setNewTodo({ ...newTodo, tag: tags[0] || "" })}
+          onChange={(tags) => setNewTodo({ ...newTodo, tagId: tags[0] })}
           name="tag"
           placeHolder={newTodo.tagId ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
           classNames={{ tag: "tag-cls", input: "input-cls" }}
         />
         <div className="flex flex-wrap gap-2 mt-4">
-          {availableTags
-            .filter((tag) => tag !== newTodo.tagId)
-            .map((tag) => (
+          {tags
+            .filter((tag: TagValues) => tag.id !== newTodo.tagId)
+            .map(({ name, id }) => (
               <button
-                key={tag}
+                key={id}
                 className="bg-habit-light-gray dark:bg-[#977aa5] dark:hover:bg-gray-400 hover:bg-gray-300 text-black dark:text-white text-[11px] md:text-[14px] py-[2px] px-2 rounded-lg cursor-pointer"
-                onClick={() => handleTagClick(tag)}
+                onClick={() => handleTagClick(name)}
               >
-                {tag}
+                {name}
               </button>
             ))}
         </div>

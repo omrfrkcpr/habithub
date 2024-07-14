@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState: TodoSliceStateValues = {
+  todos: [],
+  tags: [],
+  tagTodos: [],
+  loading: false,
+  error: false,
+};
+
 const todoSlice = createSlice({
   name: "todo",
 
-  initialState: {
-    todos: [],
-    tags: [],
-    tagTodos: [],
-    loading: false,
-    error: false,
-  },
+  initialState,
 
   reducers: {
     fetchStart: (state) => {

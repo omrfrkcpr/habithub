@@ -15,6 +15,7 @@ import TagLists from "../layouts/TagLists";
 import useTodoCalls from "../hooks/useTodoCalls";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -45,12 +46,27 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    getTodoData("/todos", `?date=${new Date().toISOString()}`);
+    // getTodoData("todos", `?date=${new Date().toISOString()}`);
+    getTodoData("tags");
   }, []);
 
   useEffect(() => {
-    getTodoData("/todos", `?date=${date}`);
+    getTodoData("todos", `?date=${date}`);
   }, [date]);
+
+  useEffect(() => {
+    if (todos.length > 0) {
+      // Todays todos for user notification
+      Swal.fire({
+        title: "Today's Todos",
+        html: `<ul>${todos
+          .map((todo: any) => `<li>${todo?.name}</li>`)
+          .join("")}</ul>`,
+        icon: "info",
+        confirmButtonText: "Ok",
+      });
+    }
+  }, []);
 
   return (
     <div className="relative min-h-screen h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">

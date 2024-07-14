@@ -7,7 +7,6 @@ import {
   getSuccess,
   getTagTodos,
 } from "../features/todoSlice";
-import Swal from "sweetalert2";
 import { singularizeAndCapitalize } from "../helpers/functions";
 import showSwal from "../helpers/showSwal";
 
@@ -15,6 +14,7 @@ const useTodoCalls = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
   const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { date } = useSelector((state: RootState) => state.date);
 
   const getTodoData = async (url: string, search: string = "") => {
     dispatch(fetchStart());
@@ -68,6 +68,8 @@ const useTodoCalls = () => {
           icon: "error",
         });
         dispatch(fetchFail());
+      } finally {
+        getTodoData("/todos", `?date=${date}`);
       }
     }
   };
@@ -107,6 +109,8 @@ const useTodoCalls = () => {
           icon: "error",
         });
         dispatch(fetchFail());
+      } finally {
+        getTodoData("/todos", `?date=${date}`);
       }
     }
   };
@@ -140,11 +144,19 @@ const useTodoCalls = () => {
           icon: "error",
         });
         dispatch(fetchFail());
+      } finally {
+        getTodoData("/todos", `?date=${date}`);
       }
     }
   };
 
-  return { getTodoData, getTagTodoData, deleteTodoData, updateTodoData };
+  return {
+    getTodoData,
+    getTagTodoData,
+    deleteTodoData,
+    updateTodoData,
+    createTodoData,
+  };
 };
 
 export default useTodoCalls;

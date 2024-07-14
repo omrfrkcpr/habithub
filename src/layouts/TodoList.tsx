@@ -15,7 +15,7 @@ const TodoList = () => {
       </h1>
       {todos.length ? (
         todos.map((todo: any) => {
-          return <div key={todo?.id}>{todo?.title}</div>;
+          return <div key={todo?.id}>{todo?.name}</div>;
         })
       ) : (
         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-center items-center">

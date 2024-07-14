@@ -147,3 +147,16 @@ interface ActionBtnProps {
   disabled?: boolean;
   type?: string;
 }
+
+interface TagValues {
+  id: string;
+  name: string;
+}
+
+interface TodoSliceStateValues {
+  todos: NewTodo[];
+  tags: TagValues[];
+  tagTodos: NewTodo[];
+  loading: boolean;
+  error: boolean;
+}

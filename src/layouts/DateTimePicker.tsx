@@ -15,6 +15,10 @@ const DateTimePicker = () => {
   const handleDateChange = useDate();
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  // useEffect(() => {
+  //   dispatch(setDate(new Date().toISOString()));
+  // }, []);
+
   // Update time in Redux only when minutes change
   useEffect(() => {
     const interval = setInterval(() => {

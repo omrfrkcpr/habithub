@@ -10,7 +10,6 @@ import ExampleCustomInput from "../components/inputs/ExampleCustumInput";
 import { RootState } from "../app/store";
 import { setNewTodo } from "../features/newTodoSlice";
 
-
 const NewTodo = () => {
   const newTodo = useSelector((state: RootState) => state.newTodo);
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const NewTodo = () => {
     }
   };
 
-  console.log(newTodo);
+  // console.log(newTodo);
 
   return (
     <div className="mt-5 absolute">
