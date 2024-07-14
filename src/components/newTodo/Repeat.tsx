@@ -121,7 +121,7 @@ const Repeat: React.FC<Repeat> = ({ startDate, checked, setChecked }) => {
         break;
     }
 
-    return newDueDates;
+    return newDueDates.map((date) => date.toISOString());
   };
 
   const handleDailyDayClick = (day: string) => {

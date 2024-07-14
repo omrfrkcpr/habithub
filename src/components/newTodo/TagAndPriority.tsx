@@ -56,7 +56,9 @@ const TagAndPriority = () => {
         </p>
         <TagsInput
           value={newTodo.tagId ? [newTodo.tagId] : []}
-          onChange={(tags) => setNewTodo({ ...newTodo, tagId: tags[0] })}
+          onChange={(tags) =>
+            dispatch(setNewTodo({ ...newTodo, tagId: tags[0] }))
+          }
           name="tag"
           placeHolder={newTodo.tagId ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
@@ -64,7 +66,7 @@ const TagAndPriority = () => {
         />
         <div className="flex flex-wrap gap-2 mt-4">
           {tags
-            .filter((tag: TagValues) => tag.id !== newTodo.tagId)
+            .filter((tag: TagValues) => tag.name !== newTodo.tagId)
             .map(({ name, id }) => (
               <button
                 key={id}

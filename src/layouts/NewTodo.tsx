@@ -25,7 +25,7 @@ const NewTodo = () => {
     }
   };
 
-  // console.log(newTodo);
+  console.log(newTodo);
 
   return (
     <div className="mt-5 absolute">

@@ -35,7 +35,10 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
       editedTagId = existingTag?.id || "";
     } else {
       // Eşleşen bir tag yoksa, yeni bir tag oluşturun
-      await createTodoData("tags", { name: newTodo.tagId });
+      await createTodoData("tags", {
+        name: newTodo.tagId,
+        userId: currentUser?.id,
+      });
       const createdTag = tags.find(
         (tag: TagValues) => tag.name === newTodo.tagId
       );
@@ -43,7 +46,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
     }
 
     if (!newTodo.dueDates.length) {
-      dispatch(setNewTodo({ ...newTodo, dueDates: date }));
+      dispatch(setNewTodo({ ...newTodo, dueDates: [date] }));
     }
 
     const newTodoInfo = {
