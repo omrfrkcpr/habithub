@@ -211,10 +211,11 @@ export const generateDailyDueDates = (
   return newDueDates;
 };
 
-export const getCookies = () => {
-  return document.cookie.split("; ").reduce((acc: any, cookie) => {
-    const [key, value] = cookie.split("=");
-    acc[key] = decodeURIComponent(value);
-    return acc;
-  }, {});
-};
+export function singularizeAndCapitalize(word: string) {
+  // Simple plural to singular conversion
+  if (word.endsWith("s")) {
+    word = word.slice(0, -1);
+  }
+  // Capitalize the first letter
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}

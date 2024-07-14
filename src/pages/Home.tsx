@@ -12,11 +12,17 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import TagLists from "../layouts/TagLists";
+import useTodoCalls from "../hooks/useTodoCalls";
+import { RootState } from "../app/store";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<number>(0);
+  const { getTodoData } = useTodoCalls();
+  const { todos } = useSelector((state: RootState) => state.todo);
+  const { date } = useSelector((state: RootState) => state.date);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -37,6 +43,14 @@ const Home = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    getTodoData("/todos", `?date=${new Date().toISOString()}`);
+  }, []);
+
+  useEffect(() => {
+    getTodoData("/todos", `?date=${date}`);
+  }, [date]);
 
   return (
     <div className="relative min-h-screen h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">

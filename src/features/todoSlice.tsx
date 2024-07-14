@@ -6,6 +6,8 @@ const todoSlice = createSlice({
 
   initialState: {
     todos: [],
+    tags: [],
+    tagTodos: [],
     loading: false,
     error: false,
   },
@@ -15,9 +17,13 @@ const todoSlice = createSlice({
       state.loading = true;
       state.error = false;
     },
-    getTodos: (state, { payload: { data } }) => {
+    getSuccess: (state: { [key: string]: any }, { payload: { data, url } }) => {
       state.loading = false;
-      state.todos = data;
+      state[url] = data;
+    },
+    getTagTodos: (state, { payload }) => {
+      state.loading = false;
+      state.tagTodos = payload;
     },
     fetchFail: (state) => {
       state.loading = false;
@@ -26,5 +32,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { fetchStart, getTodos, fetchFail } = todoSlice.actions;
+export const { fetchStart, getSuccess, getTagTodos, fetchFail } =
+  todoSlice.actions;
 export default todoSlice.reducer;

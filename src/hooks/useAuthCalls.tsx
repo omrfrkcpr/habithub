@@ -15,8 +15,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../app/store";
 import toastNotify from "../helpers/toastNotify";
-import { getCookies } from "../helpers/functions";
-import { useEffect } from "react";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
