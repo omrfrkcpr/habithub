@@ -6,7 +6,9 @@ import { setNewTodo } from "../../features/newTodoSlice";
 const PriorityBtn: React.FC<PriorityBtn> = ({ priority }) => {
   const newTodo = useSelector((state: RootState) => state.newTodo);
   const dispatch = useDispatch();
+
   const { value, label } = priority;
+
   const handlePriorityClick = (value: number) => {
     dispatch(setNewTodo({ ...newTodo, priority: value }));
   };

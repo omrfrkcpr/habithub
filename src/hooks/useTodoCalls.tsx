@@ -69,7 +69,7 @@ const useTodoCalls = () => {
         });
         dispatch(fetchFail());
       } finally {
-        getTodoData("/todos", `?date=${date}`);
+        getTodoData(url, url === "todos" ? `?date=${date}` : "");
       }
     }
   };
@@ -110,24 +110,34 @@ const useTodoCalls = () => {
         });
         dispatch(fetchFail());
       } finally {
-        getTodoData("/todos", `?date=${date}`);
+        getTodoData(url, url === "todos" ? `?date=${date}` : "");
       }
     }
   };
 
-  const createTodoData = async (url: string, todoInfo: object) => {
-    const result = await showSwal({
-      title: "Are you sure?",
-      text: `New ${singularizeAndCapitalize(url)} will be created`,
-      icon: "question",
-      confirmButtonText: "Yes, create it!",
-      confirmButtonColor: "#af52e9",
-    });
+  const createTodoData = async (
+    url: string,
+    todoInfo: object,
+    showNotify: boolean
+  ) => {
+    if (showNotify) {
+      const result = await showSwal({
+        title: "Are you sure?",
+        text: `New ${singularizeAndCapitalize(url)} will be created`,
+        icon: "question",
+        confirmButtonText: "Yes, create it!",
+        confirmButtonColor: "#af52e9",
+      });
 
-    if (result.isConfirmed) {
-      dispatch(fetchStart());
-      try {
-        const { data } = await axiosWithToken.post(url, todoInfo);
+      if (!result.isConfirmed) {
+        return;
+      }
+    }
+
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken.post(url, todoInfo);
+      if (showNotify) {
         await showSwal({
           title: "Created!",
           text: `${singularizeAndCapitalize(
@@ -135,18 +145,20 @@ const useTodoCalls = () => {
           )} has been created successfully.`,
           icon: "success",
         });
-        dispatch(getSuccess({ data: data?.data, url }));
-      } catch (error: any) {
-        console.log(error);
+      }
+      dispatch(getSuccess({ data: data?.data, url }));
+    } catch (error: any) {
+      console.log(error);
+      if (showNotify) {
         await showSwal({
           title: "Error!",
           text: error.response.data.message,
           icon: "error",
         });
-        dispatch(fetchFail());
-      } finally {
-        getTodoData("/todos", `?date=${date}`);
       }
+      dispatch(fetchFail());
+    } finally {
+      getTodoData(url, url === "todos" ? `?date=${date}` : "");
     }
   };
 

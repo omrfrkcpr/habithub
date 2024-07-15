@@ -17,8 +17,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const { createTodoData } = useTodoCalls();
   const { date } = useSelector((state: RootState) => state.date);
 
-  //! Dont forget to convert dueDates before creating a new todo
-  console.log(deserify(newTodo.dueDates, defaultOptions));
+  console.log(newTodo);
 
   const handleResetNewTodo = () => {
     dispatch(resetNewTodo());
@@ -35,10 +34,14 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
       editedTagId = existingTag?.id || "";
     } else {
       // Eşleşen bir tag yoksa, yeni bir tag oluşturun
-      await createTodoData("tags", {
-        name: newTodo.tagId,
-        userId: currentUser?.id,
-      });
+      await createTodoData(
+        "tags",
+        {
+          name: newTodo.tagId,
+          userId: currentUser?.id,
+        },
+        false
+      );
       const createdTag = tags.find(
         (tag: TagValues) => tag.name === newTodo.tagId
       );
@@ -49,14 +52,18 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
       dispatch(setNewTodo({ ...newTodo, dueDates: [date] }));
     }
 
+    //! Dont forget to convert dueDates before creating a new todo
+    // const deserializedDueDates = deserify(newTodo.dueDates, defaultOptions);
+    // console.log("Deserialized dueDates:", deserializedDueDates);
+
     const newTodoInfo = {
       ...newTodo,
       tagId: editedTagId,
-      dueDates: deserify(newTodo.dueDates, defaultOptions),
+      // dueDates: deserializedDueDates,
       userId: currentUser?.id,
     };
 
-    createTodoData("todos", newTodoInfo);
+    createTodoData("todos", newTodoInfo, true);
 
     handleResetNewTodo();
   };

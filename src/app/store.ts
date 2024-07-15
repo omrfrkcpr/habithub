@@ -26,7 +26,7 @@ const persistConfig = {
 };
 
 // Create a middleware to store non-serialized values like Date.
-const serifyMiddleware = createReduxMiddleware(defaultOptions);
+// const serifyMiddleware = createReduxMiddleware(defaultOptions);
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
@@ -45,7 +45,7 @@ const store = configureStore({
         ignoredActionPaths: ["meta.arg", "payload.timestamp"],
         ignoredPaths: ["items.dates"],
       },
-    }).concat(serifyMiddleware),
+    }),
   devTools: process.env.NODE_ENV !== "production",
 });
 
