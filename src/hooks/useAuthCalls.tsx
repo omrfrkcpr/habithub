@@ -103,10 +103,13 @@ const useAuthCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/refresh`, {
-        bearer: refreshToken,
+        bearer: { refresh: refreshToken },
       });
       dispatch(refreshSuccess(data));
-      // toastNotify("success", "Token refreshed successfully!");
+      toastNotify(
+        "success",
+        "Your session has been successfully extended by 45 minutes!"
+      );
     } catch (error: any) {
       dispatch(fetchFail());
       toastNotify("error", error.response.data.message);

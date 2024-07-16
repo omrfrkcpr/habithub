@@ -111,10 +111,6 @@ const UserSettings = () => {
 
         if (result.isConfirmed) {
           await refresh();
-          toastNotify(
-            "success",
-            "Your session has been successfully extended by 45 minutes!"
-          );
         }
       } else if (remainingTime === 0) {
         await logout(false);
