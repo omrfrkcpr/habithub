@@ -227,3 +227,15 @@ export const formatTime = (seconds: number) => {
     remainingSeconds
   ).padStart(2, "0")}`;
 };
+
+export const getTodoUpdateSuccessMessage = (todoInfo: any) => {
+  if (todoInfo?.isCompleted) {
+    return "Super! You've completed this task!";
+  } else if (todoInfo?.name && todoInfo?.description) {
+    return "Todo successfully edited!";
+  } else if (todoInfo?.priority) {
+    return "Priority updated!";
+  } else {
+    return "";
+  }
+};

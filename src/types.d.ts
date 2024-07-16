@@ -102,6 +102,11 @@ interface NewTodo {
   tagId: string;
   isCompleted: false;
 }
+
+interface Todo extends NewTodo {
+  id: string;
+}
+
 interface Priorities {
   value: number;
   label: string;
@@ -156,9 +161,16 @@ interface TagValues {
 }
 
 interface TodoSliceStateValues {
-  todos: NewTodo[];
+  todos: Todo[];
   tags: TagValues[];
-  tagTodos: NewTodo[];
+  tagTodos: Todo[];
   loading: boolean;
   error: boolean;
+}
+
+type showDesc = string;
+interface TodoCardProps {
+  todo: Todo;
+  showDesc: showDesc;
+  setShowDesc: React.Dispatch<React.SetStateAction<showDesc>>;
 }

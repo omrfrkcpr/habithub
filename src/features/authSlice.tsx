@@ -35,7 +35,7 @@ const authSlice = createSlice({
       // state.isAdmin = payload?.user?.isAdmin;
       state.accessToken = payload?.bearer?.access;
       state.refreshToken = payload?.bearer?.refresh;
-      state.remainingTime = 45 * 60;
+      state.remainingTime = 45;
     },
     logoutSuccess: (state) => {
       state.loading = false;

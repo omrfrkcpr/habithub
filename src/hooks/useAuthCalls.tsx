@@ -26,6 +26,9 @@ const useAuthCalls = () => {
     (store: RootState) => store.auth
   );
 
+  console.log(accessToken);
+  console.log(refreshToken);
+
   const register = async (userInfo: object) => {
     dispatch(fetchStart());
     try {

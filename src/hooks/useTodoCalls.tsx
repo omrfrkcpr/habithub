@@ -7,7 +7,10 @@ import {
   getSuccess,
   getTagTodos,
 } from "../features/todoSlice";
-import { singularizeAndCapitalize } from "../helpers/functions";
+import {
+  getTodoUpdateSuccessMessage,
+  singularizeAndCapitalize,
+} from "../helpers/functions";
 import showSwal from "../helpers/showSwal";
 
 const useTodoCalls = () => {
@@ -74,44 +77,25 @@ const useTodoCalls = () => {
     }
   };
 
-  const updateTodoData = async (url: string, id: string, todoInfo: object) => {
-    const result = await showSwal({
-      title: "Are you sure?",
-      text: `${singularizeAndCapitalize(
-        url
-      )} Informations will be permanently updated`,
-      icon: "question",
-      confirmButtonText: "Yes, update it!",
-      confirmButtonColor: "#FDBA74",
-    });
-
-    if (result.isConfirmed) {
-      dispatch(fetchStart());
-      try {
-        await axiosWithToken.put(`${url}/${id}`, todoInfo);
-        await showSwal({
-          title: "Updated!",
-          text: `${singularizeAndCapitalize(
-            url
-          )} has been updated successfully.`,
-          icon: "success",
-        });
-        // Swal.fire(
-        //   "Updated!",
-        //   `${singularizeAndCapitalize(url)} has been updated successfully.`,
-        //   "success"
-        // );
-      } catch (error: any) {
-        console.log(error);
-        await showSwal({
-          title: "Error!",
-          text: error.response.data.message,
-          icon: "error",
-        });
-        dispatch(fetchFail());
-      } finally {
-        getTodoData(url, url === "todos" ? `?date=${date}` : "");
-      }
+  const updateTodoData = async (url: string, id: string, todoInfo: any) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.put(`${url}/${id}`, todoInfo);
+      await showSwal({
+        title: "Updated!",
+        text: getTodoUpdateSuccessMessage(todoInfo),
+        icon: "success",
+      });
+    } catch (error: any) {
+      console.log(error);
+      await showSwal({
+        title: "Error!",
+        text: error.response.data.message,
+        icon: "error",
+      });
+      dispatch(fetchFail());
+    } finally {
+      getTodoData(url, url === "todos" ? `?date=${date}` : "");
     }
   };
 
