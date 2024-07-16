@@ -22,7 +22,9 @@ const useAuthCalls = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: RootState) => state.auth);
-  const { token } = useSelector((store: RootState) => store.auth);
+  const { accessToken, refreshToken } = useSelector(
+    (store: RootState) => store.auth
+  );
 
   const register = async (userInfo: object) => {
     dispatch(fetchStart());
@@ -46,7 +48,7 @@ const useAuthCalls = () => {
         userInfo,
         {
           headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${accessToken}`,
           },
         }
       );
@@ -81,12 +83,12 @@ const useAuthCalls = () => {
     try {
       const { data } = await axios.get(`${BASE_URL}auth/logout`, {
         headers: {
-          Authorization: `Token ${token}`,
+          Authorization: `Token ${accessToken}`,
         },
       });
       dispatch(logoutSuccess());
       showNotify && toastNotify("success", data.message);
-      navigate("/");
+      showNotify && navigate("/");
     } catch (error: any) {
       dispatch(fetchFail());
       showNotify && toastNotify("error", error.response.data.message);
@@ -94,11 +96,11 @@ const useAuthCalls = () => {
     }
   };
 
-  const refresh = async (refreshToken: string) => {
+  const refresh = async () => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/refresh`, {
-        bearer: { refresh: refreshToken },
+        bearer: refreshToken,
       });
       dispatch(refreshSuccess(data));
       // toastNotify("success", "Token refreshed successfully!");

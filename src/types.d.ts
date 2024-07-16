@@ -16,7 +16,9 @@ interface InitialAuthState {
   currentUser: null | User;
   loading: boolean;
   error: boolean;
-  token: null | string;
+  accessToken: null | string;
+  refreshToken: null | string;
+  remainingTime: number;
 }
 
 interface SignInFormValues {

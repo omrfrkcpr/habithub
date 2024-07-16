@@ -6,6 +6,7 @@ interface SwalValues {
   icon: "success" | "error" | "info" | "warning" | "question";
   confirmButtonText?: string;
   confirmButtonColor?: string; // hex color
+  cancelButtonText?: string;
 }
 
 const showSwal = async ({
@@ -14,16 +15,18 @@ const showSwal = async ({
   icon,
   confirmButtonText,
   confirmButtonColor = "#37901e",
+  cancelButtonText,
 }: SwalValues) => {
   return await Swal.fire({
     title,
     text,
     icon,
-    showCancelButton: confirmButtonText ? true : false,
+    showCancelButton: cancelButtonText ? true : false,
     showConfirmButton: confirmButtonText ? true : false,
     confirmButtonColor,
     cancelButtonColor: "#d33",
     confirmButtonText,
+    cancelButtonText,
   });
 };
 

@@ -8,9 +8,16 @@ import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import useAuthCalls from "../hooks/useAuthCalls";
+import { RootState } from "../app/store";
+import { useSelector, useDispatch } from "react-redux";
+import { formatTime } from "../helpers/functions";
+import { setRemainingTime } from "../features/authSlice";
+import showSwal from "../helpers/showSwal";
 
 const UserSettings = () => {
   const { logout } = useAuthCalls();
+  const dispatch = useDispatch();
+  const { remainingTime } = useSelector((state: RootState) => state.auth);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -46,8 +53,39 @@ const UserSettings = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  console.log(remainingTime);
+
+  const handleSpanClick = async () => {
+    const result = await showSwal({
+      title: "Session Reminder",
+      text: `Your remaining session time is ${formatTime(
+        remainingTime
+      )}. Do you want to reset your session duration?`,
+      icon: "question",
+      confirmButtonText: "Yes, reset it!",
+      confirmButtonColor: "#FDBA74",
+      cancelButtonText: "No, keep it as is",
+    });
+
+    if (result.isConfirmed) {
+      dispatch(setRemainingTime(45 * 60));
+      await showSwal({
+        title: "Extended!",
+        text: "Your session duration has been reset to 45!",
+        icon: "success",
+      });
+    }
+  };
+
   return (
     <div className="flex absolute top-5 right-5">
+      <span
+        className="grid place-content-center place-items-center px-3 mx-2 border border-black dark:border-white dark:text-white cursor-pointer hover:border-black/60 hover:text-black/60 dark:hover:text-white/60 dark:hover:border-white/60"
+        onClick={handleSpanClick}
+      >
+        {formatTime(remainingTime)}
+      </span>
       <ThemeSwitcher />
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">

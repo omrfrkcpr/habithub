@@ -4,7 +4,9 @@ const initialState: InitialAuthState = {
   currentUser: null,
   loading: false,
   error: false,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
+  remainingTime: 0,
   // isAdmin: false,
 };
 
@@ -20,7 +22,8 @@ const authSlice = createSlice({
     registerSuccess: (state, { payload }) => {
       state.loading = false;
       state.currentUser = payload?.user;
-      state.token = payload?.bearer?.access;
+      state.accessToken = payload?.bearer?.access;
+      state.refreshToken = payload?.bearer?.refresh;
     },
     updateSuccess: (state, { payload }) => {
       state.loading = false;
@@ -30,16 +33,21 @@ const authSlice = createSlice({
       state.loading = false;
       state.currentUser = payload?.user;
       // state.isAdmin = payload?.user?.isAdmin;
-      state.token = payload?.bearer?.access;
+      state.accessToken = payload?.bearer?.access;
+      state.refreshToken = payload?.bearer?.refresh;
+      state.remainingTime = 45 * 60;
     },
     logoutSuccess: (state) => {
       state.loading = false;
       state.currentUser = null;
       // state.isAdmin = false;
-      state.token = null;
+      state.accessToken = null;
+      state.refreshToken = null;
+      state.remainingTime = 0;
     },
     refreshSuccess: (state, { payload }) => {
-      state.token = payload?.bearer?.access;
+      state.accessToken = payload?.bearer?.access;
+      state.remainingTime = 45 * 60; // Reset duration when session is extended
     },
     forgotSuccess: (state) => {
       state.loading = false;
@@ -53,6 +61,14 @@ const authSlice = createSlice({
     fetchFail: (state) => {
       state.loading = false;
       state.error = true;
+    },
+    setRemainingTime: (state, { payload }) => {
+      state.remainingTime = payload;
+    },
+    decrementTime: (state) => {
+      if (state.remainingTime > 0) {
+        state.remainingTime -= 1;
+      }
     },
   },
 });
@@ -68,5 +84,7 @@ export const {
   forgotSuccess,
   resetSuccess,
   verifySuccess,
+  setRemainingTime,
+  decrementTime,
 } = authSlice.actions;
 export default authSlice.reducer;

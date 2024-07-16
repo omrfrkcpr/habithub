@@ -7,10 +7,10 @@ export const axiosWithPublic = axios.create({
 });
 
 const useAxios = () => {
-  const { token } = useSelector((state: RootState) => state.auth);
+  const { accessToken } = useSelector((state: RootState) => state.auth);
   const axiosWithToken = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${accessToken}` },
   });
   return axiosWithToken;
 };
