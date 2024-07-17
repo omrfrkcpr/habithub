@@ -94,7 +94,8 @@ const Home = () => {
       // Todays todos for user notification
       Swal.fire({
         title: `Today's Todos`,
-        html: `<ul>${todayTodos
+        html: `<ul>${[...todayTodos]
+          .sort((a, b) => b.priority - a.priority)
           .map(
             ({ name, priority }: { name: string; priority: number }) =>
               `<li>${name} ${
