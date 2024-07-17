@@ -35,7 +35,7 @@ export const validationSchema = Yup.object().shape({
   ),
 });
 
-const SignUpForm: React.FC = () => {
+const SignUpForm = () => {
   const { register } = useAuthCalls();
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState<boolean>(false);

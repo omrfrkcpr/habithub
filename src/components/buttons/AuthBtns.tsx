@@ -1,12 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import gmail from "../../assets/gmail.png";
 import twitter from "../../assets/twitter.png";
 import github from "../../assets/github.png";
 import line from "../../assets/straight-line.png";
 import useAuthCalls from "../../hooks/useAuthCalls";
+import { RootState } from "../../app/store";
+import { fetchFail, fetchStart, loginSuccess } from "../../features/authSlice";
+import axios from "axios";
+import toastNotify from "../../helpers/toastNotify";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const AuthBtns = () => {
   const { signInWithSocial } = useAuthCalls();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [socialAuth, setSocialAuth] = useState<boolean>(false);
+  const { currentUser } = useSelector((state: RootState) => state.auth);
+
+  const getUser = async () => {
+    if (socialAuth) {
+      dispatch(fetchStart());
+      try {
+        const url = `http://127.0.0.1:8000/auth/login/success`;
+        const { data } = await axios.get(url, { withCredentials: true });
+        console.log(data);
+        dispatch(loginSuccess(data));
+        toastNotify("success", data.message);
+        navigate("/contract");
+        setSocialAuth(false);
+      } catch (err) {
+        console.log(err);
+        dispatch(fetchFail());
+      }
+    }
+  };
+
+  console.log(currentUser);
+
+  useEffect(() => {
+    getUser();
+  }, [currentUser, socialAuth]);
+
+  const handleAuthClick = (authType: string) => {
+    signInWithSocial(authType);
+    setSocialAuth(true);
+  };
 
   return (
     <>
@@ -18,7 +57,7 @@ const AuthBtns = () => {
       <div className="flex gap-2 md:gap-5 justify-center items-center mt-2">
         <div
           className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
-          onClick={() => signInWithSocial("google")}
+          onClick={() => handleAuthClick("google")}
         >
           <img
             src={gmail}
@@ -35,7 +74,7 @@ const AuthBtns = () => {
         </div>
         <div
           className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
-          onClick={() => signInWithSocial("github")}
+          onClick={() => handleAuthClick("github")}
         >
           <img
             src={github}

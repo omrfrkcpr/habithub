@@ -17,6 +17,8 @@ import Setup from "../pages/Setup";
 import Verify from "../pages/Verify";
 import Forgot from "../pages/Forgot";
 import Reset from "../pages/Reset";
+import AuthSuccess from "../pages/AuthSuccess";
+import AuthFail from "../pages/AuthFail";
 
 const AppRouter = () => {
   return (
@@ -32,6 +34,8 @@ const AppRouter = () => {
           <Route path="/verify-email" element={<Verify />} />
           <Route path="/forgot-password" element={<Forgot />} />
           <Route path="/reset-password/:token" element={<Reset />} />
+          <Route path="/auth/success" element={<AuthSuccess />} />
+          <Route path="/auth/failure" element={<AuthFail />} />
           {/* <Route path="/contract" element={<Contract />} />
           <Route path="/home" element={<Home />} /> */}
           <Route path="" element={<PrivateRouter />}>

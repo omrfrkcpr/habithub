@@ -26,8 +26,8 @@ const useAuthCalls = () => {
     (store: RootState) => store.auth
   );
 
-  console.log(accessToken);
-  console.log(refreshToken);
+  // console.log(accessToken);
+  // console.log(refreshToken);
 
   const register = async (userInfo: object) => {
     dispatch(fetchStart());
@@ -162,35 +162,7 @@ const useAuthCalls = () => {
   const signInWithSocial = async (consumerName: string) => {
     dispatch(fetchStart());
     try {
-      // window.location.href = `${BASE_URL}auth/${consumerName}`;
       window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
-
-      // // Handle the response after redirection
-      // const handleSocialCallback = () => {
-      //   const cookies = getCookies();
-
-      //   const accessToken = cookies.accessToken;
-      //   const refreshToken = cookies.refreshToken;
-      //   const user = JSON.parse(cookies.user || "{}");
-      //   const tokenData = JSON.parse(cookies.tokenData || "{}");
-
-      //   if (accessToken && refreshToken && user && tokenData) {
-      //     const data = {
-      //       bearer: { access: accessToken, refresh: refreshToken },
-      //       token: tokenData.token,
-      //       user,
-      //     };
-      //     console.log(data);
-      //     dispatch(loginSuccess(data));
-      //     toastNotify("success", "You are successfully logged in!");
-      //   } else {
-      //     dispatch(fetchFail());
-      //     toastNotify("error", "Authentication failed");
-      //   }
-      // };
-
-      // // Call the callback function to handle the response
-      // handleSocialCallback();
     } catch (error: any) {
       dispatch(fetchFail());
       toastNotify("error", error.message);

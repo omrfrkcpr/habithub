@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../layouts/Navbar";
 import authBg from "../assets/authBg.png";
 // import Footer from "../layouts/Footer";

@@ -55,7 +55,7 @@ const Contract: React.FC = () => {
   return (
     <div className="h-[41.5rem] md:h-[43.4rem] relative max-w-[1800px] mx-auto">
       <Navbar />
-      <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] max-w-[1200px] max-h-[450px] flex justify-center items-center md:justify-between flex-col md:flex-row p-5 md:p-10 rounded-xl shadow-xl bg-habit-light-gray gap-5">
+      <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[90%] max-w-[1200px] max-h-[550px] md:max-h-[450px] flex justify-center items-center md:justify-between flex-col md:flex-row p-5 md:p-10 rounded-xl shadow-xl bg-habit-light-gray gap-5">
         <div className="space-y-1 order-1 md:order-0">
           <h1 className="text-lg lg:text-2xl xl:text-3xl mb-4">
             Let's make a <span className="font-bold">contract</span>
