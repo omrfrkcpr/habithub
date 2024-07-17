@@ -10,6 +10,11 @@ interface User {
   isAdmin: string;
   createdAt: string;
   updatedAt: string;
+  username?: string;
+  avatar?: string;
+  googleId?: string;
+  twitterId?: string;
+  githubId?: string;
 }
 
 interface InitialAuthState {

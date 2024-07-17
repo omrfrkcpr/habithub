@@ -18,7 +18,9 @@ import { useNavigate } from "react-router-dom";
 
 const UserSettings = () => {
   const { refresh, logout } = useAuthCalls();
-  const { remainingTime } = useSelector((state: RootState) => state.auth);
+  const { remainingTime, currentUser } = useSelector(
+    (state: RootState) => state.auth
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -138,7 +140,10 @@ const UserSettings = () => {
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Open settings">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt="Omer" src="" />
+            <Avatar
+              alt={currentUser?.firstName || currentUser?.username}
+              src={currentUser?.avatar}
+            />
           </IconButton>
         </Tooltip>
         <Menu
