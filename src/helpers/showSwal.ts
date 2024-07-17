@@ -21,6 +21,7 @@ const showSwal = async ({
     title,
     text,
     icon,
+    timer: confirmButtonText ? 6000 : 2000,
     showCancelButton: cancelButtonText ? true : false,
     showConfirmButton: confirmButtonText ? true : false,
     confirmButtonColor,

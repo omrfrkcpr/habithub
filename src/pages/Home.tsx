@@ -46,7 +46,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // getTodoData("todos", `?date=${new Date().toISOString()}`);
+    getTodoData("todos", `?date=${date}`);
     getTodoData("tags");
   }, []);
 
@@ -67,15 +67,30 @@ const Home = () => {
     }
   }, [date, getTodoData]);
 
+  // New useEffect to track day change for getTodayTodosData
+  const previousDayRef = useRef<number | null>(null);
+
   useEffect(() => {
-    getTodayTodosData();
-  }, []);
+    const checkDayChange = setInterval(() => {
+      const currentDay = new Date().getDate();
+      if (previousDayRef.current === null) {
+        previousDayRef.current = currentDay;
+      } else {
+        if (currentDay !== previousDayRef.current) {
+          getTodayTodosData();
+          previousDayRef.current = currentDay; // update the previousDayRef to current day
+        }
+      }
+    }, 1000); // Check every second
+
+    return () => clearInterval(checkDayChange);
+  }, [getTodayTodosData]);
 
   // console.log(new Date(new Date().toISOString()).getDate());
   console.log(todayTodos);
 
   useEffect(() => {
-    if (todayTodos.length > 0) {
+    if (todayTodos && todayTodos.length > 0) {
       // Todays todos for user notification
       Swal.fire({
         title: `Today's Todos`,

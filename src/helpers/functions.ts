@@ -229,11 +229,13 @@ export const formatTime = (seconds: number) => {
 };
 
 export const getTodoUpdateSuccessMessage = (todoInfo: any) => {
-  if (todoInfo?.isCompleted) {
+  const { isCompleted, name, description, priority } = todoInfo;
+
+  if (isCompleted) {
     return "Super! You've completed this task!";
-  } else if (todoInfo?.name && todoInfo?.description) {
+  } else if (name && description) {
     return "Todo successfully edited!";
-  } else if (todoInfo?.priority) {
+  } else if (priority) {
     return "Priority updated!";
   } else {
     return "";

@@ -17,7 +17,7 @@ import showSwal from "../helpers/showSwal";
 const useTodoCalls = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
-  const { currentUser } = useSelector((state: RootState) => state.auth);
+  // const { currentUser } = useSelector((state: RootState) => state.auth);
   const { date } = useSelector((state: RootState) => state.date);
 
   const getTodoData = async (url: string, search: string = "") => {
@@ -26,6 +26,13 @@ const useTodoCalls = () => {
       const { data } = await axiosWithToken(`${url}${search}`);
       // console.log(data);
       dispatch(setSuccess({ data: data?.data, url }));
+
+      if (
+        url === "todos" &&
+        new Date(date).getDate() === new Date().getDate()
+      ) {
+        dispatch(setTodayTodos({ data: data?.data }));
+      }
     } catch (error) {
       console.log(error);
       dispatch(fetchFail());
