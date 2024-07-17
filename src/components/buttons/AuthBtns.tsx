@@ -19,7 +19,7 @@ const AuthBtns = () => {
   const { currentUser } = useSelector((state: RootState) => state.auth);
 
   const getUser = async () => {
-    if (socialAuth) {
+    if (socialAuth && !currentUser) {
       dispatch(fetchStart());
       try {
         const url = `http://127.0.0.1:8000/auth/login/success`;
@@ -40,7 +40,7 @@ const AuthBtns = () => {
 
   useEffect(() => {
     getUser();
-  }, [currentUser, socialAuth]);
+  }, [socialAuth]);
 
   const handleAuthClick = (authType: string) => {
     signInWithSocial(authType);
@@ -65,7 +65,10 @@ const AuthBtns = () => {
             className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
           />
         </div>
-        <div className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer">
+        <div
+          className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
+          onClick={() => handleAuthClick("twitter")}
+        >
           <img
             src={twitter}
             alt="twitter"

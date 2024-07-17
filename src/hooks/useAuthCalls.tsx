@@ -161,14 +161,7 @@ const useAuthCalls = () => {
   };
 
   const signInWithSocial = async (consumerName: string) => {
-    dispatch(fetchStart());
-    try {
-      window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
-    } catch (error: any) {
-      dispatch(fetchFail());
-      toastNotify("error", error.message);
-      console.log(error);
-    }
+    window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
   };
 
   return {
