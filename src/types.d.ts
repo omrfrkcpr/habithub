@@ -163,6 +163,7 @@ interface TagValues {
 interface TodoSliceStateValues {
   todos: Todo[];
   tags: TagValues[];
+  todayTodos: Todo[];
   tagTodos: Todo[];
   loading: boolean;
   error: boolean;

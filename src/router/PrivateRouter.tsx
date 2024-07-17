@@ -6,6 +6,7 @@ import { RootState } from "../app/store";
 const PrivateRouter = () => {
   const { currentUser } = useSelector((state: RootState) => state.auth);
   // console.log(currentUser);
+  // console.log(accessToken);
   return currentUser ? <Outlet /> : <Navigate to="/" />;
 };
 

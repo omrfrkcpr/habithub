@@ -99,20 +99,21 @@ const useAuthCalls = () => {
     }
   };
 
-  const refresh = async () => {
+  const refresh = async (showNotify: boolean) => {
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(`${BASE_URL}auth/refresh`, {
         bearer: { refresh: refreshToken },
       });
       dispatch(refreshSuccess(data));
-      toastNotify(
-        "success",
-        "Your session has been successfully extended by 45 minutes!"
-      );
+      showNotify &&
+        toastNotify(
+          "success",
+          "Your session has been successfully extended by 45 minutes!"
+        );
     } catch (error: any) {
       dispatch(fetchFail());
-      toastNotify("error", error.response.data.message);
+      showNotify && toastNotify("error", error.response.data.message);
     }
   };
 

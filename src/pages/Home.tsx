@@ -21,8 +21,8 @@ const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<number>(0);
-  const { getTodoData } = useTodoCalls();
-  const { todos } = useSelector((state: RootState) => state.todo);
+  const { getTodoData, getTodayTodosData } = useTodoCalls();
+  const { todayTodos } = useSelector((state: RootState) => state.todo);
   const { date } = useSelector((state: RootState) => state.date);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -50,23 +50,48 @@ const Home = () => {
     getTodoData("tags");
   }, []);
 
-  useEffect(() => {
-    getTodoData("todos", `?date=${date}`);
-  }, [date]);
+  // Ref to store previous date
+  const previousDateRef = useRef<Date | null>(null);
 
   useEffect(() => {
-    if (todos.length > 0) {
+    const currentDate = new Date(date);
+    if (previousDateRef.current === null) {
+      previousDateRef.current = currentDate;
+    } else {
+      const previousDay = previousDateRef.current.getDate();
+      const currentDay = currentDate.getDate();
+      if (currentDay !== previousDay) {
+        getTodoData("todos", `?date=${date}`);
+        previousDateRef.current = currentDate; // update the previousDateRef to current date
+      }
+    }
+  }, [date, getTodoData]);
+
+  useEffect(() => {
+    getTodayTodosData();
+  }, []);
+
+  // console.log(new Date(new Date().toISOString()).getDate());
+  console.log(todayTodos);
+
+  useEffect(() => {
+    if (todayTodos.length > 0) {
       // Todays todos for user notification
       Swal.fire({
-        title: "Today's Todos",
-        html: `<ul>${todos
-          .map((todo: any) => `<li>${todo?.name}</li>`)
+        title: `Today's Todos`,
+        html: `<ul>${todayTodos
+          .map(
+            ({ name, priority }: { name: string; priority: number }) =>
+              `<li>${name} ${
+                priority === 1 ? "🚀" : priority === 0 ? "🌟" : "🔥"
+              }</li>`
+          )
           .join("")}</ul>`,
         icon: "info",
         confirmButtonText: "Ok",
       });
     }
-  }, []);
+  }, [todayTodos]);
 
   return (
     <div className="relative min-h-screen h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">

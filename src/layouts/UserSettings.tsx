@@ -11,7 +11,6 @@ import useAuthCalls from "../hooks/useAuthCalls";
 import { RootState } from "../app/store";
 import { useSelector, useDispatch } from "react-redux";
 import { formatTime } from "../helpers/functions";
-import { setRemainingTime } from "../features/authSlice";
 import showSwal from "../helpers/showSwal";
 import { decrementTime } from "../features/authSlice";
 import toastNotify from "../helpers/toastNotify";
@@ -73,10 +72,10 @@ const UserSettings = () => {
     });
 
     if (result.isConfirmed) {
-      dispatch(setRemainingTime(45 * 60));
+      await refresh(false);
       await showSwal({
         title: "Extended!",
-        text: "Your session duration has been reset to 45!",
+        text: "Your session duration has been reset to 45 minutes!",
         icon: "success",
       });
     }
@@ -110,7 +109,7 @@ const UserSettings = () => {
         });
 
         if (result.isConfirmed) {
-          await refresh();
+          await refresh(true);
         }
       } else if (remainingTime === 0) {
         await logout(false);

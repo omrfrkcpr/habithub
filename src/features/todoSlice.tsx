@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState: TodoSliceStateValues = {
   todos: [],
   tags: [],
+  todayTodos: [],
   tagTodos: [],
   loading: false,
   error: false,
@@ -19,13 +20,17 @@ const todoSlice = createSlice({
       state.loading = true;
       state.error = false;
     },
-    getSuccess: (state: { [key: string]: any }, { payload: { data, url } }) => {
+    setSuccess: (state: { [key: string]: any }, { payload: { data, url } }) => {
       state.loading = false;
       state[url] = data;
     },
-    getTagTodos: (state, { payload }) => {
+    setTagTodos: (state, { payload }) => {
       state.loading = false;
-      state.tagTodos = payload;
+      state.tagTodos = payload.data;
+    },
+    setTodayTodos: (state, { payload }) => {
+      state.loading = false;
+      state.todayTodos = payload.data;
     },
     fetchFail: (state) => {
       state.loading = false;
@@ -34,6 +39,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { fetchStart, getSuccess, getTagTodos, fetchFail } =
+export const { fetchStart, setSuccess, setTagTodos, setTodayTodos, fetchFail } =
   todoSlice.actions;
 export default todoSlice.reducer;

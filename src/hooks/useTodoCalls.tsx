@@ -4,8 +4,9 @@ import { RootState } from "../app/store";
 import {
   fetchStart,
   fetchFail,
-  getSuccess,
-  getTagTodos,
+  setSuccess,
+  setTagTodos,
+  setTodayTodos,
 } from "../features/todoSlice";
 import {
   getTodoUpdateSuccessMessage,
@@ -23,8 +24,8 @@ const useTodoCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(`${url}${search}`);
-      console.log(data);
-      dispatch(getSuccess({ data: data?.data, url }));
+      // console.log(data);
+      dispatch(setSuccess({ data: data?.data, url }));
     } catch (error) {
       console.log(error);
       dispatch(fetchFail());
@@ -36,7 +37,21 @@ const useTodoCalls = () => {
     try {
       const { data } = await axiosWithToken(`tags/${tagId}/todos`);
       console.log(data);
-      dispatch(getTagTodos({ data: data?.data }));
+      dispatch(setTagTodos({ data: data?.data }));
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchFail());
+    }
+  };
+
+  const getTodayTodosData = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken(
+        `todos?date=${new Date().toISOString()}`
+      );
+      console.log(data);
+      dispatch(setTodayTodos({ data: data?.data }));
     } catch (error) {
       console.log(error);
       dispatch(fetchFail());
@@ -130,7 +145,7 @@ const useTodoCalls = () => {
           icon: "success",
         });
       }
-      dispatch(getSuccess({ data: data?.data, url }));
+      dispatch(setSuccess({ data: data?.data, url }));
     } catch (error: any) {
       console.log(error);
       if (showNotify) {
@@ -149,6 +164,7 @@ const useTodoCalls = () => {
   return {
     getTodoData,
     getTagTodoData,
+    getTodayTodosData,
     deleteTodoData,
     updateTodoData,
     createTodoData,
