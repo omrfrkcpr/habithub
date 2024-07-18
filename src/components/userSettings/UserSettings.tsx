@@ -9,7 +9,7 @@ import Account from "./Account";
 const UserSettings = () => {
   const [selectedTab, setSelectedTab] = useState<string>("profile");
   return (
-    <div className="flex flex-col py-8 px-5 gap-4">
+    <div className="flex flex-col py-8 px-5 gap-4 h-[455px] md:h-[545px]">
       <section
         id="bar"
         className="flex items-between justify-between w-full bg-habit-light-purple rounded-md"

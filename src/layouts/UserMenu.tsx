@@ -153,7 +153,7 @@ const UserMenu = ({
   const avatarSrc = currentUser?.avatar?.includes("/uploads/")
     ? `http://127.0.0.1:8000${currentUser?.avatar}`
     : currentUser?.avatar ||
-      "https://static.vecteezy.com/system/resources/previews/026/619/142/non_2x/default-avatar-profile-icon-of-social-media-user-photo-image-vector.jpg";
+      "https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg";
 
   return (
     <>

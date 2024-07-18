@@ -121,7 +121,7 @@ const Profile = () => {
     ? profileForm.avatar.includes("/uploads/")
       ? `http://127.0.0.1:8000${profileForm.avatar}`
       : profileForm.avatar
-    : "https://static.vecteezy.com/system/resources/previews/026/619/142/non_2x/default-avatar-profile-icon-of-social-media-user-photo-image-vector.jpg";
+    : "https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg";
 
   return (
     <div>
@@ -271,7 +271,7 @@ const Profile = () => {
         </section>
         <button
           type="submit"
-          className="mt-4 px-4 py-2 bg-orange-400 hover:bg-orange-300 text-white rounded"
+          className="mt-4 px-2 py-1 text-[12px] md:text-[16px] md:px-4 md:py-2 bg-orange-400 hover:bg-orange-300 text-white rounded"
         >
           Save Changes
         </button>
