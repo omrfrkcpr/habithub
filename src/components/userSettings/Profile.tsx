@@ -135,7 +135,9 @@ const Profile = () => {
           id="avatar-section"
         >
           <div className="space-y-2 w-full h-full z-50">
-            <label className="font-semibold">Avatar</label>
+            <label className="font-semibold text-[11px] md:text-[14px]">
+              Avatar
+            </label>
             <div className="flex justify-between">
               <p className="text-[8px] md:text-[11px] font-light">
                 For best results, upload an image 512x512 or larger
@@ -190,6 +192,80 @@ const Profile = () => {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        </section>
+        <section id="name-email-username">
+          <div className="flex justify-between gap-2">
+            <div className="flex flex-col space-y-2 mt-4 flex-1">
+              <label className="font-semibold text-[11px] md:text-[14px]">
+                First Name
+              </label>
+              <input
+                type="text"
+                autoComplete="off"
+                className="p-1 border border-gray-300 rounded-md outline-none text-[10px] md:text-[14px] text-black/60"
+                value={profileForm.firstName}
+                onChange={(e) =>
+                  setProfileForm((prev) => ({
+                    ...prev,
+                    firstName: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="flex flex-col space-y-2 mt-4 flex-1">
+              <label className="font-semibold text-[11px] md:text-[14px]">
+                Last Name
+              </label>
+              <input
+                type="text"
+                autoComplete="off"
+                className="p-1 border border-gray-300 rounded-md outline-none text-[10px] md:text-[14px] text-black/60"
+                value={profileForm.lastName}
+                onChange={(e) =>
+                  setProfileForm((prev) => ({
+                    ...prev,
+                    lastName: e.target.value,
+                  }))
+                }
+              />
+            </div>
+          </div>
+          <div className="flex justify-between gap-2">
+            <div className="flex flex-col space-y-2 mt-4 flex-1">
+              <label className="font-semibold text-[11px] md:text-[14px]">
+                Email
+              </label>
+              <input
+                type="email"
+                autoComplete="off"
+                className="p-1 border border-gray-300 rounded-md outline-none text-[10px] md:text-[14px] text-black/60"
+                value={profileForm.email}
+                onChange={(e) =>
+                  setProfileForm((prev) => ({
+                    ...prev,
+                    email: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="flex flex-col space-y-2 mt-4 flex-1">
+              <label className="font-semibold text-[11px] md:text-[14px]">
+                Username
+              </label>
+              <input
+                type="text"
+                autoComplete="off"
+                className="p-1 border border-gray-300 rounded-md outline-none text-[10px] md:text-[14px] text-black/60"
+                value={profileForm.username}
+                onChange={(e) =>
+                  setProfileForm((prev) => ({
+                    ...prev,
+                    username: e.target.value,
+                  }))
+                }
+              />
             </div>
           </div>
         </section>
