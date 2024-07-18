@@ -56,7 +56,6 @@ const useAuthCalls = () => {
         }
       );
       dispatch(updateSuccess(data));
-
       toastNotify("success", data.message);
     } catch (error: any) {
       // console.log(error);

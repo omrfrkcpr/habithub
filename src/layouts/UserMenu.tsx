@@ -1,4 +1,9 @@
-import React, { useEffect } from "react";
+import React, {
+  useEffect,
+  useState,
+  ReactElement,
+  SetStateAction,
+} from "react";
 import ThemeSwitcher from "../components/commons/ThemeSwitcher";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -15,30 +20,47 @@ import showSwal from "../helpers/showSwal";
 import { decrementTime } from "../features/authSlice";
 import toastNotify from "../helpers/toastNotify";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/commons/Modal";
+import UserSettings from "../components/userSettings/UserSettings";
 
-const UserSettings = () => {
+const UserMenu = ({
+  setValue,
+}: {
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const { refresh, logout } = useAuthCalls();
   const { remainingTime, currentUser } = useSelector(
     (state: RootState) => state.auth
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedModalChild, setSelectedModalChild] = useState<ReactElement>();
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const settings = [
     {
       value: "My Todos",
       onClick: () => {
-        console.log("My Todos clicked");
+        setValue(0);
         handleCloseUserMenu();
       },
     },
     {
       value: "Lists",
       onClick: () => {
-        console.log("Lists clicked");
+        setValue(1);
+        handleCloseUserMenu();
+      },
+    },
+    {
+      value: "Settings",
+      onClick: () => {
+        setSelectedModalChild(<UserSettings />);
+        openModal();
         handleCloseUserMenu();
       },
     },
@@ -129,50 +151,55 @@ const UserSettings = () => {
   }, [remainingTime]);
 
   return (
-    <div className="flex absolute top-5 right-5">
-      <span
-        className="grid place-content-center place-items-center px-3 mx-2 border border-black dark:border-white dark:text-white cursor-pointer hover:border-black/60 hover:text-black/60 dark:hover:text-white/60 dark:hover:border-white/60"
-        onClick={handleSpanClick}
-      >
-        {formatTime(remainingTime)}
-      </span>
-      <ThemeSwitcher />
-      <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar
-              alt={currentUser?.firstName || currentUser?.username}
-              src={currentUser?.avatar}
-            />
-          </IconButton>
-        </Tooltip>
-        <Menu
-          sx={{ mt: "45px" }}
-          id="menu-appbar"
-          anchorEl={anchorElUser}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
+    <>
+      <div className="flex absolute top-5 right-5">
+        <span
+          className="grid place-content-center place-items-center px-3 mx-2 border border-black dark:border-white dark:text-white cursor-pointer hover:border-black/60 hover:text-black/60 dark:hover:text-white/60 dark:hover:border-white/60"
+          onClick={handleSpanClick}
         >
-          {settings.map(
-            ({ onClick, value }: { onClick: () => void; value: string }) => (
-              <MenuItem key={value} onClick={onClick}>
-                <Typography textAlign="center">{value}</Typography>
-              </MenuItem>
-            )
-          )}
-        </Menu>
-      </Box>
-    </div>
+          {formatTime(remainingTime)}
+        </span>
+        <ThemeSwitcher />
+        <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar
+                alt={currentUser?.firstName || currentUser?.username}
+                src={currentUser?.avatar}
+              />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map(
+              ({ onClick, value }: { onClick: () => void; value: string }) => (
+                <MenuItem key={value} onClick={onClick}>
+                  <Typography textAlign="center">{value}</Typography>
+                </MenuItem>
+              )
+            )}
+          </Menu>
+        </Box>
+      </div>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        {selectedModalChild}
+      </Modal>
+    </>
   );
 };
 
-export default UserSettings;
+export default UserMenu;

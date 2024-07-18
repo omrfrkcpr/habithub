@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import DateTimePicker from "../layouts/DateTimePicker";
 import Logo from "../components/commons/Logo";
-import UserSettings from "../layouts/UserSettings";
+import UserMenu from "../layouts/UserMenu";
 import AddTodoBtn from "../components/buttons/AddTodoBtn";
 import TodoList from "../layouts/TodoList";
 import { MdMenu, MdClose } from "react-icons/md";
@@ -148,7 +148,7 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="w-full h-[40rem] p-4 flex justify-end relative">
-        <UserSettings />
+        <UserMenu setValue={setValue} />
         <AddTodoBtn value={value} setValue={setValue} />
       </div>
 
