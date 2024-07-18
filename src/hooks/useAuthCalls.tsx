@@ -51,7 +51,7 @@ const useAuthCalls = () => {
         userInfo,
         {
           headers: {
-            Authorization: `Token ${accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );

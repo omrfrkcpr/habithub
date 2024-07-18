@@ -150,6 +150,11 @@ const UserMenu = ({
     }
   }, [remainingTime]);
 
+  const avatarSrc = currentUser?.avatar?.includes("/uploads/")
+    ? `http://127.0.0.1:8000${currentUser?.avatar}`
+    : currentUser?.avatar ||
+      "https://static.vecteezy.com/system/resources/previews/026/619/142/non_2x/default-avatar-profile-icon-of-social-media-user-photo-image-vector.jpg";
+
   return (
     <>
       <div className="flex absolute top-5 right-5">
@@ -164,8 +169,8 @@ const UserMenu = ({
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
+                src={avatarSrc}
                 alt={currentUser?.firstName || currentUser?.username}
-                src={currentUser?.avatar}
               />
             </IconButton>
           </Tooltip>
