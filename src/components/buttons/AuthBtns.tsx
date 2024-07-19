@@ -66,7 +66,7 @@ const AuthBtns = () => {
             className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
           />
         </div>
-        {/* <div
+        <div
           className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
           onClick={() => handleAuthClick("linkedin")}
         >
@@ -75,7 +75,7 @@ const AuthBtns = () => {
             alt="linkedin"
             className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
           />
-        </div> */}
+        </div>
         <div
           className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
           onClick={() => handleAuthClick("twitter")}
