@@ -38,8 +38,14 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
 
   return (
     <div
-      className={`py-2 px-2 rounded-md relative cursor-pointer`}
-      style={{ backgroundColor: cardColor }}
+      className={`py-2 px-2 rounded-md relative cursor-pointer ${
+        priority === 1
+          ? "bg-red-500"
+          : priority === 0
+          ? "bg-orange-500"
+          : priority === -1 && "bg-green-500"
+      }`}
+      // style={{ backgroundColor: cardColor }}
       onClick={handleCompleteTodoClick}
     >
       <div className="me-8">
@@ -51,11 +57,12 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
         />
         <span
           className={`${
-            isDone && "line-through text-black/30"
-          } text-[12px] md:text-[16px] font-semibold`}
+            isDone ? "line-through text-black/30" : "text-white"
+          } text-[12px] md:text-[16px]`}
         >
           {name}
         </span>
+
         <button
           onClick={handleShowDescClick}
           className="absolute right-3 top-3 cursor-pointer hover:text-black/60"
@@ -64,10 +71,13 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
         </button>
       </div>
       <div
-        className={`ms-[20px] transition-all duration-500 ease-in-out transform origin-top overflow-hidden text-[10px] md:text-[14px] ${
+        className={`ms-[20px] flex flex-col transition-all duration-500 ease-in-out transform origin-top overflow-hidden text-[10px] md:text-[14px] ${
           isDone && "line-through text-black/30"
         } ${showDesc === id ? "max-h-auto opacity-100" : "max-h-0 opacity-0"}`}
       >
+        <span className="bg-black/70 text-white w-[fit-content] px-2 py-1 ms-auto rounded-full mt-2 text-[9px] md:text-[11px]">
+          {tagId?.name}
+        </span>
         <span ref={descRef}>{description}</span>
       </div>
     </div>

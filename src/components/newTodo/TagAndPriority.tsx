@@ -55,7 +55,7 @@ const TagAndPriority = () => {
           successfully add a new tag, please press Enter after typing.
         </p>
         <TagsInput
-          value={newTodo.tagId ? [newTodo.tagId] : []}
+          value={newTodo.tagId.name ? [newTodo.tagId.name] : []}
           onChange={(tags) => {
             if (tags.length > 0) {
               dispatch(setNewTodo({ ...newTodo, tagId: tags[0] }));
@@ -68,7 +68,9 @@ const TagAndPriority = () => {
         />
         <div className="flex flex-wrap gap-2 mt-4">
           {tags
-            .filter((tag: TagValues) => (tag.name || tag.id) !== newTodo.tagId)
+            .filter(
+              (tag: TagValues) => (tag.name || tag.id) !== newTodo.tagId.name
+            )
             .map(({ name, id }) => (
               <button
                 key={id}

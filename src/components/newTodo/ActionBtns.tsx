@@ -4,7 +4,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ActionBtn from "../buttons/ActionBtn";
 import { resetNewTodo } from "../../features/newTodoSlice";
-import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
+// import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
 import { RootState } from "../../app/store";
 import useTodoCalls from "../../hooks/useTodoCalls";
 import { setNewTodo } from "../../features/newTodoSlice";
@@ -27,7 +27,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
     let editedTagId = "";
     // Mevcut tags listesinde eşleşen bir tag arayın
     const existingTag = tags.find(
-      (tag: TagValues) => tag.name === newTodo.tagId
+      (tag: TagValues) => tag.name === newTodo.tagId.name
     );
 
     if (existingTag) {
@@ -43,7 +43,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
         false
       );
       const createdTag = tags.find(
-        (tag: TagValues) => tag.name === newTodo.tagId
+        (tag: TagValues) => tag.name === newTodo.tagId.name
       );
       editedTagId = createdTag?.id || "";
     }

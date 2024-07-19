@@ -61,8 +61,6 @@ const getServiceName = () => {
     return "Github";
   } else if (auth === "twitter") {
     return "Twitter";
-  } else if (auth === "linkedin") {
-    return "LinkedIn";
   } else {
     return "the social service";
   }

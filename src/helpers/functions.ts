@@ -235,9 +235,11 @@ export const getTodoUpdateSuccessMessage = (todoInfo: any) => {
     return "Super! You've completed this task!";
   } else if (name && description) {
     return "Todo successfully edited!";
-  } else if (priority) {
-    return "Priority updated!";
-  } else {
+  }
+  // else if (priority) {
+  //   return "Priority updated!";
+  // }
+  else {
     return "";
   }
 };

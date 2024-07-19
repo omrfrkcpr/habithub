@@ -7,7 +7,10 @@ const initialState: NewTodo = {
   repeat: "daily",
   priority: 0,
   dueDates: [],
-  tagId: "",
+  tagId: {
+    id: "",
+    name: "",
+  },
   isCompleted: false,
 };
 

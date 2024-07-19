@@ -103,11 +103,14 @@ const useTodoCalls = () => {
     dispatch(fetchStart());
     try {
       await axiosWithToken.put(`${url}/${id}`, todoInfo);
-      await showSwal({
-        title: "Updated!",
-        text: getTodoUpdateSuccessMessage(todoInfo),
-        icon: "success",
-      });
+      const updateMessage = getTodoUpdateSuccessMessage(todoInfo);
+      if (updateMessage) {
+        await showSwal({
+          title: "Updated!",
+          text: updateMessage,
+          icon: "success",
+        });
+      }
     } catch (error: any) {
       console.log(error);
       await showSwal({

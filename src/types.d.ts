@@ -104,7 +104,10 @@ interface NewTodo {
   repeat: string;
   priority: number;
   dueDates: string[];
-  tagId: string;
+  tagId: {
+    id: string;
+    name: string;
+  };
   isCompleted: false;
 }
 
