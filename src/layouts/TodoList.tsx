@@ -16,7 +16,7 @@ const TodoList = () => {
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
 
-    const { source, destination, draggableId } = result;
+    const { destination, draggableId } = result;
     const draggedTodo = todos.find((todo: Todo) => todo.id === draggableId);
 
     if (draggedTodo) {
@@ -67,7 +67,7 @@ const TodoList = () => {
                         }`}
                       >
                         <h2
-                          className={`text-[14px] md:text-[16px] lg:text-[18px] py-1 px-2 rounded-full font-semibold w-[fit-content] ms-auto mb-4 ${
+                          className={`text-[13px] italic md:text-[15px] lg:text-[17px] py-1 px-2 rounded-full font-semibold w-[fit-content] ms-auto mb-4 ${
                             priority === 1
                               ? "bg-red-400"
                               : priority === 0

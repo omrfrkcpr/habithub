@@ -11,7 +11,7 @@ const AddTodoBtn = ({
   return (
     <>
       {value !== 2 && (
-        <button className="fixed bottom-4 right-4 md:bottom-10 md:right-10 w-[50px] h-[50px] bg-habit-light-purple border border-habit-light-purple shadow-lg dark:bg-[#CA87F4] dark:border-[#CA87F4] rounded-full grid place-content-center place-items-center transition-colors duration-300 z-40 group hover:bg-habit-light-gray dark:hover:bg-habit-purple">
+        <button className="fixed bottom-4 right-4 md:bottom-10 md:right-10 w-[50px] h-[50px] bg-habit-light-purple border border-habit-light-purple shadow-md shadow-black dark:shadow-habit-light-purple dark:bg-[#CA87F4] dark:border-[#CA87F4] rounded-full grid place-content-center place-items-center transition-colors duration-300 z-40 group hover:bg-habit-light-gray dark:hover:bg-habit-purple">
           <div className="group-hover:text-habit-light-gray dark:group-hover:text-[#CA87F4]">
             <IoAddOutline
               onClick={() => setValue(2)}
