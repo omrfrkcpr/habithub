@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  ReactElement,
-  SetStateAction,
-} from "react";
+import React, { useEffect, useState, ReactElement } from "react";
 import ThemeSwitcher from "../components/commons/ThemeSwitcher";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -22,6 +17,10 @@ import toastNotify from "../helpers/toastNotify";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/commons/Modal";
 import UserSettings from "../components/userSettings/UserSettings";
+import { IoSettingsOutline } from "react-icons/io5";
+import { BsListTask } from "react-icons/bs";
+import { MdPlaylistAddCheck } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 
 const UserMenu = ({
   setValue,
@@ -43,6 +42,7 @@ const UserMenu = ({
 
   const settings = [
     {
+      icon: <BsListTask />,
       value: "My Tasks",
       onClick: () => {
         setValue(0);
@@ -50,6 +50,7 @@ const UserMenu = ({
       },
     },
     {
+      icon: <MdPlaylistAddCheck />,
       value: "Lists",
       onClick: () => {
         setValue(1);
@@ -57,6 +58,7 @@ const UserMenu = ({
       },
     },
     {
+      icon: <IoSettingsOutline />,
       value: "Settings",
       onClick: () => {
         setSelectedModalChild(<UserSettings />);
@@ -65,6 +67,7 @@ const UserMenu = ({
       },
     },
     {
+      icon: <MdLogout />,
       value: "Logout",
       onClick: () => {
         logout(true);
@@ -191,9 +194,35 @@ const UserMenu = ({
             onClose={handleCloseUserMenu}
           >
             {settings.map(
-              ({ onClick, value }: { onClick: () => void; value: string }) => (
-                <MenuItem key={value} onClick={onClick}>
-                  <Typography textAlign="center">{value}</Typography>
+              ({
+                onClick,
+                value,
+                icon,
+              }: {
+                onClick: () => void;
+                value: string;
+                icon: ReactElement;
+              }) => (
+                <MenuItem
+                  key={value}
+                  onClick={onClick}
+                  sx={{
+                    borderTop: value === "Logout" ? 1 : 0,
+                    borderColor: "gray",
+                    paddingTop: value === "Logout" ? "8px" : "4px",
+                  }}
+                >
+                  <Typography
+                    textAlign="center"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      marginRight: "20px",
+                    }}
+                  >
+                    {icon} {value} <span></span>
+                  </Typography>
                 </MenuItem>
               )
             )}
