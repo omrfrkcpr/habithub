@@ -191,7 +191,14 @@ const SignUpForm = () => {
             Terms of Use
           </span>{" "}
           and{" "}
-          <span className="font-semibold text-blue-400 underline hover:text-blue-600 cursor-pointer">
+          <span
+            onClick={() =>
+              window.open(
+                "https://www.termsfeed.com/live/ed8b4e15-b05a-41d6-b12b-920a89756f29"
+              )
+            }
+            className="font-semibold text-blue-400 underline hover:text-blue-600 cursor-pointer"
+          >
             Privacy Policy
           </span>
         </p>

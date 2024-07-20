@@ -112,7 +112,7 @@ const Profile = () => {
       formData.append("avatar", ""); // delete existing avatar
     }
 
-    console.log(formData);
+    // console.log(formData);
 
     await updateUser(formData);
   };

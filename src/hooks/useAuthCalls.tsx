@@ -15,6 +15,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../app/store";
 import toastNotify from "../helpers/toastNotify";
+import showSwal from "../helpers/showSwal";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -44,24 +45,67 @@ const useAuthCalls = () => {
   };
 
   const updateUser = async (userInfo: object) => {
-    dispatch(fetchStart());
-    try {
-      const { data } = await axios.put(
-        `${BASE_URL}users/${currentUser?.id}`,
-        userInfo,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      dispatch(updateSuccess(data));
-      toastNotify("success", data.message);
-    } catch (error: any) {
-      // console.log(error);
-      dispatch(fetchFail());
-      toastNotify("error", error.response.data.message);
-      console.log(error);
+    const result = await showSwal({
+      title: "Are you sure?",
+      text: `Account informations will be updated`,
+      icon: "question",
+      confirmButtonText: "Yes, change it!",
+      confirmButtonColor: "#37901e",
+      cancelButtonText: "No, keep it!",
+    });
+
+    if (result.isConfirmed) {
+      dispatch(fetchStart());
+      try {
+        const { data } = await axios.put(
+          `${BASE_URL}users/${currentUser?.id}`,
+          userInfo,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        dispatch(updateSuccess(data));
+        toastNotify("success", data.message);
+      } catch (error: any) {
+        // console.log(error);
+        dispatch(fetchFail());
+        toastNotify("error", error.response.data.message);
+        console.log(error);
+      }
+    }
+  };
+
+  const deleteUser = async () => {
+    const result = await showSwal({
+      title: "Are you sure?",
+      text: `This Account will be permanently deleted!`,
+      icon: "question",
+      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#37901e",
+      cancelButtonText: "No, keep it!",
+    });
+
+    if (result.isConfirmed) {
+      dispatch(fetchStart());
+      try {
+        const { data } = await axios.delete(
+          `${BASE_URL}users/${currentUser?.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        dispatch(logoutSuccess(data));
+        toastNotify("success", data.message);
+        navigate("/");
+      } catch (error: any) {
+        dispatch(fetchFail());
+        toastNotify("error", error.response.data.message);
+        // console.log(error);
+      }
     }
   };
 
@@ -168,6 +212,7 @@ const useAuthCalls = () => {
     login,
     logout,
     updateUser,
+    deleteUser,
     refresh,
     forgotPassword,
     resetPassword,
