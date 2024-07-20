@@ -11,21 +11,16 @@ const TagAndPriority = () => {
   const { tags } = useSelector((state: RootState) => state.task);
   const dispatch = useDispatch();
 
-  // const [availableTags] = useState([
-  //   "Daily Routine",
-  //   "Study Routine",
-  //   "Work Routine",
-  // ]);
-
-  // console.log(tags);
-
-  const handleTagClick = (tagName: string) => {
-    dispatch(setNewTask({ ...newTask, tagId: tagName }));
+  const handleTagClick = (targetTag: TagValues) => {
+    const selectedTag = tags.find((tag) => tag.name === targetTag.name);
+    if (selectedTag) {
+      dispatch(setNewTask({ ...newTask, tagId: selectedTag }));
+    }
   };
 
   const handleTagRemove = () => {
-    if (newTask.tagId) {
-      dispatch(setNewTask({ ...newTask, tagId: "" }));
+    if (newTask.tagId.name) {
+      dispatch(setNewTask({ ...newTask, tagId: { id: "", name: "" } }));
     }
   };
 
@@ -58,11 +53,26 @@ const TagAndPriority = () => {
           value={newTask.tagId.name ? [newTask.tagId.name] : []}
           onChange={(tags) => {
             if (tags.length > 0) {
-              dispatch(setNewTask({ ...newTask, tagId: tags[0] }));
+              const newTagName = tags[0];
+              const existingTag = tags.find(
+                (tag: any) => tag.name === newTagName
+              );
+              if (existingTag) {
+                dispatch(setNewTask({ ...newTask, tagId: existingTag }));
+              } else {
+                dispatch(
+                  setNewTask({
+                    ...newTask,
+                    tagId: { id: "", name: newTagName },
+                  })
+                );
+              }
+            } else {
+              handleTagRemove();
             }
           }}
           name="tag"
-          placeHolder={newTask.tagId ? "✔️" : "Set a tag"}
+          placeHolder={newTask.tagId.name ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
           classNames={{ tag: "tag-cls", input: "input-cls" }}
         />
@@ -71,11 +81,12 @@ const TagAndPriority = () => {
             .filter(
               (tag: TagValues) => (tag.name || tag.id) !== newTask.tagId.name
             )
+            .slice(0, 3)
             .map(({ name, id }) => (
               <button
                 key={id}
                 className="bg-habit-light-gray dark:bg-[#977aa5] dark:hover:bg-gray-400 hover:bg-gray-300 text-black dark:text-white text-[11px] md:text-[14px] py-[2px] px-2 rounded-lg cursor-pointer"
-                onClick={() => handleTagClick(name)}
+                onClick={() => handleTagClick({ name, id })}
               >
                 {name}
               </button>

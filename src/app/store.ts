@@ -10,10 +10,10 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import {
-  createReduxMiddleware,
-  defaultOptions,
-} from "@karmaniverous/serify-deserify";
+// import {
+//   createReduxMiddleware,
+//   defaultOptions,
+// } from "@karmaniverous/serify-deserify";
 import authReducer from "../features/authSlice";
 import taskReducer from "../features/taskSlice";
 import newTaskReducer from "../features/newTaskSlice";
