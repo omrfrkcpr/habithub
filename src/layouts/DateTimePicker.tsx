@@ -8,11 +8,16 @@ import { setTime } from "../features/dateSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import useDate from "../hooks/useDate";
+import TaskAnalytics from "./TaskAnalytics";
 
-const DateTimePicker = () => {
+const DateTimePicker = ({
+  setValue,
+}: {
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const dispatch = useDispatch();
   const { date, time } = useSelector((state: RootState) => state.date);
-  const handleDateChange = useDate();
+  const handleDateChange = useDate(setValue);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   // useEffect(() => {
@@ -43,7 +48,7 @@ const DateTimePicker = () => {
   // console.log("Time: ", time);
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[450px] z-50">
+    <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[450px] md:h-[620px] z-50">
       <DatePicker
         selected={new Date(date)}
         onChange={handleDateChange}
@@ -51,7 +56,10 @@ const DateTimePicker = () => {
         inline
         minDate={new Date()}
       />
-      <Clock value={currentDate} className="mt-2" />
+      <TaskAnalytics setValue={setValue} />
+      <div className="hidden md:block">
+        <Clock value={currentDate} />
+      </div>
     </div>
   );
 };

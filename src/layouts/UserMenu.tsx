@@ -136,10 +136,10 @@ const UserMenu = ({
         });
 
         if (result.isConfirmed) {
-          await refresh(true);
+          refresh(true);
         }
       } else if (remainingTime === 0) {
-        await logout(false);
+        logout(false);
         navigate("/signin"); // Session expired, redirect user to login page
         toastNotify(
           "info",
@@ -208,7 +208,7 @@ const UserMenu = ({
                   onClick={onClick}
                   sx={{
                     borderTop: value === "Logout" ? 1 : 0,
-                    borderColor: "gray",
+                    borderColor: "#cecece",
                     paddingTop: value === "Logout" ? "8px" : "4px",
                   }}
                 >

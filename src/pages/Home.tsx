@@ -87,30 +87,32 @@ const Home = () => {
   }, [getTodayTasksData]);
 
   // console.log(new Date(new Date().toISOString()).getDate());
-  console.log(todayTasks);
+  // console.log(todayTasks);
 
-  useEffect(() => {
-    if (todayTasks && todayTasks.length > 0) {
-      // Todays tasks for user notification
-      Swal.fire({
-        title: `Today's Tasks`,
-        html: `<ul>${[...todayTasks]
-          .sort((a, b) => b.priority - a.priority)
-          .map(
-            ({ name, priority }: { name: string; priority: number }) =>
-              `<li>${name} ${
-                priority === 1 ? "🚀" : priority === 0 ? "🌟" : "🔥"
-              }</li>`
-          )
-          .join("")}</ul>`,
-        icon: "info",
-        confirmButtonText: "Ok",
-      });
-    }
-  }, [todayTasks]);
+  // useEffect(() => {
+  //   // Todays tasks for user notification
+  //   Swal.fire({
+  //     title: `Today's Tasks`,
+  //     html: `<ul>${[...todayTasks]
+  //       .sort((a, b) => b.priority - a.priority)
+  //       .map(
+  //         ({ name, priority }: { name: string; priority: number }) =>
+  //           `<li>${name} ${
+  //             priority === 1 ? "🚀" : priority === 0 ? "🌟" : "🔥"
+  //           }</li>`
+  //       )
+  //       .join("")}</ul>`,
+  //     icon: "info",
+  //     confirmButtonText: "Ok",
+  //   });
+  // }, [todayTasks]);
 
   return (
-    <div className="relative min-h-screen h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">
+    <div
+      className={`relative min-h-screen ${
+        value === 2 ? "h-[64rem]" : "h-auto"
+      } w-full dark:bg-[#3e284a] transition-colors duration-300`}
+    >
       {/* Hamburger Menu */}
       <div
         className={`md:hidden absolute top-6 left-4 z-50 ${
@@ -143,7 +145,7 @@ const Home = () => {
           </button>
         </div>
         <Logo single={false} />
-        <DateTimePicker />
+        <DateTimePicker setValue={setValue} />
       </div>
 
       {/* Main Content */}
