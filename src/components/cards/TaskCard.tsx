@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import useTodoCalls from "../../hooks/useTodoCalls";
+import useTaskCalls from "../../hooks/useTaskCalls";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 
-const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
-  // console.log(todo);
-  const { updateTodoData } = useTodoCalls();
+const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
+  // console.log(task);
+  const { updateTaskData } = useTaskCalls();
   const { id, name, cardColor, priority, isCompleted, description, tagId } =
-    todo;
+    task;
   const [isDone, setIsDone] = useState<boolean>();
   const descRef = useRef<HTMLSpanElement | null>(null);
 
@@ -15,7 +15,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
     setIsDone(isCompleted);
   }, [isCompleted]);
 
-  const handleCompleteTodoClick = async (
+  const handleCompleteTaskClick = async (
     e: React.MouseEvent<HTMLDivElement>
   ) => {
     if (descRef.current && descRef.current.contains(e.target as Node)) {
@@ -24,11 +24,11 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
     }
 
     // setIsDone((prevState) => !prevState);
-    updateTodoData("todos", id, { isCompleted: !isDone });
+    updateTaskData("tasks", id, { isCompleted: !isDone });
   };
 
   const handleShowDescClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); // Prevent handleCompleteTodoClick from being triggered
+    e.stopPropagation(); // Prevent handleCompleteTaskClick from being triggered
     if (showDesc !== id) {
       setShowDesc(id);
     } else {
@@ -46,7 +46,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
           : priority === -1 && "bg-green-500"
       }`}
       // style={{ backgroundColor: cardColor }}
-      onClick={handleCompleteTodoClick}
+      onClick={handleCompleteTaskClick}
     >
       <div className="me-8">
         <input
@@ -84,4 +84,4 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, showDesc, setShowDesc }) => {
   );
 };
 
-export default TodoCard;
+export default TaskCard;

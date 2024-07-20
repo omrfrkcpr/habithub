@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: NewTodo = {
+const initialState: NewTask = {
   name: "",
   description: "",
   cardColor: "#ADF7B6",
@@ -14,19 +14,19 @@ const initialState: NewTodo = {
   isCompleted: false,
 };
 
-const newTodoSlice = createSlice({
-  name: "newTodo",
+const newTaskSlice = createSlice({
+  name: "newTask",
   initialState,
   reducers: {
-    setNewTodo: (state, action) => {
+    setNewTask: (state, action) => {
       return { ...state, ...action.payload };
     },
-    resetNewTodo: (state) => {
+    resetNewTask: (state) => {
       return initialState;
     },
   },
 });
 
-export const { setNewTodo, resetNewTodo } = newTodoSlice.actions;
+export const { setNewTask, resetNewTask } = newTaskSlice.actions;
 
-export default newTodoSlice.reducer;
+export default newTaskSlice.reducer;

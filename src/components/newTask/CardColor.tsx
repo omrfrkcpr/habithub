@@ -2,14 +2,14 @@ import React from "react";
 import { cardColors } from "../../helpers/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
-import { setNewTodo } from "../../features/newTodoSlice";
+import { setNewTask } from "../../features/newTaskSlice";
 
 const CardColor = () => {
-  const newTodo = useSelector((state: RootState) => state.newTodo);
+  const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
 
   const handleCardColorClick = (color: string) => {
-    dispatch(setNewTodo({ ...newTodo, cardColor: color }));
+    dispatch(setNewTask({ ...newTask, cardColor: color }));
   };
 
   return (
@@ -23,13 +23,13 @@ const CardColor = () => {
             key={color}
             style={{ backgroundColor: color }}
             className={`w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full text-xs md:text-[16px] cursor-pointer border-[1px] md:border-[3px] font-bold ${
-              newTodo.cardColor === color
+              newTask.cardColor === color
                 ? "border-black/60 dark:border-[#EDEAEA]"
                 : "border-[#EDEAEA] dark:border-none"
             }`}
             onClick={() => handleCardColorClick(color)}
           >
-            {newTodo.cardColor === color && "X"}
+            {newTask.cardColor === color && "X"}
           </button>
         ))}
       </div>

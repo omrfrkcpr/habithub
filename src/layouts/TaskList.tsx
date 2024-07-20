@@ -3,35 +3,35 @@ import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
 import nothing from "../assets/NotFound.png";
 import { formatDateString } from "../helpers/functions";
-import TodoCard from "../components/cards/TodoCard";
+import TaskCard from "../components/cards/TaskCard";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import useTodoCalls from "../hooks/useTodoCalls";
+import useTaskCalls from "../hooks/useTaskCalls";
 
-const TodoList = () => {
+const TaskList = () => {
   const { date } = useSelector((state: RootState) => state.date);
-  const { todos } = useSelector((state: RootState) => state.todo);
-  const { updateTodoData } = useTodoCalls();
+  const { tasks } = useSelector((state: RootState) => state.task);
+  const { updateTaskData } = useTaskCalls();
   const [showDesc, setShowDesc] = useState<string>("");
 
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
 
     const { destination, draggableId } = result;
-    const draggedTodo = todos.find((todo: Todo) => todo.id === draggableId);
+    const draggedTask = tasks.find((task: Task) => task.id === draggableId);
 
-    if (draggedTodo) {
+    if (draggedTask) {
       const newPriority =
         destination.droppableId === "Urgent 🚀"
           ? 1
           : destination.droppableId === "Important 🌟"
           ? 0
           : -1;
-      updateTodoData("todos", draggedTodo.id, { priority: newPriority });
+      updateTaskData("tasks", draggedTask.id, { priority: newPriority });
     }
   };
 
-  const getFilteredTodos = (priority: number) => {
-    return todos.filter((todo: Todo) => todo.priority === priority);
+  const getFilteredTasks = (priority: number) => {
+    return tasks.filter((task: Task) => task.priority === priority);
   };
 
   return (
@@ -39,7 +39,7 @@ const TodoList = () => {
       <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 py-1 my-4">
         {formatDateString(date)}
       </h1>
-      {todos.length ? (
+      {tasks.length ? (
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="flex flex-col xl:flex-row gap-2">
             {["Urgent 🚀", "Important 🌟", "Do Later 🔥"].map(
@@ -80,11 +80,11 @@ const TodoList = () => {
                           {column}
                         </h2>
                         <ul className="space-y-2">
-                          {getFilteredTodos(priority).map(
-                            (todo: Todo, index: number) => (
+                          {getFilteredTasks(priority).map(
+                            (task: Task, index: number) => (
                               <Draggable
-                                key={todo.id}
-                                draggableId={todo.id.toString()}
+                                key={task.id}
+                                draggableId={task.id.toString()}
                                 index={index}
                               >
                                 {(provided: any) => (
@@ -93,8 +93,8 @@ const TodoList = () => {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                   >
-                                    <TodoCard
-                                      todo={todo}
+                                    <TaskCard
+                                      task={task}
                                       showDesc={showDesc}
                                       setShowDesc={setShowDesc}
                                     />
@@ -129,4 +129,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default TaskList;

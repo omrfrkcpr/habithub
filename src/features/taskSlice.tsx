@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: TodoSliceStateValues = {
-  todos: [],
+const initialState: TaskSliceStateValues = {
+  tasks: [],
   tags: [],
-  todayTodos: [],
-  tagTodos: [],
+  todayTasks: [],
+  tagTasks: [],
   loading: false,
   error: false,
 };
 
-const todoSlice = createSlice({
-  name: "todo",
+const taskSlice = createSlice({
+  name: "task",
 
   initialState,
 
@@ -24,13 +24,13 @@ const todoSlice = createSlice({
       state.loading = false;
       state[url] = data;
     },
-    setTagTodos: (state, { payload }) => {
+    setTagTasks: (state, { payload }) => {
       state.loading = false;
-      state.tagTodos = payload.data;
+      state.tagTasks = payload.data;
     },
-    setTodayTodos: (state, { payload }) => {
+    setTodayTasks: (state, { payload }) => {
       state.loading = false;
-      state.todayTodos = payload.data;
+      state.todayTasks = payload.data;
     },
     fetchFail: (state) => {
       state.loading = false;
@@ -39,6 +39,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { fetchStart, setSuccess, setTagTodos, setTodayTodos, fetchFail } =
-  todoSlice.actions;
-export default todoSlice.reducer;
+export const { fetchStart, setSuccess, setTagTasks, setTodayTasks, fetchFail } =
+  taskSlice.actions;
+export default taskSlice.reducer;

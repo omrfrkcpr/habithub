@@ -5,22 +5,22 @@ import {
   fetchStart,
   fetchFail,
   setSuccess,
-  setTagTodos,
-  setTodayTodos,
-} from "../features/todoSlice";
+  setTagTasks,
+  setTodayTasks,
+} from "../features/taskSlice";
 import {
-  getTodoUpdateSuccessMessage,
+  getTaskUpdateSuccessMessage,
   singularizeAndCapitalize,
 } from "../helpers/functions";
 import showSwal from "../helpers/showSwal";
 
-const useTodoCalls = () => {
+const useTaskCalls = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
   // const { currentUser } = useSelector((state: RootState) => state.auth);
   const { date } = useSelector((state: RootState) => state.date);
 
-  const getTodoData = async (url: string, search: string = "") => {
+  const getTaskData = async (url: string, search: string = "") => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(`${url}${search}`);
@@ -28,10 +28,10 @@ const useTodoCalls = () => {
       dispatch(setSuccess({ data: data?.data, url }));
 
       if (
-        url === "todos" &&
+        url === "tasks" &&
         new Date(date).getDate() === new Date().getDate()
       ) {
-        dispatch(setTodayTodos({ data: data?.data }));
+        dispatch(setTodayTasks({ data: data?.data }));
       }
     } catch (error) {
       console.log(error);
@@ -39,33 +39,33 @@ const useTodoCalls = () => {
     }
   };
 
-  const getTagTodoData = async (tagId: string) => {
+  const getTagTaskData = async (tagId: string) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken(`tags/${tagId}/todos`);
+      const { data } = await axiosWithToken(`tags/${tagId}/tasks`);
       console.log(data);
-      dispatch(setTagTodos({ data: data?.data }));
+      dispatch(setTagTasks({ data: data?.data }));
     } catch (error) {
       console.log(error);
       dispatch(fetchFail());
     }
   };
 
-  const getTodayTodosData = async () => {
+  const getTodayTasksData = async () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(
-        `todos?date=${new Date().toISOString()}`
+        `tasks?date=${new Date().toISOString()}`
       );
       console.log(data);
-      dispatch(setTodayTodos({ data: data?.data }));
+      dispatch(setTodayTasks({ data: data?.data }));
     } catch (error) {
       console.log(error);
       dispatch(fetchFail());
     }
   };
 
-  const deleteTodoData = async (url: string, id: string) => {
+  const deleteTaskData = async (url: string, id: string) => {
     const result = await showSwal({
       title: "Are you sure?",
       text: `This ${singularizeAndCapitalize(
@@ -94,16 +94,16 @@ const useTodoCalls = () => {
         });
         dispatch(fetchFail());
       } finally {
-        getTodoData(url, url === "todos" ? `?date=${date}` : "");
+        getTaskData(url, url === "tasks" ? `?date=${date}` : "");
       }
     }
   };
 
-  const updateTodoData = async (url: string, id: string, todoInfo: any) => {
+  const updateTaskData = async (url: string, id: string, taskInfo: any) => {
     dispatch(fetchStart());
     try {
-      await axiosWithToken.put(`${url}/${id}`, todoInfo);
-      const updateMessage = getTodoUpdateSuccessMessage(todoInfo);
+      await axiosWithToken.put(`${url}/${id}`, taskInfo);
+      const updateMessage = getTaskUpdateSuccessMessage(taskInfo);
       if (updateMessage) {
         await showSwal({
           title: "Updated!",
@@ -120,13 +120,13 @@ const useTodoCalls = () => {
       });
       dispatch(fetchFail());
     } finally {
-      getTodoData(url, url === "todos" ? `?date=${date}` : "");
+      getTaskData(url, url === "tasks" ? `?date=${date}` : "");
     }
   };
 
-  const createTodoData = async (
+  const createTaskData = async (
     url: string,
-    todoInfo: object,
+    taskInfo: object,
     showNotify: boolean
   ) => {
     if (showNotify) {
@@ -145,7 +145,7 @@ const useTodoCalls = () => {
 
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken.post(url, todoInfo);
+      const { data } = await axiosWithToken.post(url, taskInfo);
       if (showNotify) {
         await showSwal({
           title: "Created!",
@@ -167,18 +167,18 @@ const useTodoCalls = () => {
       }
       dispatch(fetchFail());
     } finally {
-      getTodoData(url, url === "todos" ? `?date=${date}` : "");
+      getTaskData(url, url === "tasks" ? `?date=${date}` : "");
     }
   };
 
   return {
-    getTodoData,
-    getTagTodoData,
-    getTodayTodosData,
-    deleteTodoData,
-    updateTodoData,
-    createTodoData,
+    getTaskData,
+    getTagTaskData,
+    getTodayTasksData,
+    deleteTaskData,
+    updateTaskData,
+    createTaskData,
   };
 };
 
-export default useTodoCalls;
+export default useTaskCalls;

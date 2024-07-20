@@ -15,8 +15,8 @@ import {
   defaultOptions,
 } from "@karmaniverous/serify-deserify";
 import authReducer from "../features/authSlice";
-import todoReducer from "../features/todoSlice";
-import newTodoReducer from "../features/newTodoSlice";
+import taskReducer from "../features/taskSlice";
+import newTaskReducer from "../features/newTaskSlice";
 import themeReducer from "../features/themeSlice";
 import dateReducer from "../features/dateSlice";
 
@@ -33,8 +33,8 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
   reducer: {
     auth: persistedReducer,
-    todo: todoReducer,
-    newTodo: newTodoReducer,
+    task: taskReducer,
+    newTask: newTaskReducer,
     theme: themeReducer,
     date: dateReducer,
   },

@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import PriorityBtn from "../buttons/PriorityBtn";
 import { priorities } from "../../helpers/constants";
-import { setNewTodo } from "../../features/newTodoSlice";
+import { setNewTask } from "../../features/newTaskSlice";
 import { RootState } from "../../app/store";
 
 const TagAndPriority = () => {
-  const newTodo = useSelector((state: RootState) => state.newTodo);
-  const { tags } = useSelector((state: RootState) => state.todo);
+  const newTask = useSelector((state: RootState) => state.newTask);
+  const { tags } = useSelector((state: RootState) => state.task);
   const dispatch = useDispatch();
 
   // const [availableTags] = useState([
@@ -20,12 +20,12 @@ const TagAndPriority = () => {
   // console.log(tags);
 
   const handleTagClick = (tagName: string) => {
-    dispatch(setNewTodo({ ...newTodo, tagId: tagName }));
+    dispatch(setNewTask({ ...newTask, tagId: tagName }));
   };
 
   const handleTagRemove = () => {
-    if (newTodo.tagId) {
-      dispatch(setNewTodo({ ...newTodo, tagId: "" }));
+    if (newTask.tagId) {
+      dispatch(setNewTask({ ...newTask, tagId: "" }));
     }
   };
 
@@ -55,21 +55,21 @@ const TagAndPriority = () => {
           successfully add a new tag, please press Enter after typing.
         </p>
         <TagsInput
-          value={newTodo.tagId.name ? [newTodo.tagId.name] : []}
+          value={newTask.tagId.name ? [newTask.tagId.name] : []}
           onChange={(tags) => {
             if (tags.length > 0) {
-              dispatch(setNewTodo({ ...newTodo, tagId: tags[0] }));
+              dispatch(setNewTask({ ...newTask, tagId: tags[0] }));
             }
           }}
           name="tag"
-          placeHolder={newTodo.tagId ? "✔️" : "Set a tag"}
+          placeHolder={newTask.tagId ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
           classNames={{ tag: "tag-cls", input: "input-cls" }}
         />
         <div className="flex flex-wrap gap-2 mt-4">
           {tags
             .filter(
-              (tag: TagValues) => (tag.name || tag.id) !== newTodo.tagId.name
+              (tag: TagValues) => (tag.name || tag.id) !== newTask.tagId.name
             )
             .map(({ name, id }) => (
               <button

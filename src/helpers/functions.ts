@@ -228,13 +228,13 @@ export const formatTime = (seconds: number) => {
   ).padStart(2, "0")}`;
 };
 
-export const getTodoUpdateSuccessMessage = (todoInfo: any) => {
-  const { isCompleted, name, description, priority } = todoInfo;
+export const getTaskUpdateSuccessMessage = (taskInfo: any) => {
+  const { isCompleted, name, description, priority } = taskInfo;
 
   if (isCompleted) {
     return "Super! You've completed this task!";
   } else if (name && description) {
-    return "Todo successfully edited!";
+    return "Task successfully edited!";
   }
   // else if (priority) {
   //   return "Priority updated!";

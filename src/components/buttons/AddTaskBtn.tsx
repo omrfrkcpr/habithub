@@ -1,7 +1,7 @@
 import React from "react";
 import { IoAddOutline } from "react-icons/io5";
 
-const AddTodoBtn = ({
+const AddTaskBtn = ({
   value,
   setValue,
 }: {
@@ -24,4 +24,4 @@ const AddTodoBtn = ({
   );
 };
 
-export default AddTodoBtn;
+export default AddTaskBtn;

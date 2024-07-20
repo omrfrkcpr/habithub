@@ -2,17 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import DateTimePicker from "../layouts/DateTimePicker";
 import Logo from "../components/commons/Logo";
 import UserMenu from "../layouts/UserMenu";
-import AddTodoBtn from "../components/buttons/AddTodoBtn";
-import TodoList from "../layouts/TodoList";
+import AddTaskBtn from "../components/buttons/AddTaskBtn";
+import TaskList from "../layouts/TaskList";
 import { MdMenu, MdClose } from "react-icons/md";
-import NewTodo from "../layouts/NewTodo";
+import NewTask from "../layouts/NewTask";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import TagLists from "../layouts/TagLists";
-import useTodoCalls from "../hooks/useTodoCalls";
+import useTaskCalls from "../hooks/useTaskCalls";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -21,8 +21,8 @@ const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<number>(0);
-  const { getTodoData, getTodayTodosData } = useTodoCalls();
-  const { todayTodos } = useSelector((state: RootState) => state.todo);
+  const { getTaskData, getTodayTasksData } = useTaskCalls();
+  const { todayTasks } = useSelector((state: RootState) => state.task);
   const { date } = useSelector((state: RootState) => state.date);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -46,8 +46,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    getTodoData("todos", `?date=${date}`);
-    getTodoData("tags");
+    getTaskData("tasks", `?date=${date}`);
+    getTaskData("tags");
   }, []);
 
   // Ref to store previous date
@@ -61,13 +61,13 @@ const Home = () => {
       const previousDay = previousDateRef.current.getDate();
       const currentDay = currentDate.getDate();
       if (currentDay !== previousDay) {
-        getTodoData("todos", `?date=${date}`);
+        getTaskData("tasks", `?date=${date}`);
         previousDateRef.current = currentDate; // update the previousDateRef to current date
       }
     }
-  }, [date, getTodoData]);
+  }, [date, getTaskData]);
 
-  // New useEffect to track day change for getTodayTodosData
+  // New useEffect to track day change for getTodayTasksData
   const previousDayRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -77,24 +77,24 @@ const Home = () => {
         previousDayRef.current = currentDay;
       } else {
         if (currentDay !== previousDayRef.current) {
-          getTodayTodosData();
+          getTodayTasksData();
           previousDayRef.current = currentDay; // update the previousDayRef to current day
         }
       }
     }, 1000); // Check every second
 
     return () => clearInterval(checkDayChange);
-  }, [getTodayTodosData]);
+  }, [getTodayTasksData]);
 
   // console.log(new Date(new Date().toISOString()).getDate());
-  console.log(todayTodos);
+  console.log(todayTasks);
 
   useEffect(() => {
-    if (todayTodos && todayTodos.length > 0) {
-      // Todays todos for user notification
+    if (todayTasks && todayTasks.length > 0) {
+      // Todays tasks for user notification
       Swal.fire({
-        title: `Today's Todos`,
-        html: `<ul>${[...todayTodos]
+        title: `Today's Tasks`,
+        html: `<ul>${[...todayTasks]
           .sort((a, b) => b.priority - a.priority)
           .map(
             ({ name, priority }: { name: string; priority: number }) =>
@@ -107,7 +107,7 @@ const Home = () => {
         confirmButtonText: "Ok",
       });
     }
-  }, [todayTodos]);
+  }, [todayTasks]);
 
   return (
     <div className="relative min-h-screen h-[59rem] w-full dark:bg-[#3e284a] transition-colors duration-300">
@@ -149,7 +149,7 @@ const Home = () => {
       {/* Main Content */}
       <div className="w-full h-[40rem] p-4 flex justify-end relative">
         <UserMenu setValue={setValue} />
-        <AddTodoBtn value={value} setValue={setValue} />
+        <AddTaskBtn value={value} setValue={setValue} />
       </div>
 
       <div className="absolute top-[50px] md:top-[80px] md:right-10 w-[90vw] h-[38rem] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-360px)]">
@@ -174,7 +174,7 @@ const Home = () => {
               icon={<FormatListBulletedIcon />}
               iconPosition="start"
               className="dark:text-white w-[100px]"
-              label="Todos"
+              label="Tasks"
             />
             <Tab
               icon={<PlaylistAddCheckIcon />}
@@ -186,12 +186,12 @@ const Home = () => {
               icon={<PlaylistAddIcon />}
               iconPosition="start"
               className="dark:text-white w-[fit-content]"
-              label="New Todo"
+              label="New Task"
             />
           </Tabs>
-          {value === 0 && <TodoList />}
+          {value === 0 && <TaskList />}
           {value === 1 && <TagLists />}
-          {value === 2 && <NewTodo />}
+          {value === 2 && <NewTask />}
         </div>
       </div>
     </div>

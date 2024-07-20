@@ -3,82 +3,82 @@ import { useDispatch, useSelector } from "react-redux";
 import SaveIcon from "@mui/icons-material/Save";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ActionBtn from "../buttons/ActionBtn";
-import { resetNewTodo } from "../../features/newTodoSlice";
+import { resetNewTask } from "../../features/newTaskSlice";
 // import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
 import { RootState } from "../../app/store";
-import useTodoCalls from "../../hooks/useTodoCalls";
-import { setNewTodo } from "../../features/newTodoSlice";
+import useTaskCalls from "../../hooks/useTaskCalls";
+import { setNewTask } from "../../features/newTaskSlice";
 
 const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const dispatch = useDispatch();
-  const newTodo = useSelector((state: RootState) => state.newTodo);
-  const { tags } = useSelector((state: RootState) => state.todo);
+  const newTask = useSelector((state: RootState) => state.newTask);
+  const { tags } = useSelector((state: RootState) => state.task);
   const { currentUser } = useSelector((state: RootState) => state.auth);
-  const { createTodoData } = useTodoCalls();
+  const { createTaskData } = useTaskCalls();
   const { date } = useSelector((state: RootState) => state.date);
 
-  console.log(newTodo);
+  console.log(newTask);
 
-  const handleResetNewTodo = () => {
-    dispatch(resetNewTodo());
+  const handleResetNewTask = () => {
+    dispatch(resetNewTask());
     setChecked(false);
   };
-  const handleSaveNewTodo = async () => {
+  const handleSaveNewTask = async () => {
     let editedTagId = "";
     // Mevcut tags listesinde eşleşen bir tag arayın
     const existingTag = tags.find(
-      (tag: TagValues) => tag.name === newTodo.tagId.name
+      (tag: TagValues) => tag.name === newTask.tagId.name
     );
 
     if (existingTag) {
       editedTagId = existingTag?.id || "";
     } else {
       // Eşleşen bir tag yoksa, yeni bir tag oluşturun
-      await createTodoData(
+      await createTaskData(
         "tags",
         {
-          name: newTodo.tagId,
+          name: newTask.tagId,
           userId: currentUser?.id,
         },
         false
       );
       const createdTag = tags.find(
-        (tag: TagValues) => tag.name === newTodo.tagId.name
+        (tag: TagValues) => tag.name === newTask.tagId.name
       );
       editedTagId = createdTag?.id || "";
     }
 
-    if (!newTodo.dueDates.length) {
-      dispatch(setNewTodo({ ...newTodo, dueDates: [date] }));
+    if (!newTask.dueDates.length) {
+      dispatch(setNewTask({ ...newTask, dueDates: [date] }));
     }
 
-    //! Dont forget to convert dueDates before creating a new todo
-    // const deserializedDueDates = deserify(newTodo.dueDates, defaultOptions);
+    //! Dont forget to convert dueDates before creating a new task
+    // const deserializedDueDates = deserify(newTask.dueDates, defaultOptions);
     // console.log("Deserialized dueDates:", deserializedDueDates);
 
-    const newTodoInfo = {
-      ...newTodo,
+    const newTaskInfo = {
+      ...newTask,
       tagId: editedTagId,
       // dueDates: deserializedDueDates,
       userId: currentUser?.id,
     };
 
-    createTodoData("todos", newTodoInfo, true);
+    createTaskData("tasks", newTaskInfo, true);
 
-    handleResetNewTodo();
+    handleResetNewTask();
   };
 
   return (
     <div className="flex gap-3 justify-center md:justify-center items-center md:me-10 pt-5 pb-10 md:py-10 md:w-[fit-content] md:ms-auto">
       <ActionBtn
-        onClick={handleResetNewTodo}
+        onClick={handleResetNewTask}
         loading={false}
         icon={<RestartAltIcon sx={{ color: "white" }} />}
         label="Reset"
         color="orange"
       />
       <ActionBtn
-        onClick={handleSaveNewTodo}
+        onClick={handleSaveNewTask}
         loading={false}
         icon={<SaveIcon sx={{ color: "white" }} />}
         label="Save"

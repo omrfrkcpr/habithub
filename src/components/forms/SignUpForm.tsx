@@ -136,7 +136,7 @@ const SignUpForm = () => {
         Get started with your account
       </h3>
       <p className="w-[95%] md:w-[80%] mx-auto text-[10px] md:text-[12px] font-light text-center">
-        Track your habits. Achieve your goals. Do it all with HabitHub's Todo
+        Track your habits. Achieve your goals. Do it all with HabitHub's Task
         Management Platform. Already have an account?{" "}
         <span
           onClick={() => navigate("/signin")}

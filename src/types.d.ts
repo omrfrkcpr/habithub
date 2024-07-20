@@ -97,7 +97,7 @@ interface ThemeState {
   darkMode: boolean;
 }
 
-interface NewTodo {
+interface NewTask {
   name: string;
   description: string;
   cardColor: string;
@@ -111,7 +111,7 @@ interface NewTodo {
   isCompleted: false;
 }
 
-interface Todo extends NewTodo {
+interface Task extends NewTask {
   id: string;
 }
 
@@ -168,18 +168,18 @@ interface TagValues {
   name: string;
 }
 
-interface TodoSliceStateValues {
-  todos: Todo[];
+interface TaskSliceStateValues {
+  tasks: Task[];
   tags: TagValues[];
-  todayTodos: Todo[];
-  tagTodos: Todo[];
+  todayTasks: Task[];
+  tagTasks: Task[];
   loading: boolean;
   error: boolean;
 }
 
 type showDesc = string;
-interface TodoCardProps {
-  todo: Todo;
+interface TaskCardProps {
+  task: Task;
   showDesc: showDesc;
   setShowDesc: React.Dispatch<React.SetStateAction<showDesc>>;
 }

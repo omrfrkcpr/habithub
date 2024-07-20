@@ -43,7 +43,7 @@ const UserMenu = ({
 
   const settings = [
     {
-      value: "My Todos",
+      value: "My Tasks",
       onClick: () => {
         setValue(0);
         handleCloseUserMenu();

@@ -2,16 +2,16 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import CardColor from "../components/newTodo/CardColor";
-import Repeat from "../components/newTodo/Repeat";
-import TagAndPriority from "../components/newTodo/TagAndPriority";
-import ActionBtns from "../components/newTodo/ActionBtns";
+import CardColor from "../components/newTask/CardColor";
+import Repeat from "../components/newTask/Repeat";
+import TagAndPriority from "../components/newTask/TagAndPriority";
+import ActionBtns from "../components/newTask/ActionBtns";
 import ExampleCustomInput from "../components/inputs/ExampleCustumInput";
 import { RootState } from "../app/store";
-import { setNewTodo } from "../features/newTodoSlice";
+import { setNewTask } from "../features/newTaskSlice";
 
-const NewTodo = () => {
-  const newTodo = useSelector((state: RootState) => state.newTodo);
+const NewTask = () => {
+  const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
 
   const [startDate, setStartDate] = useState(new Date());
@@ -19,31 +19,31 @@ const NewTodo = () => {
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const updatedDueDates = [date.toISOString(), ...newTodo.dueDates]; // Add new date to the beginning
-      dispatch(setNewTodo({ ...newTodo, dueDates: updatedDueDates }));
+      const updatedDueDates = [date.toISOString(), ...newTask.dueDates]; // Add new date to the beginning
+      dispatch(setNewTask({ ...newTask, dueDates: updatedDueDates }));
       setStartDate(date); // Update startDate to the selected date
     }
   };
 
-  console.log(newTodo);
+  console.log(newTask);
 
   return (
     <div className="mt-5 absolute">
       <input
         type="text"
         placeholder="Name your new task"
-        value={newTodo.name}
+        value={newTask.name}
         onChange={(e) =>
-          dispatch(setNewTodo({ ...newTodo, name: e.target.value }))
+          dispatch(setNewTask({ ...newTask, name: e.target.value }))
         }
         className="bg-habit-light-gray dark:bg-[#5e436c] placeholder:dark:text-white/80 w-full py-2 px-2 outline-none text-[12px] md:text-[16px] rounded-[8px] my-2"
       />
       <input
         type="text"
         placeholder="Describe your new task"
-        value={newTodo.description}
+        value={newTask.description}
         onChange={(e) =>
-          dispatch(setNewTodo({ ...newTodo, description: e.target.value }))
+          dispatch(setNewTask({ ...newTask, description: e.target.value }))
         }
         className="bg-habit-light-gray dark:bg-[#5e436c] placeholder:dark:text-white/80 w-full py-2 px-2 outline-none text-[12px] md:text-[16px] rounded-[8px] mt-2 mb-5"
       />
@@ -77,4 +77,4 @@ const NewTodo = () => {
   );
 };
 
-export default NewTodo;
+export default NewTask;

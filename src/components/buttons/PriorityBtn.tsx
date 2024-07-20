@@ -1,22 +1,22 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
-import { setNewTodo } from "../../features/newTodoSlice";
+import { setNewTask } from "../../features/newTaskSlice";
 
 const PriorityBtn: React.FC<PriorityBtn> = ({ priority }) => {
-  const newTodo = useSelector((state: RootState) => state.newTodo);
+  const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
 
   const { value, label } = priority;
 
   const handlePriorityClick = (value: number) => {
-    dispatch(setNewTodo({ ...newTodo, priority: value }));
+    dispatch(setNewTask({ ...newTask, priority: value }));
   };
 
   return (
     <button
       className={`capitalize flex-1 py-1 text-[12px] md:text-[16px] rounded-full ${
-        newTodo.priority === value
+        newTask.priority === value
           ? "bg-gray-400 text-white"
           : "hover:text-black/60 text-black"
       }`}
