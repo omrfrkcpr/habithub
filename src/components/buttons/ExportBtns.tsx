@@ -66,13 +66,13 @@ const ExportBtns = () => {
     <div className="w-full">
       <button
         onClick={handleExportDocx}
-        className="px-4 py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px]"
+        className="py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px]"
       >
         Export as DOCX
       </button>
       <button
         onClick={handleExportPdf}
-        className="px-4 py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px]"
+        className="py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px]"
       >
         Export as PDF
       </button>

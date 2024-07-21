@@ -89,7 +89,7 @@ const TaskList = () => {
             {showExport && (
               <div
                 ref={exportRef}
-                className="clip-message-box2 absolute right-0 top-9 w-[140px] z-50 bg-[#ededed]"
+                className="clip-message-box2 absolute right-0 top-7 md:top-9 w-[90px] md:w-[120px] z-50 bg-[#ededed]"
               >
                 <ExportBtns />
               </div>
