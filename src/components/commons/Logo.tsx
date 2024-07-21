@@ -6,7 +6,7 @@ function Logo({ single }: { single: boolean }) {
   const navigate = useNavigate();
   return (
     <div
-      className="flex gap-1 justify-center items-center"
+      className="flex gap-1 justify-center items-center mt-2"
       onClick={() => navigate("/")}
     >
       <img

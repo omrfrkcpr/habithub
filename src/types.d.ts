@@ -172,9 +172,21 @@ interface TaskSliceStateValues {
   tasks: Task[];
   tags: TagValues[];
   todayTasks: Task[];
+  todayTaskDetails: Array;
   tagTasks: Task[];
   loading: boolean;
   error: boolean;
+}
+
+interface ListValues {
+  tagId: string;
+  name: string;
+  count: number;
+}
+
+interface TodayTaskDetails {
+  lists: ListValues[];
+  total: number;
 }
 
 type showDesc = string;

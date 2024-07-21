@@ -130,7 +130,7 @@ const Home = () => {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed min-h-[100vh] h-[40rem] flex flex-col p-3 z-50 border-r bg-white border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#311a3e] transition-transform duration-300 transform ${
+        className={`fixed min-h-[100vh] h-[40rem] flex flex-col z-50 border-r bg-white border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#311a3e] transition-transform duration-300 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 w-[280px]`}
         id="desktop-sidebar"
@@ -139,9 +139,9 @@ const Home = () => {
         <div className="md:hidden flex justify-end">
           <button
             onClick={() => setSidebarOpen(false)}
-            className="text-black hover:text-black/60 dark:text-habit-white dark:hover:text-habit-white/50"
+            className="text-black/70 hover:text-black/40 dark:text-habit-white dark:hover:text-habit-white/50 mt-1 me-1"
           >
-            <MdClose size={30} />
+            <MdClose className="w-6 h-6" />
           </button>
         </div>
         <Logo single={false} />

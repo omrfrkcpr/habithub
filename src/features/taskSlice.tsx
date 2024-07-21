@@ -5,6 +5,7 @@ const initialState: TaskSliceStateValues = {
   tasks: [],
   tags: [],
   todayTasks: [],
+  todayTaskDetails: [],
   tagTasks: [],
   loading: false,
   error: false,
@@ -30,7 +31,8 @@ const taskSlice = createSlice({
     },
     setTodayTasks: (state, { payload }) => {
       state.loading = false;
-      state.todayTasks = payload.data;
+      state.todayTasks = payload.data?.data;
+      state.todayTaskDetails = payload.data?.details;
     },
     fetchFail: (state) => {
       state.loading = false;

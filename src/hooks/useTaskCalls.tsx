@@ -31,7 +31,7 @@ const useTaskCalls = () => {
         url === "tasks" &&
         new Date(date).getDate() === new Date().getDate()
       ) {
-        dispatch(setTodayTasks({ data: data?.data }));
+        dispatch(setTodayTasks({ data }));
       }
     } catch (error) {
       console.log(error);

@@ -48,16 +48,18 @@ const DateTimePicker = ({
   // console.log("Time: ", time);
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 w-[250px] h-[450px] md:h-[620px] z-50">
-      <DatePicker
-        selected={new Date(date)}
-        onChange={handleDateChange}
-        dateFormat="MMMM d, yyyy"
-        inline
-        minDate={new Date()}
-      />
+    <div className="flex flex-col mx-auto items-center justify-center space-y-4 w-full h-[450px] md:h-[450px] z-50">
+      <div>
+        <DatePicker
+          selected={new Date(date)}
+          onChange={handleDateChange}
+          dateFormat="MMMM d, yyyy"
+          inline
+          minDate={new Date()}
+        />
+      </div>
       <TaskAnalytics setValue={setValue} />
-      <div className="hidden md:block">
+      <div className="hidden lg:block absolute bottom-6">
         <Clock value={currentDate} />
       </div>
     </div>
