@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import useTaskCalls from "../../hooks/useTaskCalls";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
+import TaskCardSettingBtns from "../buttons/TaskCardSettingBtns";
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
   // console.log(task);
@@ -56,29 +57,34 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
           readOnly
         />
         <span
+          style={{ backgroundColor: cardColor }}
           className={`${
             isDone ? "line-through text-black/30" : "text-white"
-          } text-[12px] md:text-[16px]`}
+          } text-[12px] md:text-[16px] p-1`}
         >
           {name}
         </span>
-
-        <button
-          onClick={handleShowDescClick}
-          className="absolute right-3 top-3 cursor-pointer hover:text-black/60"
-        >
-          {showDesc === id ? <IoIosArrowUp /> : <IoIosArrowDown />}
-        </button>
+        <div className="absolute right-3 top-2 flex gap-2 justify-center items-center">
+          <TaskCardSettingBtns />
+          <button
+            onClick={handleShowDescClick}
+            className="cursor-pointer hover:text-black/60"
+          >
+            {showDesc === id ? <IoIosArrowUp /> : <IoIosArrowDown />}
+          </button>
+        </div>
       </div>
       <div
-        className={`ms-[20px] flex flex-col transition-all duration-500 ease-in-out transform origin-top overflow-hidden text-[10px] md:text-[14px] ${
+        className={`ms-[20px] flex transition-all duration-500 ease-in-out transform origin-top overflow-hidden text-[10px] md:text-[14px] relative ${
           isDone && "line-through text-black/30"
         } ${showDesc === id ? "max-h-auto opacity-100" : "max-h-0 opacity-0"}`}
       >
-        <span className="bg-black/70 text-white w-[fit-content] px-2 py-1 ms-auto rounded-full mt-2 text-[9px] md:text-[11px]">
+        <span ref={descRef} className="mt-2 me-[100px]">
+          {description}
+        </span>
+        <span className="bg-black/70 text-white absolute w-[fit-content] top-1 right-0  px-2 py-1 ms-auto rounded-full text-[9px] md:text-[11px]">
           {tagId?.name}
         </span>
-        <span ref={descRef}>{description}</span>
       </div>
     </div>
   );
