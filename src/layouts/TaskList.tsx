@@ -71,13 +71,13 @@ const TaskList = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 py-1 my-4">
+    <div className="pb-20 md:pb-0">
+      <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 pt-1 my-4">
         {formatDateString(date)}
       </h1>
       {tasks.length > 0 && (
         <>
-          <div className="absolute top-[80px] right-14 md:top-[77px]">
+          <div className="absolute top-[75px] right-7 md:right-14 md:top-[77px]">
             <button
               ref={exportBtnRef}
               onClick={() => setShowExports((prevState) => !prevState)}
@@ -95,7 +95,7 @@ const TaskList = () => {
               </div>
             )}
           </div>
-          <div className="absolute top-[80px] right-2 md:top-[77px] md:right-5">
+          <div className="absolute top-[75px] right-0 md:top-[77px] md:right-5">
             <button
               ref={descButtonRef}
               onClick={() => setShowInfo((prevState) => !prevState)}
