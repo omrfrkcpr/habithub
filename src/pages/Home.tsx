@@ -15,14 +15,14 @@ import TagLists from "../layouts/TagLists";
 import useTaskCalls from "../hooks/useTaskCalls";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<number>(0);
   const { getTaskData, getTodayTasksData } = useTaskCalls();
-  const { todayTasks } = useSelector((state: RootState) => state.task);
+  // const { todayTasks } = useSelector((state: RootState) => state.task);
   const { date } = useSelector((state: RootState) => state.date);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

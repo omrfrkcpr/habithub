@@ -11,29 +11,30 @@ const AuthSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getUser = async () => {
-    dispatch(fetchStart());
-    try {
-      const url = `http://127.0.0.1:8000/auth/login/success`;
-      const { data } = await axios.get(url, { withCredentials: true });
-      console.log(data);
-      dispatch(loginSuccess(data));
-      toastNotify("success", data.message);
-      navigate("/contract");
-    } catch (err: any) {
-      console.log(err);
-      toastNotify("success", err?.response?.data?.message);
-      dispatch(fetchFail());
-    }
-  };
+  useEffect(() => {
+    const getUser = async () => {
+      dispatch(fetchStart());
+      try {
+        const url = `http://127.0.0.1:8000/auth/login/success`;
+        const { data } = await axios.get(url, { withCredentials: true });
+        console.log(data);
+        dispatch(loginSuccess(data));
+        toastNotify("success", data.message);
+        navigate("/contract");
+      } catch (err: any) {
+        console.log(err);
+        // toastNotify("error", err?.response?.data?.message);
+        dispatch(fetchFail());
+      }
+    };
+    getUser();
+  }, []);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const auth = queryParams.get("auth");
+    const provider = queryParams.get("provider");
 
-    if (auth) {
-      getUser();
-    } else {
+    if (!provider) {
       navigate("/signin"); // Redirect to signin if successUrl param is missing
     }
   }, [location.search]);
@@ -53,13 +54,13 @@ const AuthSuccess = () => {
 
 const getServiceName = () => {
   const queryParams = new URLSearchParams(window.location.search);
-  const auth = queryParams.get("auth");
+  const provider = queryParams.get("provider");
 
-  if (auth === "google") {
+  if (provider === "google") {
     return "Google";
-  } else if (auth === "github") {
+  } else if (provider === "github") {
     return "Github";
-  } else if (auth === "twitter") {
+  } else if (provider === "twitter") {
     return "Twitter";
   } else {
     return "the social service";
