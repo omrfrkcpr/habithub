@@ -80,7 +80,7 @@ const TaskList = () => {
           <button
             ref={exportBtnRef}
             onClick={() => setShowExports((prevState) => !prevState)}
-            className="flex gap-1 items-center justify-center py-1 px-2 rounded-md bg-black hover:bg-black/60 dark:bg-habit-white dark:hover:bg-gray-200 text-white dark:text-black text-[11px] md:text-[15px]"
+            className="flex gap-1 items-center justify-center py-1 px-2 rounded-md bg-black/80 hover:bg-black/50 dark:bg-habit-white dark:hover:bg-gray-200 text-white dark:text-black text-[11px] md:text-[15px]"
           >
             <CgExport />
             <span>Export</span>
@@ -99,7 +99,7 @@ const TaskList = () => {
         <button
           ref={descButtonRef}
           onClick={() => setShowInfo((prevState) => !prevState)}
-          className="text-[20px] hover:text-black/60 dark:text-white dark:hover:text-gray-200 py-1"
+          className="text-[20px] text-black/80 hover:text-black/50  dark:text-white dark:hover:text-gray-200 py-1"
         >
           <FaInfoCircle />
         </button>
