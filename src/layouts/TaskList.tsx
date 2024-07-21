@@ -75,50 +75,53 @@ const TaskList = () => {
       <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 py-1 my-4">
         {formatDateString(date)}
       </h1>
-      {tasks.length && (
-        <div className="absolute top-[80px] right-14 md:top-[77px]">
-          <button
-            ref={exportBtnRef}
-            onClick={() => setShowExports((prevState) => !prevState)}
-            className="flex gap-1 items-center justify-center py-1 px-2 rounded-md bg-black/80 hover:bg-black/50 dark:bg-habit-white dark:hover:bg-gray-200 text-white dark:text-black text-[11px] md:text-[15px]"
-          >
-            <CgExport />
-            <span>Export</span>
-          </button>
-          {showExport && (
-            <div
-              ref={exportRef}
-              className="clip-message-box2 absolute right-0 top-9 w-[140px] z-50 bg-[#ededed]"
+      {tasks.length > 0 && (
+        <>
+          <div className="absolute top-[80px] right-14 md:top-[77px]">
+            <button
+              ref={exportBtnRef}
+              onClick={() => setShowExports((prevState) => !prevState)}
+              className="flex gap-1 items-center justify-center py-1 px-2 rounded-md bg-black/80 hover:bg-black/50 dark:bg-habit-white dark:hover:bg-gray-200 text-white dark:text-black text-[11px] md:text-[15px]"
             >
-              <ExportBtns />
-            </div>
-          )}
-        </div>
-      )}
-      <div className="absolute top-[80px] right-2 md:top-[77px] md:right-5">
-        <button
-          ref={descButtonRef}
-          onClick={() => setShowInfo((prevState) => !prevState)}
-          className="text-[20px] text-black/80 hover:text-black/50  dark:text-white dark:hover:text-gray-200 py-1"
-        >
-          <FaInfoCircle />
-        </button>
-        {showInfo && (
-          <div
-            ref={infoRef}
-            className="clip-message-box2 mt-2 mb-3 text-[10px] md:text-[12px] font-light md:font-normal absolute w-[200px] right-0 bg-[#ededed] rounded-md top-7 z-50 py-5 px-4 flex flex-col gap-2 "
-          >
-            <span>
-              To see the tasks for other days, please select the relevant day
-              from the calendar from the sidebar menu.
-            </span>
-            <span>
-              To change the priority of a task, simply drag and drop it into the
-              desired priority section.
-            </span>
+              <CgExport />
+              <span>Export</span>
+            </button>
+            {showExport && (
+              <div
+                ref={exportRef}
+                className="clip-message-box2 absolute right-0 top-9 w-[140px] z-50 bg-[#ededed]"
+              >
+                <ExportBtns />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+          <div className="absolute top-[80px] right-2 md:top-[77px] md:right-5">
+            <button
+              ref={descButtonRef}
+              onClick={() => setShowInfo((prevState) => !prevState)}
+              className="text-[20px] text-black/80 hover:text-black/50  dark:text-white dark:hover:text-gray-200 py-1"
+            >
+              <FaInfoCircle />
+            </button>
+            {showInfo && (
+              <div
+                ref={infoRef}
+                className="clip-message-box2 mt-2 mb-3 text-[10px] md:text-[12px] font-light md:font-normal absolute w-[200px] right-0 bg-[#ededed] rounded-md top-7 z-50 py-5 px-4 flex flex-col gap-2 "
+              >
+                <span>
+                  To see the tasks for other days, please select the relevant
+                  day from the calendar from the sidebar menu.
+                </span>
+                <span>
+                  To change the priority of a task, simply drag and drop it into
+                  the desired priority section.
+                </span>
+              </div>
+            )}
+          </div>
+        </>
+      )}
+
       {tasks.length ? (
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="flex flex-col xl:flex-row gap-2">
