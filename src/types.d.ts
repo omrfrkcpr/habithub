@@ -151,6 +151,7 @@ interface RepeatValueBtnProps {
 
 interface ActionBtnsComp {
   setChecked: React.Dispatch<React.SetStateAction<checked>>;
+  editTaskId?: string;
 }
 
 interface ActionBtnProps {
@@ -160,7 +161,7 @@ interface ActionBtnProps {
   label: string;
   color: string;
   disabled?: boolean;
-  type?: string;
+  edit: boolean;
 }
 
 interface TagValues {

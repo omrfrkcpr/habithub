@@ -18,8 +18,11 @@ const newTaskSlice = createSlice({
   name: "newTask",
   initialState,
   reducers: {
-    setNewTask: (state, action) => {
-      return { ...state, ...action.payload };
+    setNewTask: (state, { payload }) => {
+      return { ...state, ...payload };
+    },
+    setSingleTask: (state, { payload: { data } }) => {
+      return { ...state, ...data };
     },
     resetNewTask: (state) => {
       return initialState;
@@ -27,6 +30,6 @@ const newTaskSlice = createSlice({
   },
 });
 
-export const { setNewTask, resetNewTask } = newTaskSlice.actions;
+export const { setNewTask, setSingleTask, resetNewTask } = newTaskSlice.actions;
 
 export default newTaskSlice.reducer;

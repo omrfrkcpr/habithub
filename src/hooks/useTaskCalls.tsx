@@ -7,13 +7,13 @@ import {
   setSuccess,
   setTagTasks,
   setTodayTasks,
-  setSingleTask,
 } from "../features/taskSlice";
 import {
   getTaskUpdateSuccessMessage,
   singularizeAndCapitalize,
 } from "../helpers/functions";
 import showSwal from "../helpers/showSwal";
+import { setSingleTask } from "../features/newTaskSlice";
 
 const useTaskCalls = () => {
   const dispatch = useDispatch();

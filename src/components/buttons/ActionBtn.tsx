@@ -7,8 +7,8 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
   icon,
   label,
   color,
-  type,
   disabled,
+  edit,
 }) => {
   return (
     <div className="rounded-lg cursor-pointer">
@@ -17,8 +17,8 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
         disabled={disabled || false}
         sx={{
           padding: {
-            xs: "4px 10px",
-            sm: "8px 14px",
+            xs: edit ? "3px 8px" : "4px 10px",
+            sm: edit ? "6px 12px" : "8px 14px",
           },
           backgroundColor:
             color === "orange"
@@ -45,7 +45,7 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
         loadingPosition="start"
         startIcon={icon}
       >
-        {label}
+        {edit && color === "green" ? "Update" : label}
       </LoadingButton>
     </div>
   );

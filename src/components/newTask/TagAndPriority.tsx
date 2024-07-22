@@ -6,10 +6,10 @@ import { priorities } from "../../helpers/constants";
 import { setNewTask } from "../../features/newTaskSlice";
 import { RootState } from "../../app/store";
 
-const TagAndPriority = () => {
+const TagAndPriority = ({ editTaskId }: { editTaskId?: string }) => {
   const newTask = useSelector((state: RootState) => state.newTask);
-  const { tags } = useSelector((state: RootState) => state.task);
   const dispatch = useDispatch();
+  const { tags } = useSelector((state: RootState) => state.task);
 
   const handleTagClick = (targetTag: TagValues) => {
     const selectedTag = tags.find((tag) => tag.name === targetTag.name);
@@ -25,15 +25,21 @@ const TagAndPriority = () => {
   };
 
   return (
-    <div className="p-4 rounded-[8px] bg-white dark:bg-[#4b3455] flex flex-1 flex-col">
+    <div
+      className={`${
+        editTaskId ? "" : "p-4"
+      }  rounded-[8px] bg-white dark:bg-[#4b3455] flex flex-1 flex-col`}
+    >
       <div className="border-b border-gray-300 mb-2 pb-2">
         <h3 className="font-semibold text-habit-gray dark:text-white/80 mb-2 text-[12px] md:text-[16px]">
           Priority
         </h3>
-        <p className="mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]">
-          Priority helps you organize your tasks by importance. Select one of
-          the priority levels below.
-        </p>
+        {!editTaskId && (
+          <p className="mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]">
+            Priority helps you organize your tasks by importance. Select one of
+            the priority levels below.
+          </p>
+        )}
         <div className="bg-gray-200 rounded-full mb-4 flex justify-evenly">
           {priorities.map((priority: Priorities) => {
             return <PriorityBtn key={priority?.value} priority={priority} />;
@@ -44,11 +50,13 @@ const TagAndPriority = () => {
         <h3 className="font-semibold text-habit-gray dark:text-white/80 mb-1 text-[12px] md:text-[16px]">
           Tag
         </h3>
-        <p className="mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]">
-          Tags are important for keeping your to-do items in order. You can
-          select an existing tag or write a new tag for your task. To
-          successfully add a new tag, please press Enter after typing.
-        </p>
+        {!editTaskId && (
+          <p className="mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]">
+            Tags are important for keeping your to-do items in order. You can
+            select an existing tag or write a new tag for your task. To
+            successfully add a new tag, please press Enter after typing.
+          </p>
+        )}
         <TagsInput
           value={newTask.tagId.name ? [newTask.tagId.name] : []}
           onChange={(tags) => {

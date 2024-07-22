@@ -74,6 +74,7 @@ const Forgot = () => {
             label="Send"
             color="purple"
             icon={<NearMeIcon sx={{ color: "white" }} />}
+            edit={false}
           />
         </form>
       </div>

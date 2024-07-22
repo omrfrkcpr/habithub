@@ -3,9 +3,12 @@ import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useTaskCalls from "../../hooks/useTaskCalls";
 import { useLocation, useNavigate } from "react-router-dom";
+import { RootState } from "../../app/store";
+import { useSelector } from "react-redux";
 
 const TaskCardSettingBtns = ({ taskId }: { taskId: string }) => {
   const { deleteTaskData } = useTaskCalls();
+  const { date } = useSelector((state: RootState) => state.date);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,7 +19,9 @@ const TaskCardSettingBtns = ({ taskId }: { taskId: string }) => {
 
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    navigate(`/home/${taskId}`, { state: { backgroundLocation: location } });
+    navigate(`/home/${taskId}`, {
+      state: { backgroundLocation: location, selectedDate: date },
+    });
   };
 
   return (

@@ -9,7 +9,7 @@ import { RootState } from "../../app/store";
 import useTaskCalls from "../../hooks/useTaskCalls";
 import { setNewTask } from "../../features/newTaskSlice";
 
-const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
+const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked, editTaskId }) => {
   const dispatch = useDispatch();
   const newTask = useSelector((state: RootState) => state.newTask);
   const { tags } = useSelector((state: RootState) => state.task);
@@ -17,12 +17,13 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const { createTaskData } = useTaskCalls();
   const { date } = useSelector((state: RootState) => state.date);
 
-  console.log(newTask);
+  // console.log(newTask);
 
   const handleResetNewTask = () => {
     dispatch(resetNewTask());
     setChecked(false);
   };
+
   const handleSaveNewTask = async () => {
     let editedTagId = "";
     // Mevcut tags listesinde eşleşen bir tag arayın
@@ -69,13 +70,20 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   };
 
   return (
-    <div className="flex gap-3 justify-center md:justify-center items-center md:me-10 pt-5 pb-10 md:py-10 md:w-[fit-content] md:ms-auto">
+    <div
+      className={`flex gap-3 justify-center items-center ${
+        editTaskId
+          ? "pt-1 pb-3 md:py-3 mx-auto"
+          : "pt-5 pb-10 md:py-10 md:me-10 md:ms-auto"
+      }  md:w-[fit-content] `}
+    >
       <ActionBtn
         onClick={handleResetNewTask}
         loading={false}
         icon={<RestartAltIcon sx={{ color: "white" }} />}
         label="Reset"
         color="orange"
+        edit={editTaskId ? true : false}
       />
       <ActionBtn
         onClick={handleSaveNewTask}
@@ -83,6 +91,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
         icon={<SaveIcon sx={{ color: "white" }} />}
         label="Save"
         color="green"
+        edit={editTaskId ? true : false}
       />
     </div>
   );

@@ -15,7 +15,7 @@ const PriorityBtn: React.FC<PriorityBtn> = ({ priority }) => {
 
   return (
     <button
-      className={`capitalize flex-1 py-1 text-[12px] md:text-[16px] rounded-full ${
+      className={`capitalize flex-1 py-1 text-[12px] md:text-[15px] rounded-full ${
         newTask.priority === value
           ? "bg-gray-400 text-white"
           : "hover:text-black/60 text-black"
