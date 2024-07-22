@@ -4,7 +4,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 
 const TaskCardSettingBtns = () => {
   return (
-    <div className="space-x-1">
+    <div>
       <button>
         <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 hover:text-orange-300" />
       </button>
