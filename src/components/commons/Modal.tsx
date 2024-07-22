@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
       ></button>
       <div className="bg-white rounded-lg z-10 max-w-lg w-full mx-4 relative">
         <button
-          className="absolute top-1 right-2 z-50 text-black hover:text-gray-700"
+          className="absolute top-2 right-2 z-50 text-black hover:text-gray-700"
           onClick={onClose}
         >
           <IoCloseOutline size={20} />

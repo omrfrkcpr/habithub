@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, memo, useCallback } from "react";
 import DateTimePicker from "../layouts/DateTimePicker";
 import Logo from "../components/commons/Logo";
 import UserMenu from "../layouts/UserMenu";
@@ -15,19 +15,20 @@ import TagLists from "../layouts/TagLists";
 import useTaskCalls from "../hooks/useTaskCalls";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
-// import Swal from "sweetalert2";
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState<number>(0);
   const { getTaskData, getTodayTasksData } = useTaskCalls();
-  // const { todayTasks } = useSelector((state: RootState) => state.task);
   const { date } = useSelector((state: RootState) => state.date);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const handleChange = useCallback(
+    (event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+    },
+    []
+  );
 
   // Close sidebar when clicking outside
   useEffect(() => {
@@ -43,11 +44,6 @@ const Home = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
-  useEffect(() => {
-    getTaskData("tasks", `?date=${date}`);
-    getTaskData("tags");
   }, []);
 
   // Ref to store previous date
@@ -88,24 +84,6 @@ const Home = () => {
 
   // console.log(new Date(new Date().toISOString()).getDate());
   // console.log(todayTasks);
-
-  // useEffect(() => {
-  //   // Todays tasks for user notification
-  //   Swal.fire({
-  //     title: `Today's Tasks`,
-  //     html: `<ul>${[...todayTasks]
-  //       .sort((a, b) => b.priority - a.priority)
-  //       .map(
-  //         ({ name, priority }: { name: string; priority: number }) =>
-  //           `<li>${name} ${
-  //             priority === 1 ? "🚀" : priority === 0 ? "🌟" : "🔥"
-  //           }</li>`
-  //       )
-  //       .join("")}</ul>`,
-  //     icon: "info",
-  //     confirmButtonText: "Ok",
-  //   });
-  // }, [todayTasks]);
 
   return (
     <div
@@ -200,4 +178,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

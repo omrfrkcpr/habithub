@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useLocation } from "react-router-dom";
 import Home from "../layouts/Home";
 import SingleTask from "../layouts/SingleTask";
@@ -15,4 +15,4 @@ const HomeWithModal = () => {
   );
 };
 
-export default HomeWithModal;
+export default memo(HomeWithModal);

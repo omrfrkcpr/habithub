@@ -77,14 +77,16 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked, editTaskId }) => {
           : "pt-5 pb-10 md:py-10 md:me-10 md:ms-auto"
       }  md:w-[fit-content] `}
     >
-      <ActionBtn
-        onClick={handleResetNewTask}
-        loading={false}
-        icon={<RestartAltIcon sx={{ color: "white" }} />}
-        label="Reset"
-        color="orange"
-        edit={editTaskId ? true : false}
-      />
+      {!editTaskId && (
+        <ActionBtn
+          onClick={handleResetNewTask}
+          loading={false}
+          icon={<RestartAltIcon sx={{ color: "white" }} />}
+          label="Reset"
+          color="orange"
+          edit={editTaskId ? true : false}
+        />
+      )}
       <ActionBtn
         onClick={handleSaveNewTask}
         loading={false}
