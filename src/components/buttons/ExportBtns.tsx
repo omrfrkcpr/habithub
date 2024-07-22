@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Packer, Paragraph, TextRun, HeadingLevel } from "docx";
 import { saveAs } from "file-saver";
 import { RootState } from "../../app/store";
@@ -6,12 +6,21 @@ import { useSelector } from "react-redux";
 import jsPDF from "jspdf";
 import toastNotify from "../../helpers/toastNotify";
 import useAxios from "../../hooks/useAxios";
+import { CircleLoader } from "react-spinners";
 
 const ExportBtns = ({
   setShowExports,
 }: {
   setShowExports: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: string]: boolean;
+  }>({
+    docx: false,
+    pdf: false,
+    email: false,
+  });
+
   const axiosWithToken = useAxios();
   const { date } = useSelector((state: RootState) => state.date);
   const { tasks } = useSelector((state: RootState) => state.task);
@@ -19,61 +28,74 @@ const ExportBtns = ({
 
   const formattedDate = new Date(date).toLocaleDateString("en-GB");
 
-  const handleExportDocx = () => {
-    const doc = new Document({
-      sections: [
-        {
-          properties: {},
-          children: [
-            new Paragraph({
-              text: `Tasks for ${formattedDate}`,
-              heading: HeadingLevel.HEADING_1,
-            }),
-            ...tasks.map(
-              (task) =>
-                new Paragraph({
-                  children: [
-                    new TextRun(task.name),
-                    new TextRun(` - ${task.description}`),
-                  ],
-                })
-            ),
-          ],
-        },
-      ],
-    });
+  const handleExportDocx = async () => {
+    setLoadingStates((prev) => ({ ...prev, docx: true }));
+    try {
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              new Paragraph({
+                text: `Tasks for ${formattedDate}`,
+                heading: HeadingLevel.HEADING_1,
+              }),
+              ...tasks.map(
+                (task) =>
+                  new Paragraph({
+                    children: [
+                      new TextRun(task.name),
+                      new TextRun(` - ${task.description}`),
+                    ],
+                  })
+              ),
+            ],
+          },
+        ],
+      });
 
-    Packer.toBlob(doc).then((blob) => {
+      const blob = await Packer.toBlob(doc);
       saveAs(blob, `tasks_${formattedDate}.docx`);
-    });
-
-    setShowExports(false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, docx: false }));
+      setShowExports(false);
+    }
   };
 
-  const handleExportPdf = () => {
-    const doc = new jsPDF();
-    const margin = 10;
-    const lineHeight = 10;
-    let yPosition = margin;
+  const handleExportPdf = async () => {
+    setLoadingStates((prev) => ({ ...prev, pdf: true }));
+    try {
+      const doc = new jsPDF();
+      const margin = 10;
+      const lineHeight = 10;
+      let yPosition = margin;
 
-    doc.setFontSize(18);
-    doc.text(`Tasks for ${formattedDate}`, margin, yPosition);
+      doc.setFontSize(18);
+      doc.text(`Tasks for ${formattedDate}`, margin, yPosition);
 
-    yPosition += lineHeight + 10;
+      yPosition += lineHeight + 10;
 
-    doc.setFontSize(10);
-    tasks.forEach((task, index) => {
-      doc.text(`Task ${index + 1}:`, margin, yPosition);
-      yPosition += lineHeight;
-      doc.text(`${task.name} - ${task.description}`, margin, yPosition);
-      yPosition += lineHeight;
-    });
+      doc.setFontSize(10);
+      tasks.forEach((task, index) => {
+        doc.text(`Task ${index + 1}:`, margin, yPosition);
+        yPosition += lineHeight;
+        doc.text(`${task.name} - ${task.description}`, margin, yPosition);
+        yPosition += lineHeight;
+      });
 
-    doc.save(`tasks_${formattedDate}.pdf`);
-    setShowExports(false);
+      doc.save(`tasks_${formattedDate}.pdf`);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, pdf: false }));
+      setShowExports(false);
+    }
   };
 
   const handleExportEmail = async () => {
+    setLoadingStates((prev) => ({ ...prev, email: true }));
     try {
       const { data } = await axiosWithToken.post(
         "http://127.0.0.1:8000/tasks/email",
@@ -87,14 +109,15 @@ const ExportBtns = ({
       console.log(error);
       toastNotify("error", error?.response?.data?.message);
     } finally {
+      setLoadingStates((prev) => ({ ...prev, email: false }));
       setShowExports(false);
     }
   };
 
   const exportButtons = [
-    { id: 1, onClick: handleExportDocx, label: "Export as DOCX" },
-    { id: 2, onClick: handleExportPdf, label: "Export as PDF" },
-    { id: 3, onClick: handleExportEmail, label: "Receive via Mail" },
+    { id: "docx", onClick: handleExportDocx, label: "Export as DOCX" },
+    { id: "pdf", onClick: handleExportPdf, label: "Export as PDF" },
+    { id: "email", onClick: handleExportEmail, label: "Receive via Mail" },
   ];
 
   return (
@@ -103,11 +126,19 @@ const ExportBtns = ({
         <button
           key={id}
           onClick={onClick}
+          disabled={loadingStates[id]}
           className={`py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px] ${
-            id < exportButtons.length ? "border-b border-gray-400" : ""
+            id !== "email" ? "border-b border-gray-400" : ""
           }`}
         >
-          {label}
+          {loadingStates[id] ? (
+            <div className="flex gap-1 items-center justify-center">
+              <span>Loading...</span>
+              <CircleLoader size={16} />
+            </div>
+          ) : (
+            label
+          )}
         </button>
       ))}
     </div>
