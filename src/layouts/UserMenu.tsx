@@ -122,6 +122,8 @@ const UserMenu = ({
     };
   }, [remainingTime, dispatch]);
 
+  // console.log(remainingTime);
+
   useEffect(() => {
     const handleSessionExpiration = async () => {
       if (remainingTime === 30) {
