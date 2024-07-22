@@ -4,7 +4,7 @@ import { IoCloseOutline } from "react-icons/io5";
 interface ModalProps {
   children: ReactNode;
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
@@ -12,10 +12,10 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div
+      <button
         className="fixed inset-0 bg-black opacity-50"
         onClick={onClose}
-      ></div>
+      ></button>
       <div className="bg-white rounded-lg z-10 max-w-lg w-full mx-4 relative">
         <button
           className="absolute top-1 right-2 z-50 text-black hover:text-gray-700"

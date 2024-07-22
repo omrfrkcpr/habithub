@@ -32,7 +32,7 @@ const TaskList = () => {
       const newPriority =
         destination.droppableId === "Urgent 🚀"
           ? 1
-          : destination.droppableId === "Important 🌟"
+          : destination.droppableId === "Important 🔥"
           ? 0
           : -1;
       updateTaskData("tasks", draggedTask.id, { priority: newPriority });
@@ -125,12 +125,12 @@ const TaskList = () => {
       {tasks.length ? (
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="flex flex-col xl:flex-row gap-2">
-            {["Urgent 🚀", "Important 🌟", "Do Later 🔥"].map(
+            {["Urgent 🚀", "Important 🔥", "Deferred 🍀"].map(
               (column, index) => {
                 const priority =
                   column === "Urgent 🚀"
                     ? 1
-                    : column === "Important 🌟"
+                    : column === "Important 🔥"
                     ? 0
                     : -1;
                 return (
@@ -150,7 +150,7 @@ const TaskList = () => {
                         }`}
                       >
                         <h2
-                          className={`text-[13px] italic md:text-[15px] lg:text-[17px] py-1 px-2 rounded-full font-semibold w-[fit-content] ms-auto mb-4 ${
+                          className={`text-[13px] text-gray-700 italic md:text-[15px] lg:text-[17px] py-1 px-2 rounded-full font-semibold w-[fit-content] ms-auto mb-4 ${
                             priority === 1
                               ? "bg-red-400"
                               : priority === 0

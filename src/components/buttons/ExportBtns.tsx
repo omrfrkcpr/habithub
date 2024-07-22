@@ -4,14 +4,15 @@ import { saveAs } from "file-saver";
 import { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
 import jsPDF from "jspdf";
-import axios from "axios";
 import toastNotify from "../../helpers/toastNotify";
+import useAxios from "../../hooks/useAxios";
 
 const ExportBtns = ({
   setShowExports,
 }: {
   setShowExports: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const axiosWithToken = useAxios();
   const { date } = useSelector((state: RootState) => state.date);
   const { tasks } = useSelector((state: RootState) => state.task);
   const { currentUser } = useSelector((state: RootState) => state.auth);
@@ -74,10 +75,13 @@ const ExportBtns = ({
 
   const handleExportEmail = async () => {
     try {
-      const { data } = await axios.post("http://127.0.0.1:8000/tasks/email", {
-        userId: currentUser?.id,
-        date,
-      });
+      const { data } = await axiosWithToken.post(
+        "http://127.0.0.1:8000/tasks/email",
+        {
+          userId: currentUser?.id,
+          date,
+        }
+      );
       toastNotify("success", data.message);
     } catch (error: any) {
       console.log(error);
@@ -87,26 +91,25 @@ const ExportBtns = ({
     }
   };
 
+  const exportButtons = [
+    { id: 1, onClick: handleExportDocx, label: "Export as DOCX" },
+    { id: 2, onClick: handleExportPdf, label: "Export as PDF" },
+    { id: 3, onClick: handleExportEmail, label: "Receive via Mail" },
+  ];
+
   return (
     <div className="w-full">
-      <button
-        onClick={handleExportDocx}
-        className="py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px] border-b border-black/60"
-      >
-        Export as DOCX
-      </button>
-      <button
-        onClick={handleExportPdf}
-        className="py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px] border-b border-black/60"
-      >
-        Export as PDF
-      </button>
-      <button
-        onClick={handleExportEmail}
-        className="py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px]"
-      >
-        Receive via Mail
-      </button>
+      {exportButtons.map(({ id, onClick, label }) => (
+        <button
+          key={id}
+          onClick={onClick}
+          className={`py-3 text-black rounded w-full hover:bg-gray-300 text-[10px] md:text-[13px] ${
+            id < exportButtons.length ? "border-b border-gray-400" : ""
+          }`}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 };
