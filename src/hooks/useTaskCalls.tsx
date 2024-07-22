@@ -7,6 +7,7 @@ import {
   setSuccess,
   setTagTasks,
   setTodayTasks,
+  setSingleTask,
 } from "../features/taskSlice";
 import {
   getTaskUpdateSuccessMessage,
@@ -33,6 +34,18 @@ const useTaskCalls = () => {
       ) {
         dispatch(setTodayTasks({ data }));
       }
+    } catch (error) {
+      console.log(error);
+      dispatch(fetchFail());
+    }
+  };
+
+  const getSingleTaskData = async (id: string = "") => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosWithToken(`tasks/${id}`);
+      // console.log(data);
+      dispatch(setSingleTask({ data: data?.data }));
     } catch (error) {
       console.log(error);
       dispatch(fetchFail());
@@ -177,6 +190,7 @@ const useTaskCalls = () => {
     getTaskData,
     getTagTaskData,
     getTodayTasksData,
+    getSingleTaskData,
     deleteTaskData,
     updateTaskData,
     createTaskData,

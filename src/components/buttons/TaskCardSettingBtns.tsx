@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useTaskCalls from "../../hooks/useTaskCalls";
-import Modal from "../commons/Modal";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const TaskCardSettingBtns = ({ taskId }: { taskId: string }) => {
   const { deleteTaskData } = useTaskCalls();
-  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -15,30 +16,18 @@ const TaskCardSettingBtns = ({ taskId }: { taskId: string }) => {
 
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setShowEditModal(true);
-  };
-
-  const closeModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setShowEditModal(false);
+    navigate(`/home/${taskId}`, { state: { backgroundLocation: location } });
   };
 
   return (
-    <>
-      <div>
-        <button onClick={handleEditClick}>
-          <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/80 hover:text-orange-600" />
-        </button>
-        <button onClick={handleDeleteClick}>
-          <RiDeleteBin6Fill className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/80 hover:text-red-600" />
-        </button>
-      </div>
-      {showEditModal && (
-        <Modal isOpen={showEditModal} onClose={closeModal}>
-          <div>Hey</div>
-        </Modal>
-      )}
-    </>
+    <div>
+      <button onClick={handleEditClick}>
+        <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/80 hover:text-orange-600" />
+      </button>
+      <button onClick={handleDeleteClick}>
+        <RiDeleteBin6Fill className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/80 hover:text-red-600" />
+      </button>
+    </div>
   );
 };
 

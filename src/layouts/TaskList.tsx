@@ -72,7 +72,7 @@ const TaskList = () => {
 
   return (
     <div className="pb-20 md:pb-0">
-      <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 pt-1 my-4">
+      <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 py-1 my-4">
         {formatDateString(date)}
       </h1>
       {tasks.length > 0 && (

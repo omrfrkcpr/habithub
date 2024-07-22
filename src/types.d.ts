@@ -170,6 +170,7 @@ interface TagValues {
 
 interface TaskSliceStateValues {
   tasks: Task[];
+  singleTask: Task;
   tags: TagValues[];
   todayTasks: Task[];
   todayTaskDetails: Array;

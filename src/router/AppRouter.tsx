@@ -9,7 +9,7 @@ import PrivateRouter from "./PrivateRouter";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
-import Home from "../pages/Home";
+import Home from "../layouts/Home";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import Contract from "../pages/Contract";
@@ -19,6 +19,7 @@ import Forgot from "../pages/Forgot";
 import Reset from "../pages/Reset";
 import AuthSuccess from "../pages/AuthSuccess";
 import AuthFail from "../pages/AuthFail";
+import HomeWithModal from "../pages/HomeWithModal";
 
 const AppRouter = () => {
   return (
@@ -36,12 +37,11 @@ const AppRouter = () => {
           <Route path="/reset-password/:token" element={<Reset />} />
           <Route path="/auth/success" element={<AuthSuccess />} />
           <Route path="/auth/failure" element={<AuthFail />} />
-          {/* <Route path="/contract" element={<Contract />} />
-          <Route path="/home" element={<Home />} /> */}
           <Route path="" element={<PrivateRouter />}>
             <Route path="/setup" element={<Setup />} />
             <Route path="/contract" element={<Contract />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/home/:taskId" element={<HomeWithModal />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
