@@ -14,10 +14,13 @@ import {
 } from "../helpers/functions";
 import showSwal from "../helpers/showSwal";
 import { setSingleTask } from "../features/newTaskSlice";
+import toastNotify from "../helpers/toastNotify";
+import { useNavigate } from "react-router-dom";
 
 const useTaskCalls = () => {
   const dispatch = useDispatch();
   const axiosWithToken = useAxios();
+  const navigate = useNavigate();
   // const { currentUser } = useSelector((state: RootState) => state.auth);
   const { date } = useSelector((state: RootState) => state.date);
 
@@ -34,9 +37,14 @@ const useTaskCalls = () => {
       ) {
         dispatch(setTodayTasks({ data }));
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
+      const message = error?.response?.data?.message;
+      toastNotify("error", message);
+      if (message.includes("No Permission")) {
+        navigate("/signin");
+      }
     }
   };
 
@@ -46,9 +54,14 @@ const useTaskCalls = () => {
       const { data } = await axiosWithToken(`tasks/${id}`);
       // console.log(data);
       dispatch(setSingleTask({ data: data?.data }));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
+      const message = error?.response?.data?.message;
+      toastNotify("error", message);
+      if (message.includes("No Permission")) {
+        navigate("/signin");
+      }
     }
   };
 
@@ -58,9 +71,14 @@ const useTaskCalls = () => {
       const { data } = await axiosWithToken(`tags/${tagId}/tasks`);
       console.log(data);
       dispatch(setTagTasks({ data: data?.data }));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
+      const message = error?.response?.data?.message;
+      toastNotify("error", message);
+      if (message.includes("No Permission")) {
+        navigate("/signin");
+      }
     }
   };
 
@@ -72,9 +90,14 @@ const useTaskCalls = () => {
       );
       console.log(data);
       dispatch(setTodayTasks({ data: data?.data }));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      // console.log(error);
       dispatch(fetchFail());
+      const message = error?.response?.data?.message;
+      toastNotify("error", message);
+      if (message.includes("No Permission")) {
+        navigate("/signin");
+      }
     }
   };
 
@@ -100,13 +123,17 @@ const useTaskCalls = () => {
           icon: "success",
         });
       } catch (error: any) {
-        console.log(error);
+        // console.log(error);
+        dispatch(fetchFail());
+        const message = error?.response?.data?.message;
         await showSwal({
           title: "Error!",
-          text: error.response.data.message,
+          text: message,
           icon: "error",
         });
-        dispatch(fetchFail());
+        if (message.includes("No Permission")) {
+          navigate("/signin");
+        }
       } finally {
         getTaskData(url, url === "tasks" ? `?date=${date}` : "");
       }
@@ -126,13 +153,17 @@ const useTaskCalls = () => {
         });
       }
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
+      dispatch(fetchFail());
+      const message = error?.response?.data?.message;
       await showSwal({
         title: "Error!",
-        text: error.response.data.message,
+        text: message,
         icon: "error",
       });
-      dispatch(fetchFail());
+      if (message.includes("No Permission")) {
+        navigate("/signin");
+      }
     } finally {
       getTaskData(url, url === "tasks" ? `?date=${date}` : "");
     }
@@ -172,15 +203,19 @@ const useTaskCalls = () => {
       }
       dispatch(setSuccess({ data: data?.data, url }));
     } catch (error: any) {
-      console.log(error);
+      // console.log(error);
+      dispatch(fetchFail());
+      const message = error?.response?.data?.message;
       if (showNotify) {
         await showSwal({
           title: "Error!",
-          text: error.response.data.message,
+          text: message,
           icon: "error",
         });
       }
-      dispatch(fetchFail());
+      if (message.includes("No Permission")) {
+        navigate("/signin");
+      }
     } finally {
       getTaskData(url, url === "tasks" ? `?date=${date}` : "");
     }
