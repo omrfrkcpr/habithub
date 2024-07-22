@@ -11,23 +11,6 @@ interface SocialBtn {
   handleClick: (authType: string) => void;
 }
 
-const SocialAuthButton: React.FC<SocialBtn> = ({
-  platform,
-  image,
-  handleClick,
-}) => (
-  <div
-    className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
-    onClick={() => handleClick(platform)}
-  >
-    <img
-      src={image}
-      alt={platform}
-      className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
-    />
-  </div>
-);
-
 const AuthBtns = () => {
   const { signInWithSocial } = useAuthCalls();
 
@@ -62,5 +45,22 @@ const AuthBtns = () => {
     </>
   );
 };
+
+const SocialAuthButton: React.FC<SocialBtn> = ({
+  platform,
+  image,
+  handleClick,
+}) => (
+  <div
+    className="p-2 bg-white hover:bg-gray-200 rounded-full hover:cursor-pointer"
+    onClick={() => handleClick(platform)}
+  >
+    <img
+      src={image}
+      alt={platform}
+      className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
+    />
+  </div>
+);
 
 export default AuthBtns;
