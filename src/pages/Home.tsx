@@ -154,7 +154,7 @@ const Home = () => {
         <AddTaskBtn value={value} setValue={setValue} />
       </div>
 
-      <div className="absolute top-[50px] md:top-[80px] md:right-10 w-[90vw] h-[38rem] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-360px)]">
+      <div className="absolute top-[50px] md:top-[80px] md:right-6 w-[90vw] h-[38rem] m-5 md:m-0 flex justify-center flex-col md:w-[calc(100vw-320px)]">
         <div className="w-full h-full">
           <Tabs
             value={value}

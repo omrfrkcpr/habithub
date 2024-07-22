@@ -6,10 +6,10 @@ const TaskCardSettingBtns = () => {
   return (
     <div>
       <button>
-        <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 hover:text-orange-300" />
+        <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 hover:text-orange-600" />
       </button>
       <button>
-        <RiDeleteBin6Fill className="w-4 h-4 md:w-5 md:h-5 pt-1 hover:text-red-200" />
+        <RiDeleteBin6Fill className="w-4 h-4 md:w-5 md:h-5 pt-1 hover:text-red-600" />
       </button>
     </div>
   );

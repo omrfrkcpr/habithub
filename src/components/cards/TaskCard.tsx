@@ -49,7 +49,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
       // style={{ backgroundColor: cardColor }}
       onClick={handleCompleteTaskClick}
     >
-      <div className="me-16">
+      <div>
         <div className="flex gap-1 w-max">
           <div className="inline-flex items-center">
             <label
@@ -58,7 +58,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
             >
               <input
                 type="checkbox"
-                className="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-purple-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-10 before:w-10 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-purple-gray-500 before:opacity-0 before:transition-opacity checked:border-purple-500 checked:bg-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
+                className="before:content[''] peer relative h-4 w-4 cursor-pointer appearance-none rounded-md border border-purple-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-10 before:w-10 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-purple-gray-500 before:opacity-0 before:transition-opacity border-black/60 checked:border-purple-500 checked:bg-purple-500 checked:before:bg-purple-500 hover:before:opacity-10"
                 id="purple"
                 checked={isDone}
                 readOnly
@@ -83,7 +83,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
           </div>
           <span
             className={`${isDone && "line-through"} text-[12px] font-semibold
-           md:text-[15px] p-1`}
+           md:text-[15px] xl:text-[13px] 2xl:text-[15px] p-1`}
             style={{ color: isDone ? "gray" : cardColor }}
           >
             {name}
@@ -99,7 +99,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
           </div>
         </div>
         <div
-          className={`ms-[20px] flex transition-all duration-500 ease-in-out transform origin-top overflow-hidden text-[10px] md:text-[14px] relative ${
+          className={`ms-[20px] flex transition-all duration-500 ease-in-out transform origin-top overflow-hidden text-[10px] md:text-[14px] xl:text-[12px] 2xl:text-[14px] relative ${
             isDone && "line-through text-black/30"
           } ${
             showDesc === id ? "max-h-auto opacity-100" : "max-h-0 opacity-0"
@@ -108,7 +108,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
           <span ref={descRef} className="mt-2 me-[100px]">
             {description}
           </span>
-          <span className="bg-black/70 text-white absolute w-[fit-content] top-1 right-0  px-2 py-1 ms-auto rounded-full text-[9px] md:text-[11px]">
+          <span className="bg-black/70 text-white absolute w-[fit-content] top-1 right-0  px-2 py-1 ms-auto rounded-full text-[9px] md:text-[11px] xl:text-[9px] 2xl:text-[11px]">
             {tagId?.name}
           </span>
         </div>
