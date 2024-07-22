@@ -89,7 +89,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
             {name}
           </span>
           <div className="absolute right-2 top-[10px] flex gap-1 justify-center items-center">
-            <TaskCardSettingBtns />
+            <TaskCardSettingBtns taskId={id} />
             <button
               onClick={handleShowDescClick}
               className="cursor-pointer hover:text-black/60"

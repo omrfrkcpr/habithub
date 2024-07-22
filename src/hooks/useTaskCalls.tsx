@@ -74,6 +74,7 @@ const useTaskCalls = () => {
       icon: "warning",
       confirmButtonText: "Yes, delete it!",
       confirmButtonColor: "#37901e",
+      cancelButtonText: "No, keep it!",
     });
 
     if (result.isConfirmed) {
@@ -136,6 +137,7 @@ const useTaskCalls = () => {
         icon: "question",
         confirmButtonText: "Yes, create it!",
         confirmButtonColor: "#af52e9",
+        cancelButtonText: "No, keep it!",
       });
 
       if (!result.isConfirmed) {
