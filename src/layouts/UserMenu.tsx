@@ -220,7 +220,6 @@ const UserMenu = ({
                       display: "flex",
                       alignItems: "center",
                       gap: "5px",
-                      marginRight: "20px",
                     }}
                   >
                     {icon} {value} <span></span>

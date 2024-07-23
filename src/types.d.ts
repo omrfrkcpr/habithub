@@ -197,3 +197,11 @@ interface TaskCardProps {
   showDesc: showDesc;
   setShowDesc: React.Dispatch<React.SetStateAction<showDesc>>;
 }
+
+interface ProfileInputProps {
+  label: string;
+  type: string;
+  value: string;
+  name: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}

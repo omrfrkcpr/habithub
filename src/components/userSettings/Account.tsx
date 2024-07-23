@@ -76,7 +76,7 @@ const Account = () => {
   return (
     <div>
       <section id="password-section" className="pb-4">
-        <div className="flex flex-col space-y-2 mt-1 md:mt-4 flex-1">
+        <div className="flex flex-col space-y-2 mt-1 md:mt-2 flex-1">
           <label className="font-semibold text-[11px] md:text-[14px]">
             Current password
           </label>
