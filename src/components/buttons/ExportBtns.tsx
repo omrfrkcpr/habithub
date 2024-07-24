@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Document, Packer, Paragraph, TextRun, HeadingLevel } from "docx";
+import {
+  Document,
+  Packer,
+  Paragraph,
+  TextRun,
+  HeadingLevel,
+  ImageRun,
+} from "docx";
 import { saveAs } from "file-saver";
 import { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
@@ -7,6 +14,7 @@ import jsPDF from "jspdf";
 import toastNotify from "../../helpers/toastNotify";
 import useAxios from "../../hooks/useAxios";
 import { CircleLoader } from "react-spinners";
+import habitHubImage from "../../assets/habitHub.png";
 
 const ExportBtns = ({
   setShowExports,
@@ -31,22 +39,74 @@ const ExportBtns = ({
   const handleExportDocx = async () => {
     setLoadingStates((prev) => ({ ...prev, docx: true }));
     try {
+      const imageBuffer = await fetch(habitHubImage).then((res) =>
+        res.arrayBuffer()
+      );
+
       const doc = new Document({
         sections: [
           {
             properties: {},
             children: [
               new Paragraph({
+                children: [
+                  new ImageRun({
+                    data: imageBuffer,
+                    transformation: {
+                      width: 50,
+                      height: 50,
+                    },
+                  }),
+                ],
+                alignment: "center",
+                spacing: {
+                  after: 200,
+                },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Habithub",
+                    bold: true,
+                    size: 32,
+                  }),
+                ],
+                alignment: "center",
+                spacing: {
+                  after: 400, // Larger space after the header
+                },
+              }),
+              new Paragraph({
                 text: `Tasks for ${formattedDate}`,
                 heading: HeadingLevel.HEADING_1,
+                alignment: "center",
+                spacing: {
+                  after: 400, // Larger space after the header
+                },
               }),
               ...tasks.map(
-                (task) =>
+                (task, index) =>
                   new Paragraph({
                     children: [
-                      new TextRun(task.name),
+                      new TextRun(`Task ${index + 1}: `),
+                      new TextRun({
+                        text: task.name,
+                        break: 1,
+                      }),
                       new TextRun(` - ${task.description}`),
+                      new TextRun(
+                        ` - ${
+                          task.priority === 1
+                            ? "Urgent 🚀"
+                            : task.priority === 0
+                            ? "Important 🔥"
+                            : "Deferred 🍀"
+                        }`
+                      ),
                     ],
+                    spacing: {
+                      after: 100, // Smaller space between tasks
+                    },
                   })
               ),
             ],
@@ -72,20 +132,59 @@ const ExportBtns = ({
       const lineHeight = 10;
       let yPosition = margin;
 
-      doc.setFontSize(18);
-      doc.text(`Tasks for ${formattedDate}`, margin, yPosition);
+      const imgData = await fetch(habitHubImage).then((res) => res.blob());
+      const reader = new FileReader();
+      reader.readAsDataURL(imgData);
+      reader.onloadend = () => {
+        const imgWidth = 20;
+        const imgHeight = 20;
+        const text = "Habithub";
+        const textWidth = doc.getTextWidth(text);
+        const totalWidth = imgWidth + textWidth + 10; // Adding some padding
+        const xPosition = (doc.internal.pageSize.getWidth() - totalWidth) / 2;
 
-      yPosition += lineHeight + 10;
+        doc.addImage(
+          reader.result as string,
+          "PNG",
+          xPosition,
+          yPosition,
+          imgWidth,
+          imgHeight
+        );
+        doc.text(text, xPosition + imgWidth + 2, yPosition + imgHeight / 2 + 5); // Centering the text vertically with the image
 
-      doc.setFontSize(10);
-      tasks.forEach((task, index) => {
-        doc.text(`Task ${index + 1}:`, margin, yPosition);
-        yPosition += lineHeight;
-        doc.text(`${task.name} - ${task.description}`, margin, yPosition);
-        yPosition += lineHeight;
-      });
+        yPosition += imgHeight + 10;
 
-      doc.save(`tasks_${formattedDate}.pdf`);
+        doc.setFontSize(18);
+        doc.text(
+          `Tasks for ${formattedDate}`,
+          doc.internal.pageSize.getWidth() / 2,
+          yPosition,
+          { align: "center" }
+        );
+
+        yPosition += lineHeight + 10;
+
+        doc.setFontSize(10);
+        tasks.forEach((task, index) => {
+          doc.text(`Task ${index + 1}:`, margin, yPosition);
+          yPosition += lineHeight;
+          doc.text(
+            `${task.name} - ${task.description} => ${
+              task.priority === 1
+                ? "Urgent"
+                : task.priority === 0
+                ? "Important"
+                : "Deferred"
+            }`,
+            margin,
+            yPosition
+          );
+          yPosition += lineHeight;
+        });
+
+        doc.save(`tasks_${formattedDate}.pdf`);
+      };
     } catch (error) {
       console.error(error);
     } finally {
