@@ -52,7 +52,7 @@ const Main = () => {
             />
           </div>
         </div>
-        <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-0 lg:absolute top-[1320px] md:top-[1000px] left-5 md:left-[750px] lg:left-[800px] xl:left-[850px]">
+        <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-0 lg:absolute top-[1320px] md:top-[1000px] left-5 md:left-[750px] lg:left-[800px] xl:left-[70%]">
           <div className="relative w-[95%] max-w-[400px] max-h-[300px] xl:max-w-[600px] flex flex-col justify-center items-center px-3 md:px-0 py-5 bg-habit-light-gray shadow-md rounded-xl">
             <img
               src={mentalHealth}
