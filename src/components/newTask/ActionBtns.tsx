@@ -7,7 +7,6 @@ import { resetNewTask } from "../../features/newTaskSlice";
 // import { defaultOptions, deserify } from "@karmaniverous/serify-deserify";
 import { RootState } from "../../app/store";
 import useTaskCalls from "../../hooks/useTaskCalls";
-import { setNewTask } from "../../features/newTaskSlice";
 
 const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const dispatch = useDispatch();
@@ -50,9 +49,8 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
       editedTagId = createdTag?.id || "";
     }
 
-    if (!newTask.dueDates.length) {
-      dispatch(setNewTask({ ...newTask, dueDates: [date] }));
-    }
+    // Check if dueDates is empty and if so, use the current date
+    const updatedDueDates = newTask.dueDates.length ? newTask.dueDates : [date];
 
     //! Dont forget to convert dueDates before creating a new task
     // const deserializedDueDates = deserify(newTask.dueDates, defaultOptions);
@@ -61,8 +59,9 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
     const newTaskInfo = {
       ...newTask,
       tagId: editedTagId,
-      // dueDates: deserializedDueDates,
+      dueDates: updatedDueDates,
       userId: currentUser?.id,
+      // dueDates: deserializedDueDates,
     };
 
     createTaskData("tasks", newTaskInfo, true);

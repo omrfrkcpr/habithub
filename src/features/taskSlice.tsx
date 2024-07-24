@@ -3,22 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: TaskSliceStateValues = {
   tasks: [],
+  tasksDetails: [],
   editTaskId: "",
-  singleTask: {
-    id: "",
-    name: "",
-    cardColor: "",
-    repeat: "",
-    description: "",
-    dueDates: [],
-    priority: 0,
-    isCompleted: false,
-    tagId: {
-      id: "",
-      name: "",
-    },
-  },
   tags: [],
+  tagsDetails: [],
   todayTasks: [],
   todayTaskDetails: [],
   tagTasks: [],
@@ -38,7 +26,8 @@ const taskSlice = createSlice({
     },
     setSuccess: (state: { [key: string]: any }, { payload: { data, url } }) => {
       state.loading = false;
-      state[url] = data;
+      state[url] = data?.data;
+      state[url + "Details"] = data?.details;
     },
     setTagTasks: (state, { payload }) => {
       state.loading = false;
@@ -48,10 +37,6 @@ const taskSlice = createSlice({
       state.loading = false;
       state.todayTasks = payload.data?.data;
       state.todayTaskDetails = payload.data?.details;
-    },
-    setSingleTask: (state, { payload: { data } }) => {
-      state.loading = false;
-      state.singleTask = data;
     },
     setEditTaskId: (state, { payload }) => {
       state.editTaskId = payload;
@@ -68,7 +53,6 @@ export const {
   setSuccess,
   setTagTasks,
   setTodayTasks,
-  setSingleTask,
   setEditTaskId,
   fetchFail,
 } = taskSlice.actions;

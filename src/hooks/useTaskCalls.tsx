@@ -45,7 +45,7 @@ const useTaskCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(`${url}${search}`);
-      dispatch(setSuccess({ data: data?.data, url }));
+      dispatch(setSuccess({ data: data, url }));
 
       if (
         url === "tasks" &&
@@ -170,7 +170,7 @@ const useTaskCalls = () => {
           icon: "success",
         });
       }
-      dispatch(setSuccess({ data: data?.data, url }));
+      dispatch(setSuccess({ data: data, url }));
     } catch (error) {
       handleError(error, showNotify); // use selected method (between toastify or sweetalert)
     } finally {
