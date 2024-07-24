@@ -1,5 +1,5 @@
 import React from "react";
-import { cardColors } from "../../helpers/constants";
+import { cardColors, darkCardColors } from "../../helpers/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import { setNewTask } from "../../features/newTaskSlice";
@@ -22,7 +22,7 @@ const CardColor = ({ editTaskId }: { editTaskId?: string }) => {
           editTaskId ? "gap-1 md:gap-2" : "gap-2 md:gap-4"
         } `}
       >
-        {cardColors.map((color: string) => (
+        {darkCardColors.map((color: string) => (
           <button
             key={color}
             style={{ backgroundColor: color }}

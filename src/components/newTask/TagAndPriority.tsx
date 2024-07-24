@@ -27,15 +27,15 @@ const TagAndPriority = ({ editTaskId }: { editTaskId?: string }) => {
   return (
     <div
       className={`${
-        editTaskId ? "" : "p-4"
-      }  rounded-[8px] bg-white dark:bg-[#4b3455] flex flex-1 flex-col`}
+        editTaskId ? "p-3" : "p-4"
+      }  rounded-[8px] bg-white dark:bg-[#2a1733] flex flex-1 flex-col`}
     >
       <div className="border-b border-gray-300 mb-2 pb-2">
-        <h3 className="font-semibold text-habit-gray dark:text-white/80 mb-2 text-[12px] md:text-[16px]">
+        <h3 className="font-semibold text-habit-gray dark:text-white mb-2 text-[12px] md:text-[16px]">
           Priority
         </h3>
         {!editTaskId && (
-          <p className="mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]">
+          <p className="mb-3 font-light text-gray-500 dark:text-white/90 text-[9px] md:text-[13px]">
             Priority helps you organize your tasks by importance. Select one of
             the priority levels below.
           </p>
@@ -47,11 +47,11 @@ const TagAndPriority = ({ editTaskId }: { editTaskId?: string }) => {
         </div>
       </div>
       <div>
-        <h3 className="font-semibold text-habit-gray dark:text-white/80 mb-1 text-[12px] md:text-[16px]">
+        <h3 className="font-semibold text-habit-gray dark:text-white mb-1 text-[12px] md:text-[16px]">
           Tag
         </h3>
         {!editTaskId && (
-          <p className="mb-3 font-light text-gray-500 dark:text-white/70 text-[9px] md:text-[13px]">
+          <p className="mb-3 font-light text-gray-500 dark:text-white/90 text-[9px] md:text-[13px]">
             Tags are important for keeping your to-do items in order. You can
             select an existing tag or write a new tag for your task. To
             successfully add a new tag, please press Enter after typing.

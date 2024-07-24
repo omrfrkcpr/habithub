@@ -88,8 +88,8 @@ const Home = () => {
   return (
     <div
       className={`relative min-h-screen ${
-        value === 2 ? "h-[64rem]" : "h-auto"
-      } w-full dark:bg-[#3e284a] transition-colors duration-300`}
+        value === 2 ? "h-[71rem]" : "h-auto"
+      } w-full dark:bg-[#361d42] transition-colors duration-300`}
     >
       {/* Hamburger Menu */}
       <div
@@ -108,7 +108,7 @@ const Home = () => {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed min-h-[100vh] h-[40rem] flex flex-col z-50 border-r bg-white border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#311a3e] transition-transform duration-300 transform ${
+        className={`fixed min-h-[100vh] h-[40rem] flex flex-col z-50 border-r bg-white border-gray-400 dark:border-gray-500 dark:text-white dark:bg-[#2a1733] transition-transform duration-300 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 w-[280px]`}
         id="desktop-sidebar"

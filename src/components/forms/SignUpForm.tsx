@@ -207,7 +207,11 @@ const SignUpForm = () => {
           disabled={submitting}
           className="w-[130px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex items-center justify-center text-[15px] text-center mt-5 bg-white hover:bg-gray-200 font-medium"
         >
-          {submitting ? <CircleLoader size={20} /> : "Get Started!"}
+          {submitting ? (
+            <CircleLoader size={20} className="text-black dark:text-white" />
+          ) : (
+            "Get Started!"
+          )}
         </button>
       </form>
       <AuthBtns />

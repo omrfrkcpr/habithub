@@ -43,7 +43,7 @@ const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
         onChange={(e) =>
           dispatch(setNewTask({ ...newTask, name: e.target.value }))
         }
-        className={`bg-habit-light-gray dark:bg-[#5e436c] placeholder:dark:text-white/80 w-full py-2 px-2 outline-none ${
+        className={`bg-habit-light-gray dark:bg-[#F0F0F0] dark:placeholder:text-black/70 w-full py-2 px-2 outline-none ${
           editTaskId
             ? "text-[10px] md:text-[14px]"
             : "text-[12px] md:text-[16px]"
@@ -65,7 +65,7 @@ const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
         onChange={(e) =>
           dispatch(setNewTask({ ...newTask, description: e.target.value }))
         }
-        className={`bg-habit-light-gray dark:bg-[#5e436c] placeholder:dark:text-white/80 w-full py-2 px-2 outline-none ${
+        className={`bg-habit-light-gray dark:bg-[#F0F0F0] dark:placeholder:text-black/70 w-full py-2 px-2 outline-none ${
           editTaskId
             ? "text-[10px] md:text-[14px]"
             : "text-[12px] md:text-[16px]"
@@ -73,8 +73,12 @@ const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
       />
       <CardColor editTaskId={editTaskId} />
       <div className={`${editTaskId ? "my-5" : "my-10"}`}>
-        <div className="flex gap-2 items-center bg-habit-light-gray dark:bg-[#5e436c] py-2 px-2 w-[fit-content] rounded-[8px]">
-          <h3 className="text-black/60 dark:text-white/80 text-[12px] md:text-[16px]">
+        <div
+          className={`flex gap-2 items-center bg-habit-light-gray dark:bg-[#F0F0F0] ${
+            editTaskId ? "py-1" : "py-2"
+          } px-2 w-[fit-content] rounded-[8px]`}
+        >
+          <h3 className="text-black/60 dark:text-black/70 text-[12px] md:text-[15px]">
             Due Time:
           </h3>
           <DatePicker
@@ -89,8 +93,8 @@ const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
         </div>
         <div
           className={`${
-            editTaskId ? "my-3" : "my-5 py-5 px-5 shadow-md"
-          } bg-habit-light-gray dark:bg-[#5e436c] rounded-[8px] flex justify-between flex-col lg:flex-row gap-4`}
+            editTaskId ? "mt-3" : "my-5 py-2 px-2 shadow-md"
+          } bg-habit-light-gray dark:bg-[#F0F0F0] rounded-[8px] flex justify-between flex-col lg:flex-row gap-2`}
         >
           {!editTaskId && (
             <Repeat

@@ -164,7 +164,7 @@ const Repeat: React.FC<Repeat> = ({ startDate, checked, setChecked }) => {
   };
 
   return (
-    <div className="flex items-start flex-col mb-3 bg-white dark:bg-[#4b3455] p-4 rounded-[8px] flex-1">
+    <div className="flex items-start flex-col bg-white dark:bg-[#2a1733] p-3 rounded-[8px] flex-1">
       <div className="flex justify-between items-center w-full">
         <h3
           className={`font-semibold text-[12px] md:text-[16px] ${
@@ -179,7 +179,7 @@ const Repeat: React.FC<Repeat> = ({ startDate, checked, setChecked }) => {
           inputProps={{ "aria-label": "controlled" }}
           checked={checked}
           onChange={handleChange}
-          color={darkMode ? "success" : "secondary"}
+          color={darkMode ? "default" : "secondary"}
         />
       </div>
       <p

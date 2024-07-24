@@ -181,7 +181,14 @@ const ResetPassword = () => {
                     disabled={isSubmitting}
                     className="py-1 px-2 bg-white hover:bg-habit-light-gray rounded-xl w-[100px] text-[10px] md:text-[14px] h-[28px]"
                   >
-                    {isSubmitting ? <CircleLoader size={18} /> : "Reset"}
+                    {isSubmitting ? (
+                      <CircleLoader
+                        size={18}
+                        className="text-black dark:text-white"
+                      />
+                    ) : (
+                      "Reset"
+                    )}
                   </button>
                 </div>
               </Form>

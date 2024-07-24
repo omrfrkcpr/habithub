@@ -41,7 +41,11 @@ const AuthSuccess = () => {
 
   return (
     <div className="flex items-center flex-col justify-center h-screen gap-4">
-      <CircleLoader size={60} color={"#CA87F4"} loading={true} />
+      <CircleLoader
+        size={60}
+        className="text-[#CA87F4] dark:text-white"
+        loading={true}
+      />
       <div className="text-center w-[90%] md:text-[fit-content]">
         <p className="text-lg md:text-xl font-bold mb-2">
           Successfully authenticated with {getServiceName()}.

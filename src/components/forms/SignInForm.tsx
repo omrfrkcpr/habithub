@@ -76,7 +76,11 @@ const SignInForm = () => {
           type="submit"
           className="w-[100px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex justify-center items-center text-[13px] md:text-[18px] text-center mt-10 bg-white hover:bg-gray-200 font-medium"
         >
-          {submitting ? <CircleLoader size={20} /> : "Login"}
+          {submitting ? (
+            <CircleLoader size={20} className="text-black dark:text-white" />
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
       <div className="flex flex-col">

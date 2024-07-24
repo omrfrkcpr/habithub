@@ -134,7 +134,7 @@ const ExportBtns = ({
           {loadingStates[id] ? (
             <div className="flex gap-1 items-center justify-center">
               <span>Loading...</span>
-              <CircleLoader size={16} />
+              <CircleLoader size={16} className="text-black dark:text-white" />
             </div>
           ) : (
             label

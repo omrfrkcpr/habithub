@@ -40,9 +40,9 @@ const SingleTask = () => {
             className="fixed inset-0 bg-black opacity-50"
             onClick={closeModal}
           ></button>
-          <div className="bg-white dark:bg-[#834d8d] rounded-lg z-10 max-w-lg w-full mx-4 relative">
+          <div className="bg-white dark:bg-[#3c2148] rounded-lg z-10 max-w-lg w-full mx-4 relative">
             <button
-              className="absolute top-1 right-2 z-50 text-black hover:text-gray-700"
+              className="absolute top-1 right-2 z-50 text-black dark:text-habit-white dark:hover:text-white/60 hover:text-gray-700"
               onClick={closeModal}
             >
               <IoCloseOutline size={20} />
@@ -52,7 +52,10 @@ const SingleTask = () => {
                 <NewTask editTaskId={taskId} />
               ) : (
                 <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-                  <CircleLoader size={32} />
+                  <CircleLoader
+                    size={32}
+                    className="text-black dark:text-white"
+                  />
                 </div>
               )}
             </div>

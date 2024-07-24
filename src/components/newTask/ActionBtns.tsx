@@ -71,10 +71,8 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked, editTaskId }) => {
 
   return (
     <div
-      className={`flex gap-3 justify-center items-center ${
-        editTaskId
-          ? "pt-1 pb-3 md:py-3 mx-auto"
-          : "pt-5 pb-10 md:py-10 md:me-10 md:ms-auto"
+      className={`flex justify-center items-center ${
+        editTaskId ? "mx-auto" : "gap-3 pt-5 pb-10 md:py-10 md:me-10 md:ms-auto"
       }  md:w-[fit-content] `}
     >
       {!editTaskId && (

@@ -16,7 +16,7 @@ const RepeatValueBtn: React.FC<RepeatValueBtnProps> = ({
       value={value}
       disabled={isDisabled}
       onClick={() => !isDisabled && onClick(value)}
-      className={`text-sm md:text-md py-1 px-2 rounded-md border border-gray-200 dark:border-gray-600 ${
+      className={`text-xs md:text-sm py-1 px-1 rounded-md border border-gray-200 dark:border-gray-600 ${
         isDisabled ? "opacity-50 cursor-not-allowed line-through" : ""
       } ${
         isSelected
