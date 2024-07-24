@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: TaskSliceStateValues = {
   tasks: [],
+  editTaskId: "",
   singleTask: {
     id: "",
     name: "",
@@ -52,6 +53,9 @@ const taskSlice = createSlice({
       state.loading = false;
       state.singleTask = data;
     },
+    setEditTaskId: (state, { payload }) => {
+      state.editTaskId = payload;
+    },
     fetchFail: (state) => {
       state.loading = false;
       state.error = true;
@@ -65,6 +69,7 @@ export const {
   setTagTasks,
   setTodayTasks,
   setSingleTask,
+  setEditTaskId,
   fetchFail,
 } = taskSlice.actions;
 export default taskSlice.reducer;

@@ -7,6 +7,7 @@ import { resetNewTask } from "../features/newTaskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { CircleLoader } from "react-spinners";
+import { setEditTaskId } from "../features/taskSlice";
 
 const SingleTask = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -19,17 +20,22 @@ const SingleTask = () => {
     backgroundLocation?: Location;
     selectedDate: string;
   };
+  // const { editTaskId } = useSelector((state: RootState) => state.task);
 
   useEffect(() => {
     if (taskId) {
       getSingleTaskData(taskId);
+      dispatch(setEditTaskId(taskId));
     }
   }, [taskId]);
+
+  // console.log(editTaskId);
 
   const closeModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     navigate(-1);
     dispatch(resetNewTask());
+    dispatch(setEditTaskId(""));
   };
 
   return (
@@ -49,7 +55,7 @@ const SingleTask = () => {
             </button>
             <div className="py-1 px-5 h-[575px] md:h-[620px] lg:h-[665px]">
               {newTask.name ? (
-                <NewTask editTaskId={taskId} />
+                <NewTask />
               ) : (
                 <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
                   <CircleLoader

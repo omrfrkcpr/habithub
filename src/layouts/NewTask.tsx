@@ -10,11 +10,12 @@ import ExampleCustomInput from "../components/inputs/ExampleCustumInput";
 import { RootState } from "../app/store";
 import { setNewTask } from "../features/newTaskSlice";
 
-const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
+const NewTask = () => {
   const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+  const { editTaskId } = useSelector((state: RootState) => state.task);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
@@ -71,7 +72,7 @@ const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
             : "text-[12px] md:text-[16px]"
         }  rounded-[8px] mt-2 mb-5`}
       />
-      <CardColor editTaskId={editTaskId} />
+      <CardColor />
       <div className={`${editTaskId ? "my-5" : "my-10"}`}>
         <div
           className={`flex gap-2 items-center bg-habit-light-gray dark:bg-[#F0F0F0] ${
@@ -103,10 +104,10 @@ const NewTask = ({ editTaskId }: { editTaskId?: string }) => {
               setChecked={setChecked}
             />
           )}
-          <TagAndPriority editTaskId={editTaskId} />
+          <TagAndPriority />
         </div>
       </div>
-      <ActionBtns setChecked={setChecked} editTaskId={editTaskId} />
+      <ActionBtns setChecked={setChecked} />
     </div>
   );
 };

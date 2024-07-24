@@ -9,13 +9,14 @@ import { RootState } from "../../app/store";
 import useTaskCalls from "../../hooks/useTaskCalls";
 import { setNewTask } from "../../features/newTaskSlice";
 
-const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked, editTaskId }) => {
+const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const dispatch = useDispatch();
   const newTask = useSelector((state: RootState) => state.newTask);
   const { tags } = useSelector((state: RootState) => state.task);
   const { currentUser } = useSelector((state: RootState) => state.auth);
   const { createTaskData } = useTaskCalls();
   const { date } = useSelector((state: RootState) => state.date);
+  const { editTaskId } = useSelector((state: RootState) => state.task);
 
   // console.log(newTask);
 

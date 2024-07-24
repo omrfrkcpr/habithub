@@ -6,10 +6,11 @@ import { priorities } from "../../helpers/constants";
 import { setNewTask } from "../../features/newTaskSlice";
 import { RootState } from "../../app/store";
 
-const TagAndPriority = ({ editTaskId }: { editTaskId?: string }) => {
+const TagAndPriority = () => {
   const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
   const { tags } = useSelector((state: RootState) => state.task);
+  const { editTaskId } = useSelector((state: RootState) => state.task);
 
   const handleTagClick = (targetTag: TagValues) => {
     const selectedTag = tags.find((tag) => tag.name === targetTag.name);
@@ -27,8 +28,8 @@ const TagAndPriority = ({ editTaskId }: { editTaskId?: string }) => {
   return (
     <div
       className={`${
-        editTaskId ? "p-3" : "p-4"
-      }  rounded-[8px] bg-white dark:bg-[#2a1733] flex flex-1 flex-col`}
+        editTaskId ? "p-3 bg-habit-light-gray" : "p-4 bg-white"
+      }  rounded-[8px]  dark:bg-[#2a1733] flex flex-1 flex-col`}
     >
       <div className="border-b border-gray-300 mb-2 pb-2">
         <h3 className="font-semibold text-habit-gray dark:text-white mb-2 text-[12px] md:text-[16px]">

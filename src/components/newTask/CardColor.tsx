@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import { setNewTask } from "../../features/newTaskSlice";
 
-const CardColor = ({ editTaskId }: { editTaskId?: string }) => {
+const CardColor = () => {
   const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
+  const { editTaskId } = useSelector((state: RootState) => state.task);
 
   const handleCardColorClick = (color: string) => {
     dispatch(setNewTask({ ...newTask, cardColor: color }));
