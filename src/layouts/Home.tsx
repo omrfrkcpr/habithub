@@ -22,6 +22,7 @@ const Home = () => {
   const [value, setValue] = useState<number>(0);
   const { getTaskData, getTodayTasksData } = useTaskCalls();
   const { date } = useSelector((state: RootState) => state.date);
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode);
 
   const handleChange = useCallback(
     (event: React.SyntheticEvent, newValue: number) => {
@@ -143,10 +144,10 @@ const Home = () => {
                 fontWeight: "bold",
               },
               "& .Mui-selected": {
-                color: "#C67ED2 !important",
+                color: darkMode ? "#e9bcef" : "#C67ED2 !important",
               },
               "& .MuiTabs-indicator": {
-                backgroundColor: "#C67ED2 !important",
+                backgroundColor: darkMode ? "#e9bcef" : "#C67ED2 !important",
               },
             }}
           >

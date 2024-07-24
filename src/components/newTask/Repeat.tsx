@@ -179,7 +179,7 @@ const Repeat: React.FC<Repeat> = ({ startDate, checked, setChecked }) => {
           inputProps={{ "aria-label": "controlled" }}
           checked={checked}
           onChange={handleChange}
-          color={darkMode ? "default" : "secondary"}
+          color={darkMode ? "success" : "secondary"}
         />
       </div>
       <p
