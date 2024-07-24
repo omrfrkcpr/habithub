@@ -155,6 +155,8 @@ const UserMenu = ({
     }
   }, [remainingTime]);
 
+  // console.log(currentUser);
+
   const avatarSrc = currentUser?.avatar?.includes("/uploads/")
     ? `http://127.0.0.1:8000${currentUser?.avatar}`
     : currentUser?.avatar ||

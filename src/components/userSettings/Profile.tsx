@@ -125,6 +125,7 @@ const Profile = () => {
           handleFileRemove={handleFileRemove}
           setSelectedFile={setSelectedFile}
           setFilePreview={setFilePreview}
+          selectedFile={selectedFile}
           setProfileForm={setProfileForm}
           setRemoveExistingAvatar={setRemoveExistingAvatar}
         />

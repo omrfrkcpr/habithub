@@ -2,6 +2,8 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload, FiTrash2 } from "react-icons/fi";
 import toastNotify from "../../helpers/toastNotify";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 interface AvatarSectionProps {
   filePreview: any;
@@ -10,6 +12,7 @@ interface AvatarSectionProps {
   handleFileRemove: () => void;
   setSelectedFile: (file: any) => void;
   setFilePreview: (preview: any) => void;
+  selectedFile: File | null;
   setProfileForm: (form: any) => void;
   setRemoveExistingAvatar: (remove: boolean) => void;
 }
@@ -21,10 +24,11 @@ const AvatarSection: React.FC<AvatarSectionProps> = ({
   handleFileRemove,
   setSelectedFile,
   setFilePreview,
+  selectedFile,
   setProfileForm,
   setRemoveExistingAvatar,
 }) => {
-  const onDrop = (acceptedFiles: any) => {
+  const onDrop = (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     const fileType = file.type;
 
@@ -42,6 +46,7 @@ const AvatarSection: React.FC<AvatarSectionProps> = ({
       toastNotify("error", "Only JPEG, JPG and PNG formats are allowed.");
     }
   };
+  const { currentUser } = useSelector((state: RootState) => state.auth);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -87,10 +92,10 @@ const AvatarSection: React.FC<AvatarSectionProps> = ({
             className="w-20 h-20 md:w-28 md:h-28 border ms-2 md:ms-4 border-gray-400 rounded-full object-cover"
           />
           <div className="flex flex-col absolute left-[120px] md:left-[180px] z-50">
-            {filePreview ? (
+            {selectedFile ? (
               <div className="flex items-center justify-start space-x-2">
                 <span className="text-[10px] md:text-[14px]">
-                  {filePreview.name}
+                  {selectedFile.name}
                 </span>
                 <button
                   type="button"
