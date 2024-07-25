@@ -29,12 +29,12 @@ const Main = () => {
           </button>
         </div>
         <MainCards />
-        <div className="mb-[50px] lg:my-0 mx-[50px] lg:absolute top-[975px] md:top-[750px] md:left-10">
+        <div className="mb-[50px] lg:my-0 mx-[50px] lg:absolute top-[975px] md:top-[750px] lg:top-[850px] xl:top-[800px] md:left-10 lg:left-2 xl:left-6">
           <img
             src={`
               ${process.env.REACT_APP_AWS_S3_BASE_URL}advertisement.png`}
             alt="advertisement"
-            className="w-[400px] md:w-[500px] lg:w-[600px] xl:w-[650px] object-fit rounded-xl shadow-xl"
+            className="w-[400px] md:w-[500px] xl:w-[650px] object-fit rounded-xl shadow-xl"
           />
           <div className="relative flex gap-2 justify-start items-center lg:absolute bottom-8 left-5 md:bottom-14 md:left-7 xl:bottom-12 xl:left-10">
             <img
@@ -51,8 +51,8 @@ const Main = () => {
             />
           </div>
         </div>
-        <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-0 lg:absolute top-[1320px] md:top-[1000px] lg:top-[1050px] left-5 md:left-[750px] lg:left-[800px] xl:left-[65%] 2xl:left-[57%]">
-          <div className="relative w-[95%] max-w-[400px] max-h-[300px] xl:max-w-[600px] flex flex-col justify-center items-center px-3 md:px-0 py-5 bg-habit-light-gray shadow-md rounded-xl">
+        <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-2 xl:mx-0 lg:absolute top-[1320px] md:top-[1000px] lg:top-[1050px] left-5 md:left-[600px] xl:left-[60%] 2xl:left-[57%]">
+          <div className="relative w-[95%] max-w-[400px] max-h-[300px] lg:max-w-[500px] xl:max-w-[600px] flex flex-col justify-center items-center px-3 md:px-0 py-5 bg-habit-light-gray shadow-md rounded-xl">
             <img
               src={`
                 ${process.env.REACT_APP_AWS_S3_BASE_URL}mental-health.png`}
