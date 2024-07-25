@@ -34,7 +34,7 @@ const TagLists = () => {
       <section id="add-tag" className="w-[fit-content] my-4">
         <NewTagBtn />
       </section>
-      <Box>
+      <Box sx={{ paddingBottom: 5 }}>
         {Object.entries(tasksGroupByTag).map(([tag, tasksForTag]) => (
           <Box key={tag} mb={4}>
             <Typography
