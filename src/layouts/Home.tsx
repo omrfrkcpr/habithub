@@ -88,8 +88,12 @@ const Home = () => {
 
   return (
     <div
-      className={`relative min-h-screen ${
-        value === 2 ? "h-[71rem]" : "h-auto"
+      className={`relative  ${
+        value === 2
+          ? "h-[71rem] min-h-screen"
+          : value === 1
+          ? "min-h-[100vh] h-auto"
+          : "h-auto min-h-screen"
       } w-full dark:bg-[#361d42] transition-colors duration-300`}
     >
       {/* Hamburger Menu */}

@@ -8,9 +8,9 @@ const useDate = (callback: (value: number) => void) => {
     if (selectedDate) {
       // console.log(selectedDate);
       dispatch(setDate(selectedDate.toISOString()));
-      if (callback) {
-        callback(0);
-      }
+      // if (callback) {
+      //   callback(0);
+      // }
     }
   };
 
