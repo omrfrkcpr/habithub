@@ -14,7 +14,6 @@ import jsPDF from "jspdf";
 import toastNotify from "../../helpers/toastNotify";
 import useAxios from "../../hooks/useAxios";
 import { CircleLoader } from "react-spinners";
-import habitHubImage from "../../assets/habitHub.png";
 
 const ExportBtns = ({
   setShowExports,
@@ -39,7 +38,8 @@ const ExportBtns = ({
   const handleExportDocx = async () => {
     setLoadingStates((prev) => ({ ...prev, docx: true }));
     try {
-      const imageBuffer = await fetch(habitHubImage).then((res) =>
+      const imageBuffer = await fetch(`
+        ${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`).then((res) =>
         res.arrayBuffer()
       );
 
@@ -132,7 +132,10 @@ const ExportBtns = ({
       const lineHeight = 10;
       let yPosition = margin;
 
-      const imgData = await fetch(habitHubImage).then((res) => res.blob());
+      const imgData = await fetch(`
+        ${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`).then((res) =>
+        res.blob()
+      );
       const reader = new FileReader();
       reader.readAsDataURL(imgData);
       reader.onloadend = () => {

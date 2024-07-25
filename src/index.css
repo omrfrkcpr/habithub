@@ -54,7 +54,7 @@
 }
 
 .main-container {
-  background-image: url("./assets/mainBg.png");
+  /* background-image: url(`${process.env.REACT_APP_AWS_S3_BASE_URL}auth-Bg.jpg`); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

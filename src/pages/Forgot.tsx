@@ -4,7 +4,6 @@ import toastNotify from "../helpers/toastNotify";
 import ActionBtn from "../components/buttons/ActionBtn";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import Footer from "../layouts/Footer";
-import authBg from "../assets/auth-Bg.jpg";
 import Navbar from "../layouts/Navbar";
 
 const Forgot = () => {
@@ -39,7 +38,8 @@ const Forgot = () => {
     <div
       className="w-screen h-screen z-50 relative bg-habit-light-gray"
       style={{
-        backgroundImage: `url(${authBg})`,
+        backgroundImage: `url(${`
+        ${process.env.REACT_APP_AWS_S3_BASE_URL}auth-Bg.jpg`})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toastNotify from "../helpers/toastNotify";
-import authBg from "../assets/auth-Bg.jpg";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
@@ -122,7 +121,8 @@ const ResetPassword = () => {
     <div
       className="w-screen h-screen z-50 relative bg-habit-light-gray"
       style={{
-        backgroundImage: `url(${authBg})`,
+        backgroundImage: `url(${`
+        ${process.env.REACT_APP_AWS_S3_BASE_URL}auth-Bg.jpg`})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",
