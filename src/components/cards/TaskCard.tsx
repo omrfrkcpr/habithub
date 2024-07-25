@@ -102,7 +102,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
           isDone && "line-through text-black/30"
         } ${showDesc === id ? "max-h-auto opacity-100" : "max-h-0 opacity-0"}`}
       >
-        <span ref={descRef} className="mt-2 me-[100px]">
+        <span
+          ref={descRef}
+          className="mt-2 me-[100px]"
+          style={{ color: isDone ? "gray" : cardColor }}
+        >
           {description}
         </span>
         <span className="bg-black/70 text-white absolute w-[fit-content] top-1 right-0  px-2 py-1 ms-auto rounded-full text-[9px] md:text-[11px] xl:text-[9px] 2xl:text-[11px]">
