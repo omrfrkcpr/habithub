@@ -1,5 +1,4 @@
 import Navbar from "../layouts/Navbar";
-import aggrement from "../assets/aggrement.png";
 import { useNavigate } from "react-router-dom";
 
 const Contract: React.FC = () => {
@@ -72,7 +71,8 @@ const Contract: React.FC = () => {
         </div>
         <div className="order-0 md:order-1">
           <img
-            src={aggrement}
+            src={`
+              ${process.env.REACT_APP_AWS_S3_BASE_URL}aggrement.png`}
             alt="aggrement"
             className="w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] relative object-cover"
           />

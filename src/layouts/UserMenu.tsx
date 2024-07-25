@@ -157,10 +157,9 @@ const UserMenu = ({
 
   // console.log(currentUser);
 
-  const avatarSrc = currentUser?.avatar?.includes("/uploads/")
-    ? `http://127.0.0.1:8000${currentUser?.avatar}`
-    : currentUser?.avatar ||
-      "https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg";
+  const avatarSrc = currentUser?.avatar
+    ? currentUser?.avatar
+    : "https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg";
 
   return (
     <>

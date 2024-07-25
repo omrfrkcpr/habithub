@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import calendarGif from "../assets/calendar.gif";
 import { RootState } from "../app/store";
 import useTaskCalls from "../hooks/useTaskCalls";
 import { useSelector } from "react-redux";
@@ -35,7 +34,11 @@ const Setup = () => {
     <>
       <div className="h-[100vh] w-[100vw] bg-white z-50 fixed">
         <div className="h-full w-full flex flex-col justify-center items-center self-center gap-4">
-          <img src={calendarGif} alt="" />
+          <img
+            src={`
+          ${process.env.REACT_APP_AWS_S3_BASE_URL}calendar.gif`}
+            alt="calendar-gif"
+          />
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

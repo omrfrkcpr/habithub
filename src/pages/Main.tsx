@@ -3,11 +3,7 @@ import Navbar from "../layouts/Navbar";
 import MainBg from "../components/backgrounds/MainBg";
 import { useNavigate } from "react-router-dom";
 import MainCards from "../layouts/MainCards";
-import advertisement from "../assets/advertisement.png";
-import mentalHealth from "../assets/mental-health.png";
 import Footer from "../layouts/Footer";
-import googlePlay from "../assets/google-play.svg";
-import appStore from "../assets/app-store.svg";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -35,29 +31,33 @@ const Main = () => {
         <MainCards />
         <div className="mb-[50px] lg:my-0 mx-[50px] lg:absolute top-[975px] md:top-[750px] md:left-10">
           <img
-            src={advertisement}
+            src={`
+              ${process.env.REACT_APP_AWS_S3_BASE_URL}advertisement.png`}
             alt="advertisement"
             className="w-[400px] md:w-[500px] lg:w-[600px] xl:w-[650px] object-fit rounded-xl shadow-xl"
           />
-          <div className="relative flex gap-2 justify-start items-center lg:absolute bottom-8 left-5 md:bottom-14 md:left-7 xl:bottom-16 xl:left-10">
+          <div className="relative flex gap-2 justify-start items-center lg:absolute bottom-8 left-5 md:bottom-14 md:left-7 xl:bottom-12 xl:left-10">
             <img
-              src={googlePlay}
+              src={`
+                ${process.env.REACT_APP_AWS_S3_BASE_URL}google-play.svg`}
               alt="google-play"
               className="w-[50px] xl:w-[100px] cursor-pointer absolute lg:static bottom-0"
             />
             <img
-              src={appStore}
+              src={`
+                ${process.env.REACT_APP_AWS_S3_BASE_URL}app-store.svg`}
               alt="app-store"
               className="w-[50px] xl:w-[100px] cursor-pointer absolute left-[60px] lg:static bottom-0"
             />
           </div>
         </div>
-        <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-0 lg:absolute top-[1320px] md:top-[1000px] left-5 md:left-[750px] lg:left-[800px] xl:left-[70%]">
+        <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-0 lg:absolute top-[1320px] md:top-[1000px] lg:top-[1050px] left-5 md:left-[750px] lg:left-[800px] xl:left-[65%] 2xl:left-[57%]">
           <div className="relative w-[95%] max-w-[400px] max-h-[300px] xl:max-w-[600px] flex flex-col justify-center items-center px-3 md:px-0 py-5 bg-habit-light-gray shadow-md rounded-xl">
             <img
-              src={mentalHealth}
+              src={`
+                ${process.env.REACT_APP_AWS_S3_BASE_URL}mental-health.png`}
               alt="mental-health"
-              className="w-[150px] md:w-[200px] h-[fit-content] lg:absolute -top-12 md:-top-40 lg:-top-50 object-fit"
+              className="w-[150px] md:w-[200px] lg:w-[300px] h-[fit-content] lg:absolute -top-12 md:-top-40 lg:-top-[16rem] object-fit"
             />
             <p className="text-[10px] md:text-[13px] md:pt-5 md:pb-5 md:px-3">
               <strong>Maximize</strong> productivity and prioritize{" "}

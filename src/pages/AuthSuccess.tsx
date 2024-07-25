@@ -5,9 +5,6 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import toastNotify from "../helpers/toastNotify";
 import { CircleLoader } from "react-spinners";
-import GoogleAuth from "../assets/Google-Habithub-Auth.png";
-import GithubAuth from "../assets/Github-Habithub-Auth.png";
-import TwitterAuth from "../assets/Twitter-Habithub-Auth.png";
 
 const AuthSuccess = () => {
   const dispatch = useDispatch();
@@ -73,11 +70,23 @@ const getService = () => {
   const provider = queryParams.get("provider");
 
   if (provider === "google") {
-    return { serviceName: "Google", serviceImage: GoogleAuth };
+    return {
+      serviceName: "Google",
+      serviceImage: `
+      ${process.env.REACT_APP_AWS_S3_BASE_URL}Google-Habithub-Auth.png`,
+    };
   } else if (provider === "github") {
-    return { serviceName: "Github", serviceImage: GithubAuth };
+    return {
+      serviceName: "Github",
+      serviceImage: `
+      ${process.env.REACT_APP_AWS_S3_BASE_URL}Github-Habithub-Auth.png`,
+    };
   } else if (provider === "twitter") {
-    return { serviceName: "Twitter", serviceImage: TwitterAuth };
+    return {
+      serviceName: "Twitter",
+      serviceImage: `
+      ${process.env.REACT_APP_AWS_S3_BASE_URL}Twitter-Habithub-Auth.png`,
+    };
   } else {
     return { serviceName: "the social service", serviceImage: "" };
   }

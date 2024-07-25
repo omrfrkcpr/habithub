@@ -79,9 +79,7 @@ const Profile = () => {
   };
 
   const avatarSrc = profileForm.avatar
-    ? profileForm.avatar.includes("/uploads/")
-      ? `http://127.0.0.1:8000${profileForm.avatar}`
-      : profileForm.avatar
+    ? profileForm.avatar
     : "https://i.pinimg.com/736x/09/21/fc/0921fc87aa989330b8d403014bf4f340.jpg";
 
   const inputFields = [

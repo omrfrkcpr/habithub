@@ -2,8 +2,6 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload, FiTrash2 } from "react-icons/fi";
 import toastNotify from "../../helpers/toastNotify";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
 
 interface AvatarSectionProps {
   filePreview: any;
@@ -46,8 +44,6 @@ const AvatarSection: React.FC<AvatarSectionProps> = ({
       toastNotify("error", "Only JPEG, JPG and PNG formats are allowed.");
     }
   };
-  const { currentUser } = useSelector((state: RootState) => state.auth);
-
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {

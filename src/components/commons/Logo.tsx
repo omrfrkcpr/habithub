@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../../assets/habitHub.png";
 import { useNavigate } from "react-router-dom";
 
 function Logo({ single }: { single: boolean }) {
@@ -10,7 +9,8 @@ function Logo({ single }: { single: boolean }) {
       onClick={() => navigate("/")}
     >
       <img
-        src={logo}
+        src={`
+          ${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`}
         alt="logo-img"
         className={`${
           single

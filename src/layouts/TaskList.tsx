@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
-import nothing from "../assets/NotFound.png";
 import { formatDateString } from "../helpers/functions";
 import TaskCard from "../components/cards/TaskCard";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
@@ -199,7 +198,8 @@ const TaskList = () => {
       ) : (
         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-center items-center">
           <img
-            src={nothing}
+            src={`
+              ${process.env.REACT_APP_AWS_S3_BASE_URL}NotFound.png`}
             alt="nothing"
             className="md:w-[340px] md:h-[300px] object-cover"
           />
