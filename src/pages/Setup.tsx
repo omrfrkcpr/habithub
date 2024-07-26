@@ -22,7 +22,7 @@ const Setup = () => {
 
   // After all messages redirect to contract page
   if (currentMessageIndex === messages.length) {
-    navigate("/home");
+    navigate(`/home?date=${date}`);
   }
 
   useEffect(() => {
