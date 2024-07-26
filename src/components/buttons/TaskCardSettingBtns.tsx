@@ -27,10 +27,10 @@ const TaskCardSettingBtns = ({ taskId }: { taskId: string }) => {
   return (
     <div>
       <button onClick={handleEditClick}>
-        <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/80 hover:text-orange-600" />
+        <MdEdit className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/70 hover:text-orange-600" />
       </button>
       <button onClick={handleDeleteClick}>
-        <RiDeleteBin6Fill className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/80 hover:text-red-600" />
+        <RiDeleteBin6Fill className="w-4 h-4 md:w-5 md:h-5 pt-1 text-black/70 hover:text-red-600" />
       </button>
     </div>
   );

@@ -82,13 +82,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
         </div>
         <span
           className={`${isDone && "line-through"} text-[12px] font-semibold
-           md:text-[15px] xl:text-[13px] 2xl:text-[15px] p-1`}
+           md:text-[15px] xl:text-[12px] 2xl:text-[15px] p-1`}
           style={{ color: isDone ? "gray" : cardColor }}
         >
           {name}
         </span>
       </div>
-      <div className="absolute right-2 top-[10px] flex gap-1 justify-center items-center">
+      <div className="absolute right-2 top-[10px] flex justify-center items-center">
         <TaskCardSettingBtns taskId={id} />
         <button
           onClick={handleShowDescClick}

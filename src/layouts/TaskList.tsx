@@ -8,6 +8,35 @@ import useTaskCalls from "../hooks/useTaskCalls";
 import { FaInfoCircle } from "react-icons/fa";
 import { CgExport } from "react-icons/cg";
 import ExportBtns from "../components/buttons/ExportBtns";
+import styled from "styled-components";
+
+const CustomScrollUl = styled.ul<{ scrollbarColor: string }>`
+  max-height: 200px;
+  overflow: auto;
+  margin-bottom: 10px;
+  list-style: none;
+  padding: 0 10px 0 0;
+
+  & > li + li {
+    margin-top: 5px; // gap between list items
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props: any) => props.scrollbarColor};
+    border-radius: 9999px;
+    border: 3px solid #edf2f7;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #edf2f7;
+    border-radius: 9999px;
+  }
+`;
 
 const TaskList = () => {
   const { date } = useSelector((state: RootState) => state.date);
@@ -132,6 +161,13 @@ const TaskList = () => {
                     : column === "Important 🔥"
                     ? 0
                     : -1;
+                const scrollbarColor =
+                  priority === 1
+                    ? "#f87171" // red-400
+                    : priority === 0
+                    ? "#fb923c" // orange-400
+                    : "#34d399"; // green-400
+
                 return (
                   <Droppable droppableId={column} key={column}>
                     {(provided: any) => (
@@ -161,7 +197,7 @@ const TaskList = () => {
                         >
                           {column}
                         </h2>
-                        <ul className="space-y-2">
+                        <CustomScrollUl scrollbarColor={scrollbarColor}>
                           {getFilteredTasks(priority).map(
                             (task: Task, index: number) => (
                               <Draggable
@@ -186,7 +222,7 @@ const TaskList = () => {
                             )
                           )}
                           {provided.placeholder}
-                        </ul>
+                        </CustomScrollUl>
                       </div>
                     )}
                   </Droppable>
