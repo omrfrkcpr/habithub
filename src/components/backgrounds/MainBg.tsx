@@ -22,13 +22,13 @@ const MainBg = () => {
       <img
         src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}image-1.png`}
-        alt="line-8"
+        alt="imag-1"
         className="hidden xl:block absolute top-[50px] right-10 w-[500px]"
       />
       <img
         src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}Ellipse-1197.png`}
-        alt="line-8"
+        alt="eclipse-1197"
         className="hidden xl:block absolute top-[50px] right-16 -rotate-[8deg] w-[520px]"
       />
     </div>

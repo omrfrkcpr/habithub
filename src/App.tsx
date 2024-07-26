@@ -17,8 +17,4 @@ function App() {
   );
 }
 
-// #2a1733
-// #361d42
-// #9394a5
-
 export default App;

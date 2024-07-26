@@ -17,10 +17,6 @@
 
   body {
     font-family: "Poppins", "sans-serif";
-    /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
-    /* font-family: 'Courier New', Courier, monospace; */
-    /* font-family: sans-serif; */
-    /* font-family: Georgia, "Times New Roman", Times, serif; */
   }
 }
 
@@ -51,15 +47,6 @@
       0 100%
     );
   }
-}
-
-.main-container {
-  /* background-image: url(`${process.env.REACT_APP_AWS_S3_BASE_URL}auth-Bg.jpg`); */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-  width: 100%;
 }
 
 .input-cls {
