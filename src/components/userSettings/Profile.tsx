@@ -4,9 +4,12 @@ import { RootState } from "../../app/store";
 import AvatarSection from "./AvatarSection";
 import InputField from "../inputs/ProfileInput";
 import useAuthCalls from "../../hooks/useAuthCalls";
+import { CircleLoader } from "react-spinners";
 
 const Profile = () => {
-  const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { currentUser, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
   const { updateUser } = useAuthCalls();
   const [profileForm, setProfileForm] = useState({
     firstName: "",
@@ -165,9 +168,16 @@ const Profile = () => {
         </section>
         <button
           type="submit"
-          className="mt-4 px-2 py-1 text-[12px] md:text-[16px] md:px-4 md:py-2 bg-orange-400 hover:bg-orange-300 text-white rounded"
+          className="mt-4 px-2 py-1 text-[12px] md:text-[16px] h-[38px] md:px-4 md:py-2 bg-orange-400 hover:bg-orange-300 text-white rounded"
         >
-          Save Changes
+          {loading ? (
+            <span className="flex justify-center items-center gap-2">
+              Loading
+              <CircleLoader size={24} color="white" />
+            </span>
+          ) : (
+            "Save Changes"
+          )}
         </button>
       </form>
     </div>
