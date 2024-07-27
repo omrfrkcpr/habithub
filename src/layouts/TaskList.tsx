@@ -10,7 +10,7 @@ import { CgExport } from "react-icons/cg";
 import ExportBtns from "../components/buttons/ExportBtns";
 import styled from "styled-components";
 
-const CustomScrollUl = styled.ul<{ scrollbarColor: string }>`
+const CustomScrollUl = styled.ul<{ $scrollbarColor: string }>`
   max-height: 200px;
   overflow: auto;
   margin-bottom: 10px;
@@ -197,7 +197,7 @@ const TaskList = () => {
                         >
                           {column}
                         </h2>
-                        <CustomScrollUl scrollbarColor={scrollbarColor}>
+                        <CustomScrollUl $scrollbarColor={scrollbarColor}>
                           {getFilteredTasks(priority).map(
                             (task: Task, index: number) => (
                               <Draggable

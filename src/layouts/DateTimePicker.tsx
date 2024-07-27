@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import useDate from "../hooks/useDate";
 import TaskAnalytics from "./TaskAnalytics";
-import { useNavigate, useLocation } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
 
 const DateTimePicker = ({
   setValue,
@@ -20,17 +20,17 @@ const DateTimePicker = ({
   const { date, time } = useSelector((state: RootState) => state.date);
   const handleDateChange = useDate(setValue);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
-  // If date changes, update URL params
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set("date", date);
-    navigate(`${location.pathname}?${searchParams.toString()}`, {
-      replace: true,
-    });
-  }, [date, navigate, location.pathname, location.search]);
+  // // If date changes, update URL params
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   searchParams.set("date", date);
+  //   navigate(`${location.pathname}?${searchParams.toString()}`, {
+  //     replace: true,
+  //   });
+  // }, [date, navigate, location.pathname, location.search]);
 
   // Update time in Redux only when minutes change
   useEffect(() => {

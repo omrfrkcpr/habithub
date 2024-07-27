@@ -39,8 +39,8 @@ const TagLists = () => {
         <NewTagBtn />
       </section>
       <Box sx={{ paddingBottom: 5 }}>
-        {Object.entries(tasksGroupByTag).map(([tag, tasksForTag]) => (
-          <Box key={tag} mb={4}>
+        {Object.entries(tasksGroupByTag).map(([tag, tasksForTag], index) => (
+          <Box key={index} mb={4}>
             <Typography
               variant="h6"
               gutterBottom

@@ -14,7 +14,7 @@ const CardColor = () => {
   };
 
   return (
-    <div className="mx-2 md:mx-0">
+    <div className={`${editTaskId ? "mx-1" : "mx-2"} md:mx-0`}>
       <h3 className="font-bold text-habit-gray dark:text-habit-white mb-3 text-[12px] md:text-[16px]">
         Card Color
       </h3>

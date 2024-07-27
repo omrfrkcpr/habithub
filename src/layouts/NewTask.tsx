@@ -73,7 +73,7 @@ const NewTask = () => {
         }  rounded-[8px] mt-2 mb-5`}
       />
       <CardColor />
-      <div className={`${editTaskId ? "my-5" : "my-10"}`}>
+      <div className={`${editTaskId ? "my-3" : "my-10"}`}>
         <div
           className={`flex gap-2 items-center bg-habit-light-gray dark:bg-[#F0F0F0] ${
             editTaskId ? "py-1" : "py-2"

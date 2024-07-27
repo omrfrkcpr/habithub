@@ -20,6 +20,9 @@ const SingleTask = () => {
     backgroundLocation?: Location;
     selectedDate: string;
   };
+
+  console.log(taskId);
+
   // const { editTaskId } = useSelector((state: RootState) => state.task);
 
   useEffect(() => {
