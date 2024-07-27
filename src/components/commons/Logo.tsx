@@ -9,6 +9,7 @@ function Logo({ single }: { single: boolean }) {
       onClick={() => navigate("/")}
     >
       <img
+        loading="lazy"
         src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`}
         alt="logo-img"

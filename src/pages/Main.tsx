@@ -31,6 +31,7 @@ const Main = () => {
         <MainCards />
         <div className="mb-[50px] lg:my-0 mx-[50px] lg:absolute top-[975px] md:top-[750px] lg:top-[850px] xl:top-[800px] md:left-10 lg:left-2 xl:left-6">
           <img
+            loading="lazy"
             src={`
               ${process.env.REACT_APP_AWS_S3_BASE_URL}advertisement.png`}
             alt="advertisement"
@@ -38,12 +39,14 @@ const Main = () => {
           />
           <div className="relative flex gap-2 justify-start items-center lg:absolute bottom-8 left-5 md:bottom-14 md:left-7 xl:bottom-12 xl:left-10">
             <img
+              loading="lazy"
               src={`
                 ${process.env.REACT_APP_AWS_S3_BASE_URL}google-play.svg`}
               alt="google-play"
               className="w-[50px] xl:w-[100px] cursor-pointer absolute lg:static bottom-0"
             />
             <img
+              loading="lazy"
               src={`
                 ${process.env.REACT_APP_AWS_S3_BASE_URL}app-store.svg`}
               alt="app-store"
@@ -54,6 +57,7 @@ const Main = () => {
         <div className="mb-[100px] lg:my-0 mx-[30px] me-[15px] lg:mx-2 xl:mx-0 lg:absolute top-[1320px] md:top-[1000px] lg:top-[1050px] left-5 md:left-[600px] xl:left-[60%] 2xl:left-[57%]">
           <div className="relative w-[95%] max-w-[400px] max-h-[300px] lg:max-w-[500px] xl:max-w-[600px] flex flex-col justify-center items-center px-3 md:px-0 py-5 bg-habit-light-gray shadow-md rounded-xl">
             <img
+              loading="lazy"
               src={`
                 ${process.env.REACT_APP_AWS_S3_BASE_URL}mental-health.png`}
               alt="mental-health"

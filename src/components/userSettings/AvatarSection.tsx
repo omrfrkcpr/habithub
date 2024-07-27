@@ -83,6 +83,7 @@ const AvatarSection: React.FC<AvatarSectionProps> = ({
         >
           <input {...getInputProps()} />
           <img
+            loading="lazy"
             src={filePreview ? filePreview : avatarSrc}
             alt="profile-avatar"
             className="w-20 h-20 md:w-28 md:h-28 border ms-2 md:ms-4 border-gray-400 rounded-full object-cover"

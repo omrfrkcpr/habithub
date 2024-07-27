@@ -71,6 +71,7 @@ const Contract: React.FC = () => {
         </div>
         <div className="order-0 md:order-1">
           <img
+            loading="lazy"
             src={`
               ${process.env.REACT_APP_AWS_S3_BASE_URL}aggrement.png`}
             alt="aggrement"

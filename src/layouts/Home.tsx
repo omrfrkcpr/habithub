@@ -90,11 +90,11 @@ const Home = () => {
     <div
       className={`relative  ${
         value === 2
-          ? "h-[71rem] min-h-screen"
+          ? "h-[71rem]"
           : value === 1
-          ? "min-h-[110vh] h-auto"
-          : "h-auto min-h-screen"
-      } w-full dark:bg-[#361d42] transition-colors duration-300`}
+          ? "h-[154rem] md:h-[70rem]"
+          : "h-[69rem] 2xl:h-[43.4rem]"
+      } w-full dark:bg-[#361d42]  min-h-screen transition-colors duration-300`}
     >
       {/* Hamburger Menu */}
       <div

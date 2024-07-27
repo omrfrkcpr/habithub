@@ -99,7 +99,7 @@ const TaskList = () => {
   }, []);
 
   return (
-    <div className="pb-20 md:pb-0">
+    <div className="pb-20 md:pb-10">
       <h1 className="text-md font-semibold text-habit-light-gray text-right bg-habit-light-purple rounded-full w-[fit-content] text-[12px] md:text-[16px] px-2 py-1 my-4">
         {formatDateString(date)}
       </h1>
@@ -234,6 +234,7 @@ const TaskList = () => {
       ) : (
         <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] flex flex-col justify-center items-center">
           <img
+            loading="lazy"
             src={`
               ${process.env.REACT_APP_AWS_S3_BASE_URL}NotFound.png`}
             alt="nothing"

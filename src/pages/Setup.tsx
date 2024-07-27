@@ -35,6 +35,7 @@ const Setup = () => {
       <div className="h-[100vh] w-[100vw] bg-white z-50 fixed">
         <div className="h-full w-full flex flex-col justify-center items-center self-center gap-4">
           <img
+            loading="lazy"
             src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}calendar.gif`}
             alt="calendar-gif"

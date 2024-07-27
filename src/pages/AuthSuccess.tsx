@@ -46,6 +46,7 @@ const AuthSuccess = () => {
   return (
     <div className="flex items-center flex-col justify-center h-screen gap-4">
       <img
+        loading="lazy"
         src={serviceImage}
         alt={`${serviceName} Auth`}
         className="w-[250px] h-[150px] md:w-[360px] md:h-[200px] lg:w-[500px] lg:h-[280px] object-cover mb-4"

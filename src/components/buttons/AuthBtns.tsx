@@ -43,6 +43,7 @@ const AuthBtns = () => {
     <>
       <div className="flex justify-center items-center mt-5">
         <img
+          loading="lazy"
           src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}straight-line.png`}
           alt=""
@@ -50,6 +51,7 @@ const AuthBtns = () => {
         />
         <p className="text-xs">or sign up with</p>
         <img
+          loading="lazy"
           src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}straight-line.png`}
           alt=""
@@ -83,6 +85,7 @@ const SocialAuthButton: React.FC<SocialBtn> = ({
     onClick={() => handleClick(platform)}
   >
     <img
+      loading="lazy"
       src={image}
       alt={platform}
       className="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"

@@ -14,7 +14,11 @@ const TagLists = () => {
   const { tasksDetails, tasks } = useSelector((state: RootState) => state.task);
   const { darkMode } = useSelector((state: RootState) => state.theme);
 
-  const tasksGroupByTag = groupBy(tasks, (task: NewTask) => task.tagId.name);
+  // Group tasks by tagId, using 'Others' for tasks with an empty tagId
+  const tasksGroupByTag = groupBy(
+    tasks,
+    (task: NewTask) => task.tagId.name || "Others"
+  );
 
   // const result: number[] = shuffle([1, 2, 3, 4]);
   // console.log(result);
