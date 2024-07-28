@@ -63,7 +63,7 @@ const TaskList = () => {
           : destination.droppableId === "Important 🔥"
           ? 0
           : -1;
-      updateTaskData("tasks", draggedTask.id, { priority: newPriority });
+      updateTaskData("tasks", draggedTask.id, { priority: newPriority, date });
     }
   };
 

@@ -14,6 +14,8 @@ const TagLists = () => {
   const { tasksDetails, tasks } = useSelector((state: RootState) => state.task);
   const { darkMode } = useSelector((state: RootState) => state.theme);
 
+  console.log(tasks);
+
   // Group tasks by tagId, using 'Others' for tasks with an empty tagId
   const tasksGroupByTag = groupBy(
     tasks,

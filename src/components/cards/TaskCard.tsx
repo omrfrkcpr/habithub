@@ -3,12 +3,16 @@ import useTaskCalls from "../../hooks/useTaskCalls";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import TaskCardSettingBtns from "../buttons/TaskCardSettingBtns";
+import { RootState } from "../../app/store";
+import { useSelector } from "react-redux";
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
   // console.log(task);
   const { updateTaskData } = useTaskCalls();
+  const { date } = useSelector((state: RootState) => state.date);
   const { id, name, cardColor, priority, isCompleted, description, tagId } =
     task;
+
   const [isDone, setIsDone] = useState<boolean>();
   const descRef = useRef<HTMLSpanElement | null>(null);
 
@@ -25,7 +29,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
     }
 
     // setIsDone((prevState) => !prevState);
-    updateTaskData("tasks", id, { isCompleted: !isDone });
+    updateTaskData("tasks", id, { isCompleted: !isDone, date });
   };
 
   const handleShowDescClick = (e: React.MouseEvent<HTMLButtonElement>) => {

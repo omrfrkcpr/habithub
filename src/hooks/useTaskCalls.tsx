@@ -62,7 +62,7 @@ const useTaskCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(`tasks/${id}`);
-      dispatch(setSingleTask({ data: data?.data }));
+      dispatch(setSingleTask({ data: { ...data?.data, dueDates: [date] } }));
     } catch (error) {
       handleError(error, false); // use toastNotify
     }
@@ -131,6 +131,7 @@ const useTaskCalls = () => {
           icon: "success",
         });
       }
+      navigate("/home");
     } catch (error) {
       handleError(error, true); // use showSwal
     } finally {

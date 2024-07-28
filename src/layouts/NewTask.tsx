@@ -14,18 +14,23 @@ const NewTask = () => {
   const newTask = useSelector((state: RootState) => state.newTask);
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
   const { editTaskId } = useSelector((state: RootState) => state.task);
+  const { date } = useSelector((state: RootState) => state.date);
+  const [startDate, setStartDate] = useState(
+    editTaskId ? new Date(date) : new Date()
+  );
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const updatedDueDates = [date.toISOString(), ...newTask.dueDates]; // Add new date to the beginning
+      const updatedDueDates = editTaskId
+        ? [date.toISOString()]
+        : [date.toISOString(), ...newTask.dueDates]; // Add new date to the beginning
       dispatch(setNewTask({ ...newTask, dueDates: updatedDueDates }));
       setStartDate(date); // Update startDate to the selected date
     }
   };
 
-  // console.log(newTask);
+  console.log(newTask);
 
   return (
     <div className={`mt-5 ${editTaskId ? "" : "absolute"}`}>

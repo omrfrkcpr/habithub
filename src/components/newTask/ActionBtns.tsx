@@ -11,13 +11,12 @@ import useTaskCalls from "../../hooks/useTaskCalls";
 const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const dispatch = useDispatch();
   const newTask = useSelector((state: RootState) => state.newTask);
-  const { tags } = useSelector((state: RootState) => state.task);
   const { currentUser } = useSelector((state: RootState) => state.auth);
-  const { createTaskData } = useTaskCalls();
+  const { createTaskData, updateTaskData } = useTaskCalls();
   const { date } = useSelector((state: RootState) => state.date);
   const { editTaskId } = useSelector((state: RootState) => state.task);
 
-  // console.log(newTask);
+  console.log(newTask);
 
   const handleResetNewTask = () => {
     dispatch(resetNewTask());
@@ -25,46 +24,27 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   };
 
   const handleSaveNewTask = async () => {
-    let editedTagId = "";
-    // Mevcut tags listesinde eşleşen bir tag arayın
-    const existingTag = tags.find(
-      (tag: TagValues) => tag.name === newTask.tagId.name
-    );
-
-    if (existingTag) {
-      editedTagId = existingTag?.id || "";
-    } else {
-      // Eşleşen bir tag yoksa, yeni bir tag oluşturun
-      await createTaskData(
-        "tags",
-        {
-          name: newTask.tagId,
-          userId: currentUser?.id,
-        },
-        false
-      );
-      const createdTag = tags.find(
-        (tag: TagValues) => tag.name === newTask.tagId.name
-      );
-      editedTagId = createdTag?.id || "";
-    }
-
     // Check if dueDates is empty and if so, use the current date
     const updatedDueDates = newTask.dueDates.length ? newTask.dueDates : [date];
 
-    //! Dont forget to convert dueDates before creating a new task
-    // const deserializedDueDates = deserify(newTask.dueDates, defaultOptions);
-    // console.log("Deserialized dueDates:", deserializedDueDates);
-
-    const newTaskInfo = {
+    let newTaskInfo: any = {
       ...newTask,
-      tagId: editedTagId,
       dueDates: updatedDueDates,
       userId: currentUser?.id,
-      // dueDates: deserializedDueDates,
+      tagId: newTask.tagId.id || newTask.tagId.name, // if user wanna chose a new tag, we provide name instead of id so that backend can handle it.
     };
 
-    createTaskData("tasks", newTaskInfo, true);
+    if (editTaskId) {
+      // Update Task
+      newTaskInfo = {
+        ...newTaskInfo,
+        date,
+      };
+      await updateTaskData("tasks", editTaskId, newTaskInfo);
+    } else {
+      // Create Task
+      await createTaskData("tasks", newTaskInfo, true);
+    }
 
     handleResetNewTask();
   };

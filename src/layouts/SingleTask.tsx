@@ -21,7 +21,8 @@ const SingleTask = () => {
     selectedDate: string;
   };
 
-  console.log(taskId);
+  // console.log(taskId);
+  console.log(newTask);
 
   // const { editTaskId } = useSelector((state: RootState) => state.task);
 
