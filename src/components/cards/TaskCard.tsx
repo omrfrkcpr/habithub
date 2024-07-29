@@ -113,9 +113,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, showDesc, setShowDesc }) => {
         >
           {description}
         </span>
-        <span className="bg-black/70 text-white absolute w-[fit-content] top-1 right-0  px-2 py-1 ms-auto rounded-full text-[9px] md:text-[11px] xl:text-[9px] 2xl:text-[11px]">
-          {tagId?.name}
-        </span>
+        {tagId?.name && (
+          <span className="bg-black/70 text-white absolute w-[fit-content] top-1 right-0  px-2 py-1 ms-auto rounded-full text-[9px] md:text-[11px] xl:text-[9px] 2xl:text-[11px]">
+            {tagId?.name}
+          </span>
+        )}
       </div>
     </div>
   );

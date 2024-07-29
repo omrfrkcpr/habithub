@@ -63,12 +63,13 @@ const useTaskCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(`tasks/${id}`);
+      const { tagId, ...restData } = data?.data || {};
       dispatch(
         setSingleTask({
           data: {
-            ...data?.data,
+            ...restData,
             dueDates: [date],
-            tagName: data?.data?.tagId?.name || "",
+            tagName: tagId?.name || "",
           },
         })
       );
