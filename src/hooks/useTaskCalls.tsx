@@ -22,6 +22,7 @@ const useTaskCalls = () => {
   const axiosWithToken = useAxios();
   const navigate = useNavigate();
   const { date } = useSelector((state: RootState) => state.date);
+  const { tasks } = useSelector((state: RootState) => state.task);
 
   // Common error handling function
   const handleError = async (error: any, showSwalNotify = false) => {
@@ -113,7 +114,12 @@ const useTaskCalls = () => {
     if (result.isConfirmed) {
       dispatch(fetchStart());
       try {
-        await axiosWithToken.delete(`${url}/${id}`);
+        const selectedTask = tasks.find((task: Task) => task.id === id);
+        if (selectedTask && selectedTask?.dueDates.length > 1) {
+          await axiosWithToken.post(`${url}/${id}`, { date }); // if it has more than one dueDate, then we will extract this day as a delete action
+        } else {
+          await axiosWithToken.delete(`${url}/${id}`); // if it has just one dueDate, then we will delete completely
+        }
         await showSwal({
           title: "Deleted!",
           text: `${singularizeAndCapitalize(url)} has been deleted.`,
