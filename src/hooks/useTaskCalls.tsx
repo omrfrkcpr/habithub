@@ -62,7 +62,15 @@ const useTaskCalls = () => {
     dispatch(fetchStart());
     try {
       const { data } = await axiosWithToken(`tasks/${id}`);
-      dispatch(setSingleTask({ data: { ...data?.data, dueDates: [date] } }));
+      dispatch(
+        setSingleTask({
+          data: {
+            ...data?.data,
+            dueDates: [date],
+            tagName: data?.data?.tagId?.name || "",
+          },
+        })
+      );
     } catch (error) {
       handleError(error, false); // use toastNotify
     }
