@@ -31,7 +31,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
       ...newTask,
       dueDates: updatedDueDates,
       userId: currentUser?.id,
-      tagId: newTask.tagId.id || newTask.tagId.name, // if user wanna chose a new tag, we provide name instead of id so that backend can handle it.
+      tagName: newTask.tagName, // if user wanna chose a new tag, we provide name instead of id so that backend can handle it.
     };
 
     if (editTaskId) {

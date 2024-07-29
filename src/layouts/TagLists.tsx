@@ -19,7 +19,7 @@ const TagLists = () => {
   // Group tasks by tagId, using 'Others' for tasks with an empty tagId
   const tasksGroupByTag = groupBy(
     tasks,
-    (task: NewTask) => task.tagId.name || "Others"
+    (task: Task) => task.tagId.name || "Others"
   );
 
   // const result: number[] = shuffle([1, 2, 3, 4]);
@@ -55,7 +55,7 @@ const TagLists = () => {
               {tag}
             </Typography>
             <Grid container spacing={2}>
-              {tasksForTag.map((task: NewTask) => (
+              {tasksForTag.map((task: Task) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={task.name}>
                   <Card
                     sx={{

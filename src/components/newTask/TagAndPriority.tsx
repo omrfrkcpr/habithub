@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import PriorityBtn from "../buttons/PriorityBtn";
@@ -12,16 +11,13 @@ const TagAndPriority = () => {
   const { tags } = useSelector((state: RootState) => state.task);
   const { editTaskId } = useSelector((state: RootState) => state.task);
 
-  const handleTagClick = (targetTag: TagValues) => {
-    const selectedTag = tags.find((tag) => tag.name === targetTag.name);
-    if (selectedTag) {
-      dispatch(setNewTask({ ...newTask, tagId: selectedTag }));
-    }
+  const handleTagClick = (targetTagName: string) => {
+    dispatch(setNewTask({ ...newTask, tagName: targetTagName }));
   };
 
   const handleTagRemove = () => {
-    if (newTask.tagId.name) {
-      dispatch(setNewTask({ ...newTask, tagId: { id: "", name: "" } }));
+    if (newTask.tagName) {
+      dispatch(setNewTask({ ...newTask, tagName: "" }));
     }
   };
 
@@ -59,43 +55,29 @@ const TagAndPriority = () => {
           </p>
         )}
         <TagsInput
-          value={newTask.tagId.name ? [newTask.tagId.name] : []}
+          value={newTask.tagName ? [newTask.tagName] : []}
           onChange={(tags) => {
             if (tags.length > 0) {
               const newTagName = tags[0];
-              const existingTag = tags.find(
-                (tag: any) => tag.name === newTagName
-              );
-              if (existingTag) {
-                dispatch(setNewTask({ ...newTask, tagId: existingTag }));
-              } else {
-                dispatch(
-                  setNewTask({
-                    ...newTask,
-                    tagId: { id: "", name: newTagName },
-                  })
-                );
-              }
+              dispatch(setNewTask({ ...newTask, tagName: newTagName }));
             } else {
               handleTagRemove();
             }
           }}
           name="tag"
-          placeHolder={newTask.tagId.name ? "✔️" : "Set a tag"}
+          placeHolder={newTask.tagName ? "✔️" : "Set a tag"}
           onRemoved={handleTagRemove}
           classNames={{ tag: "tag-cls", input: "input-cls" }}
         />
         <div className="flex flex-wrap gap-2 mt-4">
           {tags
-            .filter(
-              (tag: TagValues) => (tag.name || tag.id) !== newTask.tagId.name
-            )
+            .filter((tag: TagValues) => tag.name !== newTask.tagName)
             .slice(0, 3)
-            .map(({ name, id }) => (
+            .map(({ name }) => (
               <button
-                key={id}
+                key={name}
                 className="bg-habit-light-gray dark:bg-[#977aa5] dark:hover:bg-gray-400 hover:bg-gray-300 text-black dark:text-white text-[11px] md:text-[14px] py-[2px] px-2 rounded-lg cursor-pointer"
-                onClick={() => handleTagClick({ name, id })}
+                onClick={() => handleTagClick(name)}
               >
                 {name}
               </button>

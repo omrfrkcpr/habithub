@@ -97,22 +97,27 @@ interface ThemeState {
   darkMode: boolean;
 }
 
-interface NewTask {
+interface BaseTask {
   name: string;
   description: string;
   cardColor: string;
   repeat: string;
   priority: number;
   dueDates: string[];
+
+  isCompleted: false;
+}
+
+interface NewTask extends BaseTask {
+  tagName: string;
+}
+
+interface Task extends BaseTask {
+  id: string;
   tagId: {
     id: string;
     name: string;
   };
-  isCompleted: false;
-}
-
-interface Task extends NewTask {
-  id: string;
 }
 
 interface Priorities {
