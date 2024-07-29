@@ -7,8 +7,29 @@ import {
 } from "lodash"; // A modern JavaScript utility library delivering modularity, performance & extras.
 import NewTagBtn from "../components/buttons/NewTagBtn";
 import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
+import styled from "styled-components";
 
 // https://lodash.com/docs/4.17.15#groupBy
+
+const CustomScrollGrid = styled(Grid)<{ $scrollbarColor: string }>`
+  max-height: 380px;
+  overflow: auto;
+  padding: 0 10px 0 0;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props: any) => props.$scrollbarColor};
+    border-radius: 9999px;
+    border: 3px solid #edf2f7;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #edf2f7;
+    border-radius: 9999px;
+  }
+`;
 
 const TagLists = () => {
   const { tasksDetails, tasks } = useSelector((state: RootState) => state.task);
@@ -19,7 +40,7 @@ const TagLists = () => {
   // Group tasks by tagId, using 'Others' for tasks with an empty tagId
   const tasksGroupByTag = groupBy(
     tasks,
-    (task: Task) => task.tagId.name || "Others"
+    (task: Task) => task.tagId?.name || ""
   );
 
   // const result: number[] = shuffle([1, 2, 3, 4]);
@@ -34,6 +55,8 @@ const TagLists = () => {
   */
 
   // console.log(tasksGroupByTag); // {Daily Routine: Array(4), Work Routine: Array(3)}
+
+  const scrollbarColor = darkMode ? "#a1a1aa" : "#4b5563"; // Adjust scrollbar color based on dark mode
 
   return (
     <div>
@@ -50,11 +73,16 @@ const TagLists = () => {
                 color: darkMode ? "white" : "#5b5b5b",
                 borderBottom: 2,
                 borderColor: darkMode ? "white" : "#5b5b5b",
+                mb: 2,
               }}
             >
-              {tag}
+              {tag || "Others"}
             </Typography>
-            <Grid container spacing={2}>
+            <CustomScrollGrid
+              container
+              spacing={2}
+              $scrollbarColor={scrollbarColor}
+            >
               {tasksForTag.map((task: Task) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={task.name}>
                   <Card
@@ -105,7 +133,7 @@ const TagLists = () => {
                   </Card>
                 </Grid>
               ))}
-            </Grid>
+            </CustomScrollGrid>
           </Box>
         ))}
       </Box>

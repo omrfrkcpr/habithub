@@ -92,9 +92,9 @@ const Home = () => {
         value === 2
           ? "h-[71rem]"
           : value === 1
-          ? "h-[154rem] md:h-[70rem]"
+          ? "h-[71rem]"
           : "h-[69rem] 2xl:h-[43.4rem]"
-      } w-full dark:bg-[#361d42]  min-h-screen transition-colors duration-300`}
+      } w-full dark:bg-[#361d42] min-h-screen transition-colors duration-300`}
     >
       {/* Hamburger Menu */}
       <div

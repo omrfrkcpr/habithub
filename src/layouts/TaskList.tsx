@@ -27,7 +27,7 @@ const CustomScrollUl = styled.ul<{ $scrollbarColor: string }>`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props: any) => props.scrollbarColor};
+    background-color: ${(props: any) => props.$scrollbarColor};
     border-radius: 9999px;
     border: 3px solid #edf2f7;
   }
