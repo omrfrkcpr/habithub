@@ -1,37 +1,20 @@
 import { useState } from "react";
-import axios from "axios";
-import toastNotify from "../helpers/toastNotify";
 import ActionBtn from "../components/buttons/ActionBtn";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import Footer from "../layouts/Footer";
 import Navbar from "../layouts/Navbar";
+import useAuthCalls from "../hooks/useAuthCalls";
+import { RootState } from "../app/store";
+import { useSelector } from "react-redux";
 
 const Forgot = () => {
   const [email, setEmail] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const { forgotPassword } = useAuthCalls();
+  const { loading } = useSelector((state: RootState) => state.auth);
 
-  const handleForgotSubmit = async () => {
-    setLoading(true);
-    try {
-      if (email) {
-        const response = await axios.post("http://127.0.0.1:8000/auth/forgot", {
-          email,
-        });
-        if (response.status === 200) {
-          toastNotify(
-            "success",
-            "Password reset instructions have been sent to your email. Please check your mailbox"
-          );
-        }
-      } else {
-        toastNotify("error", "Please enter your email address!");
-      }
-    } catch (error) {
-      toastNotify("error", "An error occurred. Please try again.");
-    } finally {
-      setLoading(false);
-      setEmail("");
-    }
+  const handleForgotSubmit = () => {
+    forgotPassword(email);
+    setEmail("");
   };
 
   return (

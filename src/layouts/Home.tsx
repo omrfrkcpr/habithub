@@ -127,7 +127,9 @@ const Home = () => {
             <MdClose className="w-6 h-6" />
           </button>
         </div>
-        <Logo single={false} />
+        <div className="mt-2">
+          <Logo single={false} />
+        </div>
         <DateTimePicker setValue={setValue} />
       </div>
 

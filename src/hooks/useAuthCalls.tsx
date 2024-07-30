@@ -36,7 +36,8 @@ const useAuthCalls = () => {
       const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
       console.log(data);
       dispatch(registerSuccess(data));
-      toastNotify("success", data?.message);
+      toastNotify("info", data?.message);
+      navigate("/signin");
     } catch (error: any) {
       toastNotify("error", error?.response?.data?.message);
       console.log(error);
@@ -191,27 +192,33 @@ const useAuthCalls = () => {
     }
   };
 
-  const verifyAccount = async (token: string) => {
-    dispatch(fetchStart());
-    try {
-      const { data } = await axios.get(`${BASE_URL}auth/verify-email/${token}`);
-      dispatch(verifySuccess(data));
-      toastNotify("success", data.message);
-    } catch (error: any) {
-      dispatch(fetchFail());
-      toastNotify("error", error.response.data.message);
-    }
-  };
+  // const verifyAccount = async (token: string) => {
+  //   dispatch(fetchStart());
+  //   try {
+  //     const { data } = await axios.post(
+  //       `${BASE_URL}auth/verify-email/${token}`
+  //     );
+  //     dispatch(verifySuccess(data));
+  //     toastNotify("success", data.message);
+  //   } catch (error: any) {
+  //     dispatch(fetchFail());
+  //     toastNotify("error", error.response.data.message);
+  //   }
+  // };
 
   const signInWithSocial = async (consumerName: string) => {
     window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
   };
 
   const agreeContract = async () => {
-    const { data } = await axios.put(
-      `${BASE_URL}users/agree-contract/${currentUser?.id}`
-    );
-    dispatch(updateSuccess(data));
+    try {
+      const { data } = await axios.put(
+        `${BASE_URL}users/agree-contract/${currentUser?.id}`
+      );
+      dispatch(updateSuccess(data));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {
@@ -223,7 +230,7 @@ const useAuthCalls = () => {
     refresh,
     forgotPassword,
     resetPassword,
-    verifyAccount,
+    // verifyAccount,
     agreeContract,
     signInWithSocial,
   };

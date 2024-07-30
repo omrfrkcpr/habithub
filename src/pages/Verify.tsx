@@ -18,7 +18,7 @@ const Verify = () => {
       setLoading(true);
       try {
         // API request for account verification
-        const response = await axios.get(
+        const response = await axios.post(
           `http://127.0.0.1:8000/auth/verify-email/${token}`
         );
 
@@ -28,13 +28,15 @@ const Verify = () => {
           toastNotify("success", "Your account successfully verified!");
 
           setTimeout(() => {
-            window.location.href = "http://127.0.0.1:8000/setup";
+            // window.location.href = "http://127.0.0.1:3000/signin";
+            navigate("/signin");
           }, 3000);
         }
       } catch (error) {
         // Update message after failed verification
         setMessage("Failed email verification. Please try again!");
         toastNotify("error", "Verification failed due to invalid request");
+        navigate("/signin");
       } finally {
         setLoading(false);
       }

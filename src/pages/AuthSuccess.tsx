@@ -48,7 +48,7 @@ const AuthSuccess = () => {
         }
       }, 3000);
     }
-  }, [currentUser?.id]);
+  }, [currentUser]);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
