@@ -37,14 +37,7 @@ const authSlice = createSlice({
       state.refreshToken = payload?.bearer?.refresh;
       state.remainingTime = 45 * 60; // After the user logs in, set the remaining time to 45 minutes;
     },
-    logoutSuccess: (state) => {
-      state.loading = false;
-      state.currentUser = null;
-      // state.isAdmin = false;
-      state.accessToken = null;
-      state.refreshToken = null;
-      state.remainingTime = 0;
-    },
+    logoutSuccess: (state) => initialState,
     refreshSuccess: (state, { payload }) => {
       state.accessToken = payload?.bearer?.access;
       state.remainingTime = 45 * 60; // Reset duration when session is extended

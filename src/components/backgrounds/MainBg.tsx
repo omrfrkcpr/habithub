@@ -20,13 +20,13 @@ const MainBg = () => {
         src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}Line-8.png`}
         alt="line-8"
-        className="absolute top-[350px] w-[94vw] h-[500px] rotate-[5deg] -z-50"
+        className="absolute top-[350px] w-[97vw] h-[500px] rotate-[5deg] -z-50"
       />
       <img
         loading="lazy"
         src={`
           ${process.env.REACT_APP_AWS_S3_BASE_URL}image-1.png`}
-        alt="imag-1"
+        alt="img-1"
         className="hidden xl:block absolute top-[50px] right-10 w-[500px]"
       />
       <img

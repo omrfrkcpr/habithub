@@ -137,8 +137,9 @@ const useTaskCalls = () => {
   const updateTaskData = async (url: string, id: string, taskInfo: any) => {
     dispatch(fetchStart());
     try {
-      await axiosWithToken.put(`${url}/${id}`, taskInfo);
-      const updateMessage = getTaskUpdateSuccessMessage(taskInfo);
+      const { data } = await axiosWithToken.put(`${url}/${id}`, taskInfo);
+      const updateMessage =
+        url === "tasks" ? getTaskUpdateSuccessMessage(taskInfo) : data?.message;
       if (updateMessage) {
         await showSwal({
           title: "Updated!",
