@@ -207,6 +207,13 @@ const useAuthCalls = () => {
     window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
   };
 
+  const agreeContract = async () => {
+    const { data } = await axios.put(
+      `${BASE_URL}users/agree-contract/${currentUser?.id}`
+    );
+    dispatch(updateSuccess(data));
+  };
+
   return {
     register,
     login,
@@ -217,6 +224,7 @@ const useAuthCalls = () => {
     forgotPassword,
     resetPassword,
     verifyAccount,
+    agreeContract,
     signInWithSocial,
   };
 };

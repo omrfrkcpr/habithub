@@ -5,11 +5,17 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import toastNotify from "../helpers/toastNotify";
 import { CircleLoader } from "react-spinners";
+import { RootState } from "../app/store";
+import useTaskCalls from "../hooks/useTaskCalls";
+import { useSelector } from "react-redux";
 
 const AuthSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { date } = useSelector((state: RootState) => state.date);
+  const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { getTaskData } = useTaskCalls();
 
   useEffect(() => {
     const getUser = async () => {
@@ -19,10 +25,7 @@ const AuthSuccess = () => {
         const { data } = await axios.get(url, { withCredentials: true });
         console.log(data);
         dispatch(loginSuccess(data));
-        setTimeout(() => {
-          navigate("/contract");
-          toastNotify("success", data.message);
-        }, 3000);
+        toastNotify("success", data.message);
       } catch (err: any) {
         console.log(err);
         // toastNotify("error", err?.response?.data?.message);
@@ -31,6 +34,21 @@ const AuthSuccess = () => {
     };
     getUser();
   }, []);
+
+  useEffect(() => {
+    if (currentUser?.id) {
+      getTaskData("tasks", `?date=${date}`);
+      getTaskData("tags");
+
+      setTimeout(() => {
+        if (currentUser.isAgreed) {
+          navigate("/home");
+        } else {
+          navigate("/contract");
+        }
+      }, 3000);
+    }
+  }, [currentUser?.id]);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);

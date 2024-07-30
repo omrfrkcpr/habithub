@@ -43,3 +43,52 @@ export const priorities = [
   { value: 0, label: "standard" },
   { value: 1, label: "high" },
 ];
+
+
+export const contractRules: Rule[] = [
+  {
+    id: 1,
+    emoji: "🌟",
+    content: "Plan tasks.",
+  },
+  {
+    id: 2,
+    emoji: "🎯",
+    content: "Set goals.",
+  },
+  {
+    id: 3,
+    emoji: "🚶",
+    content: "Take breaks.",
+  },
+  {
+    id: 4,
+    emoji: "💪",
+    content: "Move and refresh.",
+  },
+  {
+    id: 5,
+    emoji: "🗒️",
+    content: "Prioritize.",
+  },
+  {
+    id: 6,
+    emoji: "🔍",
+    content: "Break tasks down.",
+  },
+  {
+    id: 7,
+    emoji: "🚫",
+    content: "No multitasking.",
+  },
+  {
+    id: 8,
+    emoji: "📵",
+    content: "Minimize distractions.",
+  },
+  {
+    id: 9,
+    emoji: "⏰",
+    content: "Limit social media.",
+  },
+];

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { RootState } from "../app/store";
-import useTaskCalls from "../hooks/useTaskCalls";
-import { useSelector } from "react-redux";
+// import { RootState } from "../app/store";
+// import useTaskCalls from "../hooks/useTaskCalls";
+// import { useSelector } from "react-redux";
 
 const Setup = () => {
   const navigate = useNavigate();
-  const { date } = useSelector((state: RootState) => state.date);
-  const { getTaskData } = useTaskCalls();
+  // const { date } = useSelector((state: RootState) => state.date);
+  // const { getTaskData } = useTaskCalls();
   const [messages] = useState<string[]>([
     "Settings are being adjusted...",
     "Are you ready?",
@@ -25,10 +25,10 @@ const Setup = () => {
     navigate("/home");
   }
 
-  useEffect(() => {
-    getTaskData("tasks", `?date=${date}`);
-    getTaskData("tags");
-  }, []);
+  // useEffect(() => {
+  //   getTaskData("tasks", `?date=${date}`);
+  //   getTaskData("tags");
+  // }, []);
 
   return (
     <>

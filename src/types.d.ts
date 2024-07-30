@@ -8,6 +8,7 @@ interface User {
   password: string;
   isActive: string;
   isAdmin: string;
+  isAgreed: string;
   createdAt: string;
   updatedAt: string;
   username?: string;

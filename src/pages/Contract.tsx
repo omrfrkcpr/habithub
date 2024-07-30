@@ -1,55 +1,16 @@
+import { contractRules } from "../helpers/constants";
+import useAuthCalls from "../hooks/useAuthCalls";
 import Navbar from "../layouts/Navbar";
 import { useNavigate } from "react-router-dom";
 
 const Contract: React.FC = () => {
   const navigate = useNavigate();
-  const contractRules: Rule[] = [
-    {
-      id: 1,
-      emoji: "🌟",
-      content: "Plan tasks.",
-    },
-    {
-      id: 2,
-      emoji: "🎯",
-      content: "Set goals.",
-    },
-    {
-      id: 3,
-      emoji: "🚶",
-      content: "Take breaks.",
-    },
-    {
-      id: 4,
-      emoji: "💪",
-      content: "Move and refresh.",
-    },
-    {
-      id: 5,
-      emoji: "🗒️",
-      content: "Prioritize.",
-    },
-    {
-      id: 6,
-      emoji: "🔍",
-      content: "Break tasks down.",
-    },
-    {
-      id: 7,
-      emoji: "🚫",
-      content: "No multitasking.",
-    },
-    {
-      id: 8,
-      emoji: "📵",
-      content: "Minimize distractions.",
-    },
-    {
-      id: 9,
-      emoji: "⏰",
-      content: "Limit social media.",
-    },
-  ];
+  const { agreeContract } = useAuthCalls();
+
+  const handleAgreeClick = () => {
+    navigate("/setup");
+    agreeContract();
+  };
 
   return (
     <div className="h-[41.5rem] md:h-[43.4rem] relative max-w-[1800px] mx-auto">
@@ -79,7 +40,7 @@ const Contract: React.FC = () => {
           />
         </div>
         <button
-          onClick={() => navigate("/setup")}
+          onClick={handleAgreeClick}
           className="absolute -bottom-24 md:-bottom-40 lg:-bottom-32 left-[50%] -translate-x-[50%] -translate-y-[50%] w-[130px] bg-habit-light-gray hover:bg-gray-200 duration-300 rounded-md shadow-md mb-10 h-[30px] justify-center items-center"
         >
           I Agree
