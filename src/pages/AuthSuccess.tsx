@@ -21,7 +21,7 @@ const AuthSuccess = () => {
     const getUser = async () => {
       dispatch(fetchStart());
       try {
-        const url = `http://127.0.0.1:8000/auth/login/success`;
+        const url = `${process.env.REACT_APP_BASE_URL}auth/login/success`;
         const { data } = await axios.get(url, { withCredentials: true });
         console.log(data);
         dispatch(loginSuccess(data));

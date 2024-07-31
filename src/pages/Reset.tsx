@@ -52,7 +52,7 @@ const ResetPassword = () => {
       console.log("Request Data:", requestData); // Debugging
 
       const response = await axios.post(
-        `http://127.0.0.1:8000/auth/reset/${token}`,
+        `${process.env.REACT_APP_BASE_URL}auth/reset/${token}`,
         requestData
       );
 

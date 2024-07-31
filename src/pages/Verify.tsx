@@ -19,7 +19,7 @@ const Verify = () => {
       try {
         // API request for account verification
         const response = await axios.post(
-          `http://127.0.0.1:8000/auth/verify-email/${token}`
+          `${process.env.REACT_APP_BASE_URL}auth/verify-email/${token}`
         );
 
         // Update message after success verification

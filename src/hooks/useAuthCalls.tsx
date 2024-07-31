@@ -207,7 +207,10 @@ const useAuthCalls = () => {
   // };
 
   const signInWithSocial = async (consumerName: string) => {
-    window.open(`http://127.0.0.1:8000/auth/${consumerName}`, "_self");
+    window.open(
+      `${process.env.REACT_APP_BASE_URL}auth/${consumerName}`,
+      "_self"
+    );
   };
 
   const agreeContract = async () => {

@@ -200,7 +200,7 @@ const ExportBtns = ({
     setLoadingStates((prev) => ({ ...prev, email: true }));
     try {
       const { data } = await axiosWithToken.post(
-        "http://127.0.0.1:8000/tasks/email",
+        `${process.env.REACT_APP_BASE_URL}/tasks/email`,
         {
           userId: currentUser?.id,
           date,
