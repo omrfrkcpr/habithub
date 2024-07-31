@@ -7,7 +7,7 @@ import {
   registerSuccess,
   forgotSuccess,
   resetSuccess,
-  verifySuccess,
+  // verifySuccess,
   refreshSuccess,
   updateSuccess,
 } from "../features/authSlice";
@@ -207,10 +207,7 @@ const useAuthCalls = () => {
   // };
 
   const signInWithSocial = async (consumerName: string) => {
-    window.open(
-      `${process.env.REACT_APP_BASE_URL}auth/${consumerName}`,
-      "_self"
-    );
+    window.open(`/auth/${consumerName}`, "_self");
   };
 
   const agreeContract = async () => {
