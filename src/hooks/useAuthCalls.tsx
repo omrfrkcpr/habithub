@@ -207,7 +207,7 @@ const useAuthCalls = () => {
   // };
 
   const signInWithSocial = async (consumerName: string) => {
-    window.open(`/auth/${consumerName}`, "_self");
+    window.open(`${BASE_URL}/auth/${consumerName}`, "_self");
   };
 
   const agreeContract = async () => {
