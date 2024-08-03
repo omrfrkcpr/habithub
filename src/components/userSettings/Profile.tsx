@@ -113,7 +113,7 @@ const Profile = () => {
   };
 
   return (
-    <>
+    <div>
       <form
         className="flex flex-col"
         onSubmit={handleSubmit}
@@ -180,7 +180,7 @@ const Profile = () => {
           )}
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

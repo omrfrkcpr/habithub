@@ -58,7 +58,7 @@ const AvatarSection: React.FC<AvatarSectionProps> = ({
       className="flex space-x-5 items-center relative"
       id="avatar-section"
     >
-      <div className="space-y-2 w-full h-full z-50">
+      <div className="space-y-2 w-full h-[fit-content] z-50">
         <label className="font-semibold text-[11px] md:text-[14px]">
           Avatar
         </label>

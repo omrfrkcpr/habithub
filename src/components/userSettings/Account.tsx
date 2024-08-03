@@ -95,7 +95,7 @@ const Account = () => {
             />
             <button
               onClick={() => setShowCurrentPass((prevState) => !prevState)}
-              className="absolute right-4 top-2 text-gray-700 hover:text-gray-500"
+              className="absolute right-4 top-[5px] md:top-2 text-gray-700 hover:text-gray-500"
             >
               {showCurrentPass ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -120,7 +120,7 @@ const Account = () => {
             />
             <button
               onClick={() => setShowNewPass((prevState) => !prevState)}
-              className="absolute right-4 top-2 text-gray-700 hover:text-gray-500"
+              className="absolute right-4 top-[5px] md:top-2 text-gray-700 hover:text-gray-500"
             >
               {showNewPass ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -158,7 +158,7 @@ const Account = () => {
             />
             <button
               onClick={() => setShowConfirmPass((prevState) => !prevState)}
-              className="absolute right-4 top-2 text-gray-700 hover:text-gray-500"
+              className="absolute right-4 top-[5px] md:top-2 text-gray-700 hover:text-gray-500"
             >
               {showConfirmPass ? <FaEyeSlash /> : <FaEye />}
             </button>
