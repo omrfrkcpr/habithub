@@ -4,6 +4,18 @@ export const repeatOptions = {
   monthly: "Monthly",
 };
 
+export const NAV_ITEMS = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About Us" },
+  { to: "/contact", label: "Contact" },
+];
+
+export const contactFormInputs = [
+  { label: "Name", type: "text", name: "name" },
+  { label: "Email", type: "email", name: "email" },
+  { label: "Subject", type: "text", name: "subject" },
+];
+
 export const cardColors = [
   "#ADF7B6",
   "#A817C0",
@@ -43,7 +55,6 @@ export const priorities = [
   { value: 0, label: "standard" },
   { value: 1, label: "high" },
 ];
-
 
 export const contractRules: Rule[] = [
   {

@@ -19,6 +19,7 @@ import taskReducer from "../features/taskSlice";
 import newTaskReducer from "../features/newTaskSlice";
 import themeReducer from "../features/themeSlice";
 import dateReducer from "../features/dateSlice";
+import contactReducer from "../features/contactSlice";
 
 const persistConfig = {
   key: "root",
@@ -37,6 +38,7 @@ const store = configureStore({
     newTask: newTaskReducer,
     theme: themeReducer,
     date: dateReducer,
+    contact: contactReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

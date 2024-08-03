@@ -53,8 +53,10 @@ const AuthSuccess = () => {
 
   useEffect(() => {
     if (currentUser?.id) {
-      getTaskData("tasks", `?date=${date}`);
-      getTaskData("tags");
+      setTimeout(() => {
+        getTaskData("tasks", `?date=${date}`);
+        getTaskData("tags");
+      }, 2000);
 
       setTimeout(() => {
         if (currentUser.isAgreed) {

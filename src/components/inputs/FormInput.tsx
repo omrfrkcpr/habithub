@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileInput: React.FC<ProfileInputProps> = ({
+const FormInput: React.FC<FormInputProps> = ({
   label,
   type,
   value,
@@ -24,4 +24,4 @@ const ProfileInput: React.FC<ProfileInputProps> = ({
   );
 };
 
-export default ProfileInput;
+export default FormInput;

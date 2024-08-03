@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthBtns from "../buttons/AuthBtns";
+import AuthBtn from "../buttons/AuthBtn";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -39,10 +39,10 @@ const SignInForm = () => {
       <p className="w-[80%] md:w-[50%] mx-auto text-[10px] md:text-[13px] font-light text-center mt-4">
         Welcome back! Sign in using your social account or email to continue us
       </p>
-      <AuthBtns />
+      <AuthBtn />
       <form
         onSubmit={handleLogin}
-        className="flex flex-col justify-center items-center mt-5"
+        className="flex flex-col justify-center items-center mt-2"
       >
         <input
           type="text"
@@ -74,7 +74,7 @@ const SignInForm = () => {
         </div>
         <button
           type="submit"
-          className="w-[100px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex justify-center items-center text-[13px] md:text-[18px] text-center mt-10 bg-white hover:bg-gray-200 font-medium"
+          className="w-[100px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex justify-center items-center text-[13px] md:text-[18px] text-center mt-10 bg-white hover:bg-gray-200 font-medium duration-300"
         >
           {submitting ? (
             <CircleLoader size={20} className="text-black dark:text-white" />

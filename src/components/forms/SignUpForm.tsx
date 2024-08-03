@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import AuthBtns from "../buttons/AuthBtns";
+import AuthBtn from "../buttons/AuthBtn";
 import { useNavigate } from "react-router-dom";
 import SignUpInput from "../inputs/SignUpInput";
 import PasswordCheckList from "../inputs/PasswordCheckList";
@@ -205,7 +205,7 @@ const SignUpForm = () => {
         <button
           type="submit"
           disabled={submitting}
-          className="w-[130px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex items-center justify-center text-[15px] text-center mt-5 bg-white hover:bg-gray-200 font-medium"
+          className="w-[130px] h-[34px] py-1 shadow-md rounded-xl mx-auto flex items-center justify-center text-[15px] text-center mt-5 bg-white hover:bg-gray-200 font-medium duration-300"
         >
           {submitting ? (
             <CircleLoader size={20} className="text-black dark:text-white" />
@@ -214,7 +214,7 @@ const SignUpForm = () => {
           )}
         </button>
       </form>
-      <AuthBtns />
+      <AuthBtn />
     </div>
   );
 };

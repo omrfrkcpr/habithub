@@ -205,10 +205,23 @@ interface TaskCardProps {
   setShowDesc: React.Dispatch<React.SetStateAction<showDesc>>;
 }
 
-interface ProfileInputProps {
+interface FormInputProps {
   label: string;
   type: string;
   value: string;
   name: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+interface ContactFormState {
+  name: string;
+  email: string;
+  subject: string;
+  feedback: string;
+}
+
+interface ContactState {
+  form: ContactFormState;
+  loading: boolean;
+  error: boolean;
 }
