@@ -113,9 +113,9 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <>
       <form
-        className="flex flex-col mt-3"
+        className="flex flex-col"
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
@@ -180,7 +180,7 @@ const Profile = () => {
           )}
         </button>
       </form>
-    </div>
+    </>
   );
 };
 

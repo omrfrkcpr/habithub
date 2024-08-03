@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
+import { loginSuccess } from "../features/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import toastNotify from "../helpers/toastNotify";
 import { CircleLoader } from "react-spinners";
 import { RootState } from "../app/store";
 import useTaskCalls from "../hooks/useTaskCalls";
 import { useSelector } from "react-redux";
-import axios from "axios";
 
 const AuthSuccess = () => {
   const dispatch = useDispatch();

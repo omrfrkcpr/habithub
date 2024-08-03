@@ -8,7 +8,7 @@ const UserSettings = () => {
   const [selectedTab, setSelectedTab] = useState<string>("profile");
 
   return (
-    <div className="flex flex-col pt-10 pb-6 px-5 gap-4 h-[455px] md:h-[545px]">
+    <div className="flex flex-col pt-10 pb-6 px-5 gap-4 h-[475px] md:h-[545px]">
       <section
         id="bar"
         className="flex justify-between w-full bg-habit-light-purple rounded-md"
