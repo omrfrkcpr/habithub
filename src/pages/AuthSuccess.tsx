@@ -1,38 +1,55 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
-import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import toastNotify from "../helpers/toastNotify";
 import { CircleLoader } from "react-spinners";
 import { RootState } from "../app/store";
 import useTaskCalls from "../hooks/useTaskCalls";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const AuthSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { date } = useSelector((state: RootState) => state.date);
-  const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { currentUser, accessToken } = useSelector(
+    (state: RootState) => state.auth
+  );
   const { getTaskData } = useTaskCalls();
 
+  console.log("accessToken :", accessToken);
+
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     dispatch(fetchStart());
+  //     try {
+  //       const url = `${process.env.REACT_APP_BASE_URL}auth/login/success`;
+  //       const { data } = await axios.get(url);
+  //       console.log(data);
+  //       dispatch(loginSuccess(data));
+  //       toastNotify("success", data.message);
+  //     } catch (err: any) {
+  //       console.log(err);
+  //       // toastNotify("error", err?.response?.data?.message);
+  //       dispatch(fetchFail());
+  //     }
+  //   };
+  //   getUser();
+  // }, []);
+
   useEffect(() => {
-    const getUser = async () => {
-      dispatch(fetchStart());
-      try {
-        const url = `${process.env.REACT_APP_BASE_URL}auth/login/success`;
-        const { data } = await axios.get(url, { withCredentials: true });
-        console.log(data);
-        dispatch(loginSuccess(data));
-        toastNotify("success", data.message);
-      } catch (err: any) {
-        console.log(err);
-        // toastNotify("error", err?.response?.data?.message);
-        dispatch(fetchFail());
-      }
-    };
-    getUser();
+    const queryParams = new URLSearchParams(location.search);
+    const userParam = queryParams.get("user");
+
+    if (!userParam) {
+      navigate("/signin"); // Redirect to signin if successUrl param is missing
+    }
+
+    const parsedData = JSON.parse(decodeURIComponent(userParam ?? ""));
+    dispatch(loginSuccess(parsedData));
+    toastNotify("success", parsedData?.message);
   }, []);
 
   useEffect(() => {
@@ -49,15 +66,6 @@ const AuthSuccess = () => {
       }, 3000);
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const provider = queryParams.get("provider");
-
-    if (!provider) {
-      navigate("/signin"); // Redirect to signin if successUrl param is missing
-    }
-  }, [location.search]);
 
   const { serviceName, serviceImage } = getService();
 

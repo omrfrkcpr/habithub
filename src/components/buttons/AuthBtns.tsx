@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuthCalls from "../../hooks/useAuthCalls";
 
 interface SocialBtn {
@@ -10,9 +10,15 @@ interface SocialBtn {
 
 const AuthBtns = () => {
   const { signInWithSocial } = useAuthCalls();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleAuthClick = (authType: string) => {
-    signInWithSocial(authType);
+    if (!isSubmitting) {
+      setIsSubmitting(true);
+      signInWithSocial(authType).finally(() => {
+        setIsSubmitting(false);
+      });
+    }
   };
 
   const authBtns = [

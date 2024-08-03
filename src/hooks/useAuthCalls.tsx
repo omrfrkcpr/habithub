@@ -138,7 +138,7 @@ const useAuthCalls = () => {
       showNotify && navigate("/");
     } catch (error: any) {
       dispatch(fetchFail());
-      showNotify && toastNotify("error", error.response.data.message);
+      showNotify && toastNotify("error", error.message);
       // console.log(error);
     }
   };
