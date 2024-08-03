@@ -40,6 +40,7 @@ const ActionBtn: React.FC<ActionBtnProps> = ({
                 ? "#3ddb4a"
                 : "#ca87f4",
           },
+          transitionDuration: 300,
         }}
         loading={loading}
         loadingPosition="start"

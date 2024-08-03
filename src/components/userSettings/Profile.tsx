@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import AvatarSection from "./AvatarSection";
-import InputField from "../inputs/ProfileInput";
+import InputField from "../inputs/FormInput";
 import useAuthCalls from "../../hooks/useAuthCalls";
 import { CircleLoader } from "react-spinners";
 
@@ -134,7 +134,7 @@ const Profile = () => {
           <div className="flex justify-between gap-2">
             {[...inputFields]
               .slice(0, 2)
-              .map((field: ProfileInputProps, index: number) => {
+              .map((field: FormInputProps, index: number) => {
                 const { label, type, value, name } = field;
                 return (
                   <InputField
@@ -151,7 +151,7 @@ const Profile = () => {
           <div className="flex justify-between gap-2">
             {[...inputFields]
               .slice(2, 4)
-              .map((field: ProfileInputProps, index: number) => {
+              .map((field: FormInputProps, index: number) => {
                 const { label, type, value, name } = field;
                 return (
                   <InputField
