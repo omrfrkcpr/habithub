@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import AuthBtns from "../buttons/AuthBtns";
 import { useNavigate } from "react-router-dom";
 import SignUpInput from "../inputs/SignUpInput";
-import PasswordCheckList from "../inputs/PasswordCheckList";
+import PasswordCheckListComp from "../inputs/PasswordCheckListComp";
 import useAuthCalls from "../../hooks/useAuthCalls";
 import { CircleLoader } from "react-spinners";
 
@@ -175,7 +175,7 @@ const SignUpForm = () => {
             ref={checklistRef}
             className="bg-[#ededed] w-[90%] xl:w-[500px] pt-2  text-left z-50 absolute top-[315px] md:top-[330px] shadow-md clip-message-box"
           >
-            <PasswordCheckList
+            <PasswordCheckListComp
               password={formik.values.password}
               confirmPassword={formik.values.confirmPassword}
               setShowChecklist={setShowChecklist}

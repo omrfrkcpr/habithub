@@ -192,20 +192,6 @@ const useAuthCalls = () => {
     }
   };
 
-  // const verifyAccount = async (token: string) => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axios.post(
-  //       `${BASE_URL}auth/verify-email/${token}`
-  //     );
-  //     dispatch(verifySuccess(data));
-  //     toastNotify("success", data.message);
-  //   } catch (error: any) {
-  //     dispatch(fetchFail());
-  //     toastNotify("error", error.response.data.message);
-  //   }
-  // };
-
   const signInWithSocial = async (consumerName: string) => {
     window.open(`${BASE_URL}auth/${consumerName}`, "_self");
   };
@@ -230,7 +216,6 @@ const useAuthCalls = () => {
     refresh,
     forgotPassword,
     resetPassword,
-    // verifyAccount,
     agreeContract,
     signInWithSocial,
   };

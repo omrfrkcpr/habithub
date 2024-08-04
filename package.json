@@ -13,10 +13,7 @@
     "@mui/material": "^5.15.20",
     "@phosphor-icons/react": "^2.1.5",
     "@reduxjs/toolkit": "^2.2.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/redux-persist": "^4.3.1",
@@ -78,14 +75,28 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
     "@types/file-saver": "^2.0.7",
+    "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.14.9",
     "@types/react-datepicker": "^6.2.0",
     "@types/react-time-picker": "^6.0.0",
+    "@types/redux-mock-store": "^1.0.6",
     "autoprefixer": "^10.4.19",
+    "babel-jest": "^29.7.0",
     "compression-webpack-plugin": "^11.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4"
+    "redux-mock-store": "^1.5.4",
+    "tailwindcss": "^3.4.4",
+    "ts-jest": "^29.2.4",
+    "ts-node": "^10.9.2"
   }
 }

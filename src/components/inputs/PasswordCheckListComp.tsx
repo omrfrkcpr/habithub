@@ -1,10 +1,11 @@
+import React from "react";
 import PasswordChecklist from "react-password-checklist";
 import { FaCheck } from "react-icons/fa6";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoIosClose } from "react-icons/io";
 
-const PasswordCheckList: React.FC<PasswordCheckListProps> = ({
+const PasswordCheckListComp: React.FC<PasswordCheckListProps> = ({
   password,
   confirmPassword,
   setShowChecklist,
@@ -65,4 +66,4 @@ const PasswordCheckList: React.FC<PasswordCheckListProps> = ({
   );
 };
 
-export default PasswordCheckList;
+export default PasswordCheckListComp;
