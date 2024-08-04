@@ -1,3 +1,5 @@
+import React from "react";
+
 const MainBg = () => {
   return (
     <div className="flex">

@@ -1,3 +1,4 @@
+import React from 'react';
 import { contractRules } from "../helpers/constants";
 import useAuthCalls from "../hooks/useAuthCalls";
 import Navbar from "../layouts/Navbar";
