@@ -47,10 +47,11 @@
     <a href="https://github.com/omrfrkcpr/habithub"><strong>Explore the docs »</strong></a>
     <br />
     <br />
+    <a href="https://github.com/omrfrkcpr/habithub-api"><strong>Habithub-API »</strong></a>
+    <br />
+    <br />
     <a href="https://habithub.de">View Demo</a>
-    ·
     <a href="https://github.com/omrfrkcpr/habithub/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
     <a href="https://github.com/omrfrkcpr/habithub/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
@@ -63,6 +64,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#key-features">Key Features</a></li>
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
@@ -118,6 +120,29 @@
     <img src="https://skillicons.dev/icons?i=npm" />
   </a>
 </p>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- KEY FEATURES -->
+
+## Key Features
+
+- **Easy Authentication with Google**
+  - Create an account easily and fast.
+- **Task Creation and Management**
+  - Quickly create tasks with titles, descriptions, and due dates
+  - Organize tasks into customizable lists for better categorization
+- **Progress Tracking**
+  - Mark tasks as complete and track overall progress
+  - View statistics on completed and pending tasks
+- **Export Options**
+  - Export tasks for any given day as PDF, DOCX, or via email
+- **User-Friendly Design**
+  - Intuitive and easy-to-use interface for seamless task management
+- **Reminders and Notifications**
+  - Set reminders for tasks and receive timely notifications
+- **Dark and Light Theme Mode**
+  - Switch theme mode at anytime
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
