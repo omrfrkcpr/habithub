@@ -9,6 +9,9 @@ import { FaInfoCircle } from "react-icons/fa";
 import { CgExport } from "react-icons/cg";
 import ExportBtns from "../components/buttons/ExportBtns";
 import styled from "styled-components";
+import Modal from "../components/commons/Modal";
+import { MdNightlight } from "react-icons/md";
+import { IoSunny } from "react-icons/io5";
 
 const CustomScrollUl = styled.ul<{ $scrollbarColor: string }>`
   max-height: 200px;
@@ -45,10 +48,12 @@ const TaskList = () => {
   const [showDesc, setShowDesc] = useState<string>("");
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const [showExport, setShowExports] = useState<boolean>(false);
-  const infoRef = useRef<HTMLDivElement>(null);
   const descButtonRef = useRef<HTMLButtonElement>(null);
   const exportRef = useRef<HTMLDivElement>(null);
   const exportBtnRef = useRef<HTMLButtonElement>(null);
+
+  const openModal = () => setShowInfo(true);
+  const closeModal = () => setShowInfo(false);
 
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
@@ -70,33 +75,6 @@ const TaskList = () => {
   const getFilteredTasks = (priority: number) => {
     return tasks.filter((task: Task) => task.priority === priority);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        infoRef.current &&
-        !infoRef.current.contains(event.target as Node) &&
-        descButtonRef.current &&
-        !descButtonRef.current.contains(event.target as Node)
-      ) {
-        setShowInfo(false);
-      }
-
-      if (
-        exportRef.current &&
-        !exportRef.current.contains(event.target as Node) &&
-        exportBtnRef.current &&
-        !exportBtnRef.current.contains(event.target as Node)
-      ) {
-        setShowExports(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="pb-20 md:pb-10">
@@ -131,21 +109,50 @@ const TaskList = () => {
             >
               <FaInfoCircle />
             </button>
-            {showInfo && (
-              <div
-                ref={infoRef}
-                className="clip-message-box2 mt-2 mb-3 text-[10px] md:text-[12px] font-light md:font-normal absolute w-[200px] right-0 bg-[#ededed] rounded-md top-7 z-50 py-5 px-4 flex flex-col gap-2 "
-              >
-                <span>
-                  To see the tasks for other days, please select the relevant
-                  day from the calendar from the sidebar menu.
-                </span>
-                <span>
-                  To change the priority of a task, simply drag and drop it into
-                  the desired priority section.
-                </span>
+            <Modal isOpen={showInfo} onClose={closeModal}>
+              <div className="flex space-x-2 p-3">
+                <div className="flex w-fit">
+                  <img
+                    loading="lazy"
+                    src={`${process.env.REACT_APP_AWS_S3_BASE_URL}drag-drop.gif`}
+                    alt="drag-drop-info"
+                    className="rounded-[38px] object-contain md:object-fit w-[fit-content]"
+                  />
+                </div>
+                <ul className="flex flex-col gap-4 p-4 justify-center">
+                  <li className="text-[11px] md:text-[14px] flex space-x-2 items-center border-b pb-2">
+                    <span>
+                      You can switch between dark or light theme mode by
+                      clicking on these icons.
+                    </span>
+                    <span className="flex gap-1 h-[fit-content] -1 md:pb-2">
+                      <MdNightlight className="text-[20px] md:text-[24px] text-habit-purple bg-slate-300 p-1" />
+                      <IoSunny className="text-[20px] md:text-[24px] text-habit-yellow hover:text-yellow-200 bg-slate-500 p-1" />
+                    </span>
+                  </li>
+                  <li className="text-[11px] md:text-[14px] border-b p-1 md:pb-2">
+                    To see the tasks for other days, please select the relevant
+                    day from the calendar from the sidebar menu.
+                  </li>
+                  <li className="text-[11px] md:text-[14px]">
+                    To change the priority of a task, simply drag and drop it
+                    into the desired priority section.
+                  </li>
+                  <li className="justify-between hidden md:flex">
+                    <img
+                      className="h-[80px] w-[100px] rotate-[16deg] me-auto object-fit"
+                      src={`${process.env.REACT_APP_AWS_S3_BASE_URL}linea-discontinua-curva.png`}
+                      alt="linea-curva"
+                    />
+                    <img
+                      src={`${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`}
+                      alt="habithub"
+                      className="object-contain"
+                    />
+                  </li>
+                </ul>
               </div>
-            )}
+            </Modal>
           </div>
         </>
       )}
