@@ -37,7 +37,11 @@ const useTaskCalls = () => {
     } else {
       toastNotify("error", message);
     }
-    if (message.includes("No Permission: Please log in!")) {
+    if (
+      message.includes(
+        "No Permission: Please log in!" || "No Permission: You must login"
+      )
+    ) {
       navigate("/signin");
     }
   };
