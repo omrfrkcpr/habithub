@@ -125,12 +125,12 @@ const TaskList = () => {
                       You can switch between dark or light theme mode by
                       clicking on these icons.
                     </span>
-                    <span className="flex gap-1 h-[fit-content] -1 md:pb-2">
+                    <span className="flex gap-1">
                       <MdNightlight className="text-[20px] md:text-[24px] text-habit-purple bg-slate-300 p-1" />
                       <IoSunny className="text-[20px] md:text-[24px] text-habit-yellow hover:text-yellow-200 bg-slate-500 p-1" />
                     </span>
                   </li>
-                  <li className="text-[11px] md:text-[14px] border-b p-1 md:pb-2">
+                  <li className="text-[11px] md:text-[14px] border-b pb-1 md:pb-2">
                     To see the tasks for other days, please select the relevant
                     day from the calendar from the sidebar menu.
                   </li>
