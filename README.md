@@ -36,7 +36,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/omrfrkcpr/habithub">
-    <img src="https://habithub.s3.eu-north-1.amazonaws.com/habithub-assets/habitHub.png" alt="Logo" width="100" height="80">
+    <img src="https://habithub.s3.eu-north-1.amazonaws.com/habithub-assets/habitHub.png" alt="Logo" width="90" height="70">
   </a>
 
 <h3 align="center">Habithub</h3>
@@ -135,6 +135,8 @@
 - **Progress Tracking**
   - Mark tasks as complete and track overall progress
   - View statistics on completed and pending tasks
+- **Drag/Drop Task**
+  - Drag and Drop task to change priority status
 - **Export Options**
   - Export tasks for any given day as PDF, DOCX, or via email
 - **User-Friendly Design**
