@@ -44,8 +44,8 @@
   <p align="center">
     An intuitive task management platform that allows users to create, organize, and manage their tasks efficiently. The core aim of Habithub is to enhance productivity by providing a simple yet powerful interface to handle tasks of any scope and duration. Users can categorize their tasks under various lists, ensuring a personalized organization system that suits their individual needs. The platform is designed to be user-friendly, ensuring that managing tasks is a seamless experience. From adding new tasks to tracking their progress, Habithub offers all the features needed to stay on top of one's schedule.
     <br />
-    <a href="https://github.com/omrfrkcpr/habithub"><strong>Explore the docs »</strong></a>
     <br />
+    <a href="https://github.com/omrfrkcpr/habithub"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://github.com/omrfrkcpr/habithub-api"><strong>Habithub-API »</strong></a>
     <br />
