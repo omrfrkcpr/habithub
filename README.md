@@ -78,6 +78,8 @@
 
 ## About The Project
 
+![habithub](https://habithub.s3.eu-north-1.amazonaws.com/habithub-assets/habithub.gif)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
