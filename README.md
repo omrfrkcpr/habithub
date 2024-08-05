@@ -36,7 +36,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/omrfrkcpr/habithub">
-    <img src="https://habithub.s3.eu-north-1.amazonaws.com/habithub-assets/habitHub.png" alt="Logo" width="120" height="80">
+    <img src="https://habithub.s3.eu-north-1.amazonaws.com/habithub-assets/habitHub.png" alt="Logo" width="100" height="80">
   </a>
 
 <h3 align="center">Habithub</h3>
