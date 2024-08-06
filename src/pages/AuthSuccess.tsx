@@ -55,9 +55,6 @@ const AuthSuccess = () => {
       setTimeout(() => {
         getTaskData("tasks", `?date=${date}`);
         getTaskData("tags");
-      }, 2000);
-
-      setTimeout(() => {
         if (currentUser.isAgreed) {
           navigate("/home");
         } else {
