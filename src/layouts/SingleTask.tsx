@@ -22,7 +22,7 @@ const SingleTask = () => {
   };
 
   // console.log(taskId);
-  console.log(newTask);
+  // console.log(newTask);
 
   // const { editTaskId } = useSelector((state: RootState) => state.task);
 

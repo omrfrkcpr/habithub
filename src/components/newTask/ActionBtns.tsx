@@ -16,7 +16,7 @@ const ActionBtns: React.FC<ActionBtnsComp> = ({ setChecked }) => {
   const { date } = useSelector((state: RootState) => state.date);
   const { editTaskId } = useSelector((state: RootState) => state.task);
 
-  console.log(newTask);
+  // console.log(newTask);
 
   const handleResetNewTask = () => {
     dispatch(resetNewTask());
