@@ -88,36 +88,6 @@
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=react,redux,ts,tailwind,materialui,npm,postman,vercel,jest" />
   </a>
-  <!-- <a href="https://react.dev/">
-    <img src="https://skillicons.dev/icons?i=react" />
-  </a>
-  <a href="https://redux.js.org/">
-    <img src="https://skillicons.dev/icons?i=redux" />
-  </a>
-  <a href="https://www.typescriptlang.org/">
-    <img src="https://skillicons.dev/icons?i=ts" />
-  </a>
-  <a href="https://tailwindcss.com/">
-    <img src="https://skillicons.dev/icons?i=tailwind" />
-  </a>
-  <a href="https://mui.com/">
-    <img src="https://skillicons.dev/icons?i=materialui" />
-  </a>
-  <a href="https://www.postman.com/">
-    <img src="https://skillicons.dev/icons?i=postman" />
-  </a>
-  <a href="https://vercel.com/">
-    <img src="https://skillicons.dev/icons?i=vercel" />
-  </a>
-  <a href="https://aws.amazon.com/de/">
-    <img src="https://skillicons.dev/icons?i=aws" />
-  </a>
-  <a href="https://jestjs.io/">
-    <img src="https://skillicons.dev/icons?i=jest" />
-  </a>
-  <a href="https://www.npmjs.com/">
-    <img src="https://skillicons.dev/icons?i=npm" />
-  </a> -->
 </p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
