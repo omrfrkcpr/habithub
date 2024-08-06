@@ -85,7 +85,10 @@
 ### Built With
 
 <p align="center">
-  <a href="https://react.dev/">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,redux,ts,tailwind,materialui,npm,postman,vercel,jest" />
+  </a>
+  <!-- <a href="https://react.dev/">
     <img src="https://skillicons.dev/icons?i=react" />
   </a>
   <a href="https://redux.js.org/">
@@ -99,12 +102,6 @@
   </a>
   <a href="https://mui.com/">
     <img src="https://skillicons.dev/icons?i=materialui" />
-  </a>
-  <a href="https://nodejs.org/en">
-    <img src="https://skillicons.dev/icons?i=nodejs" />
-  </a>
-  <a href="https://www.docker.io/">
-    <img src="https://skillicons.dev/icons?i=docker" />
   </a>
   <a href="https://www.postman.com/">
     <img src="https://skillicons.dev/icons?i=postman" />
@@ -120,7 +117,7 @@
   </a>
   <a href="https://www.npmjs.com/">
     <img src="https://skillicons.dev/icons?i=npm" />
-  </a>
+  </a> -->
 </p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
