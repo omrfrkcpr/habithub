@@ -1,45 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { loginSuccess } from "../features/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import toastNotify from "../helpers/toastNotify";
 import { CircleLoader } from "react-spinners";
-import { RootState } from "../app/store";
 import useTaskCalls from "../hooks/useTaskCalls";
 
 const AuthSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { date } = useSelector((state: RootState) => state.date);
-  const { getTaskData } = useTaskCalls();
-
-  const getDataFromUrl = async () => {
-    const queryParams = new URLSearchParams(location.search);
-    const userParam = queryParams.get("user");
-
-    if (!userParam) {
-      navigate("/signin"); // Redirect to signin if successUrl param is missing
-    }
-
-    const parsedData = JSON.parse(decodeURIComponent(userParam ?? ""));
-    dispatch(loginSuccess(parsedData));
-
-    const { message, bearer, user } = parsedData;
-
-    toastNotify("success", message);
-
-    await getTaskData("tasks", `?date=${date}`, bearer?.access);
-    await getTaskData("tags", "", bearer?.access);
-
-    if (user?.isAgreed) {
-      navigate("/home");
-    } else {
-      navigate("/contract");
-    }
-  };
+  const { getInitialTaskData } = useTaskCalls();
 
   useEffect(() => {
+    const getDataFromUrl = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      const userParam = queryParams.get("user");
+
+      if (!userParam) {
+        navigate("/signin"); // Redirect to signin if successUrl param is missing
+      }
+
+      const parsedData = JSON.parse(decodeURIComponent(userParam ?? ""));
+      dispatch(loginSuccess(parsedData));
+
+      const { message, bearer, user } = parsedData;
+
+      toastNotify("success", message);
+
+      await getInitialTaskData(bearer.access);
+
+      if (user?.isAgreed) {
+        navigate("/home");
+      } else {
+        navigate("/contract");
+      }
+    };
     getDataFromUrl();
   }, []);
 

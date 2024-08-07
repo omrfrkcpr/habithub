@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
 import { formatDateString } from "../helpers/functions";
@@ -52,7 +52,6 @@ const TaskList = () => {
   const exportRef = useRef<HTMLDivElement>(null);
   const exportBtnRef = useRef<HTMLButtonElement>(null);
 
-  const openModal = () => setShowInfo(true);
   const closeModal = () => setShowInfo(false);
 
   // console.log(tasks);

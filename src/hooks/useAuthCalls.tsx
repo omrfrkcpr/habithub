@@ -22,13 +22,12 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const useAuthCalls = () => {
   const dispatch = useDispatch();
-  const { getTaskData } = useTaskCalls();
-  const { date } = useSelector((state: RootState) => state.date);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: RootState) => state.auth);
   const { accessToken, refreshToken } = useSelector(
     (store: RootState) => store.auth
   );
+  const { getInitialTaskData } = useTaskCalls();
 
   // console.log(accessToken);
   // console.log(refreshToken);
@@ -124,8 +123,7 @@ const useAuthCalls = () => {
 
       toastNotify("success", message);
 
-      getTaskData("tasks", `?date=${date}`, bearer?.access);
-      getTaskData("tags", "", bearer?.access);
+      await getInitialTaskData(bearer?.access);
 
       if (user?.isAgreed) {
         navigate("/home");

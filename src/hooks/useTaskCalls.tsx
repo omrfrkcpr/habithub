@@ -16,7 +16,6 @@ import showSwal from "../helpers/showSwal";
 import { setSingleTask } from "../features/newTaskSlice";
 import toastNotify from "../helpers/toastNotify";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const useTaskCalls = () => {
   const dispatch = useDispatch();
@@ -73,6 +72,11 @@ const useTaskCalls = () => {
     } catch (error) {
       handleError(error, false); // use toastNotify
     }
+  };
+
+  const getInitialTaskData = async (token?: string) => {
+    await getTaskData("tasks", `?date=${date}`, token);
+    await getTaskData("tags", "", token);
   };
 
   const getSingleTaskData = async (id = "") => {
@@ -218,6 +222,7 @@ const useTaskCalls = () => {
     getSingleTaskData,
     deleteTaskData,
     updateTaskData,
+    getInitialTaskData,
     createTaskData,
   };
 };
