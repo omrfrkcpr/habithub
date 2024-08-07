@@ -45,6 +45,7 @@ const taskSlice = createSlice({
       state.loading = false;
       state.error = true;
     },
+    resetTaskSlice: (state) => initialState,
   },
 });
 
@@ -55,5 +56,6 @@ export const {
   setTodayTasks,
   setEditTaskId,
   fetchFail,
+  resetTaskSlice,
 } = taskSlice.actions;
 export default taskSlice.reducer;

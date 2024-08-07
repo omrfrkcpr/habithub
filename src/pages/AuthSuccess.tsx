@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../features/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,32 +12,9 @@ const AuthSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { date } = useSelector((state: RootState) => state.date);
-  const { currentUser, accessToken } = useSelector(
-    (state: RootState) => state.auth
-  );
   const { getTaskData } = useTaskCalls();
 
-  console.log("accessToken :", accessToken);
-
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     dispatch(fetchStart());
-  //     try {
-  //       const url = `${process.env.REACT_APP_BASE_URL}auth/login/success`;
-  //       const { data } = await axios.get(url);
-  //       console.log(data);
-  //       dispatch(loginSuccess(data));
-  //       toastNotify("success", data.message);
-  //     } catch (err: any) {
-  //       console.log(err);
-  //       // toastNotify("error", err?.response?.data?.message);
-  //       dispatch(fetchFail());
-  //     }
-  //   };
-  //   getUser();
-  // }, []);
-
-  useEffect(() => {
+  const getDataFromUrl = async () => {
     const queryParams = new URLSearchParams(location.search);
     const userParam = queryParams.get("user");
 
@@ -47,22 +24,24 @@ const AuthSuccess = () => {
 
     const parsedData = JSON.parse(decodeURIComponent(userParam ?? ""));
     dispatch(loginSuccess(parsedData));
-    toastNotify("success", parsedData?.message);
-  }, []);
+
+    const { message, bearer, user } = parsedData;
+
+    toastNotify("success", message);
+
+    await getTaskData("tasks", `?date=${date}`, bearer?.access);
+    await getTaskData("tags", "", bearer?.access);
+
+    if (user?.isAgreed) {
+      navigate("/home");
+    } else {
+      navigate("/contract");
+    }
+  };
 
   useEffect(() => {
-    if (currentUser?.id) {
-      setTimeout(() => {
-        getTaskData("tasks", `?date=${date}`);
-        getTaskData("tags");
-        if (currentUser.isAgreed) {
-          navigate("/home");
-        } else {
-          navigate("/contract");
-        }
-      }, 3000);
-    }
-  }, [currentUser]);
+    getDataFromUrl();
+  }, []);
 
   const { serviceName, serviceImage } = getService();
 

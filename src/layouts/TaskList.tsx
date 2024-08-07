@@ -55,6 +55,8 @@ const TaskList = () => {
   const openModal = () => setShowInfo(true);
   const closeModal = () => setShowInfo(false);
 
+  // console.log(tasks);
+
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return;
 

@@ -21,9 +21,9 @@ const authSlice = createSlice({
     },
     registerSuccess: (state, { payload }) => {
       state.loading = false;
-      state.currentUser = payload?.user;
-      state.accessToken = payload?.bearer?.access;
-      state.refreshToken = payload?.bearer?.refresh;
+      // state.currentUser = payload?.user;
+      // state.accessToken = payload?.bearer?.access;
+      // state.refreshToken = payload?.bearer?.refresh;
     },
     updateSuccess: (state, { payload }) => {
       state.loading = false;

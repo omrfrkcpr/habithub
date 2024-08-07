@@ -7,20 +7,23 @@ import {
   registerSuccess,
   forgotSuccess,
   resetSuccess,
-  // verifySuccess,
   refreshSuccess,
   updateSuccess,
 } from "../features/authSlice";
-import axios from "axios";
+import { resetTaskSlice } from "../features/taskSlice";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../app/store";
 import toastNotify from "../helpers/toastNotify";
 import showSwal from "../helpers/showSwal";
+import useTaskCalls from "./useTaskCalls";
+import { axiosWithPublic } from "./useAxios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const useAuthCalls = () => {
   const dispatch = useDispatch();
+  const { getTaskData } = useTaskCalls();
+  const { date } = useSelector((state: RootState) => state.date);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: RootState) => state.auth);
   const { accessToken, refreshToken } = useSelector(
@@ -33,8 +36,8 @@ const useAuthCalls = () => {
   const register = async (userInfo: object) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/register`, userInfo);
-      console.log(data);
+      const { data } = await axiosWithPublic.post("auth/register", userInfo);
+      // console.log(data);
       dispatch(registerSuccess(data));
       toastNotify("info", data?.message);
       navigate("/signin");
@@ -58,8 +61,8 @@ const useAuthCalls = () => {
     if (result.isConfirmed) {
       dispatch(fetchStart());
       try {
-        const { data } = await axios.put(
-          `${BASE_URL}users/${currentUser?.id}`,
+        const { data } = await axiosWithPublic.put(
+          `users/${currentUser?.id}`,
           userInfo,
           {
             headers: {
@@ -91,8 +94,8 @@ const useAuthCalls = () => {
     if (result.isConfirmed) {
       dispatch(fetchStart());
       try {
-        const { data } = await axios.delete(
-          `${BASE_URL}users/${currentUser?.id}`,
+        const { data } = await axiosWithPublic.delete(
+          `users/${currentUser?.id}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -113,11 +116,22 @@ const useAuthCalls = () => {
   const login = async (userInfo: object) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/login`, userInfo);
-      console.log(data);
+      const { data } = await axiosWithPublic.post("auth/login", userInfo);
+      // console.log(data);
       dispatch(loginSuccess(data));
-      toastNotify("success", data.message);
-      navigate("/contract");
+
+      const { message, bearer, user } = data;
+
+      toastNotify("success", message);
+
+      getTaskData("tasks", `?date=${date}`, bearer?.access);
+      getTaskData("tags", "", bearer?.access);
+
+      if (user?.isAgreed) {
+        navigate("/home");
+      } else {
+        navigate("/contract");
+      }
     } catch (error: any) {
       console.log(error);
       dispatch(fetchFail());
@@ -128,12 +142,13 @@ const useAuthCalls = () => {
   const logout = async (showNotify: boolean) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.get(`${BASE_URL}auth/logout`, {
+      const { data } = await axiosWithPublic.get("auth/logout", {
         headers: {
           Authorization: `Token ${accessToken}`,
         },
       });
       dispatch(logoutSuccess());
+      dispatch(resetTaskSlice());
       showNotify && toastNotify("success", data.message);
       showNotify && navigate("/");
     } catch (error: any) {
@@ -146,7 +161,7 @@ const useAuthCalls = () => {
   const refresh = async (showNotify: boolean) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/refresh`, {
+      const { data } = await axiosWithPublic.post("auth/refresh", {
         bearer: { refresh: refreshToken },
       });
       dispatch(refreshSuccess(data));
@@ -164,7 +179,7 @@ const useAuthCalls = () => {
   const forgotPassword = async (email: string) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/forgot`, { email });
+      const { data } = await axiosWithPublic.post("auth/forgot", { email });
       dispatch(forgotSuccess(data));
       toastNotify("success", data.message);
     } catch (error: any) {
@@ -180,7 +195,7 @@ const useAuthCalls = () => {
   ) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axios.post(`${BASE_URL}auth/reset/${token}`, {
+      const { data } = await axiosWithPublic.post(`auth/reset/${token}`, {
         email,
         newPassword,
       });
@@ -198,8 +213,8 @@ const useAuthCalls = () => {
 
   const agreeContract = async () => {
     try {
-      const { data } = await axios.put(
-        `${BASE_URL}users/agree-contract/${currentUser?.id}`
+      const { data } = await axiosWithPublic.put(
+        `users/agree-contract/${currentUser?.id}`
       );
       dispatch(updateSuccess(data));
     } catch (error) {

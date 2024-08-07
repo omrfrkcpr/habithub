@@ -1,4 +1,4 @@
-import useAxios from "./useAxios";
+import useAxios, { axiosWithPublic } from "./useAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import {
@@ -16,6 +16,7 @@ import showSwal from "../helpers/showSwal";
 import { setSingleTask } from "../features/newTaskSlice";
 import toastNotify from "../helpers/toastNotify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const useTaskCalls = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const useTaskCalls = () => {
       toastNotify("error", message);
     }
     if (
+      message &&
       message.includes(
         "No Permission: Please log in!" || "No Permission: You must login"
       )
@@ -46,17 +48,27 @@ const useTaskCalls = () => {
     }
   };
 
-  const getTaskData = async (url: string, search = "") => {
+  const getTaskData = async (url: string, search = "", token?: string) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken(`${url}${search}`);
-      dispatch(setSuccess({ data: data, url }));
+      let resData;
+      if (token) {
+        const { data } = await axiosWithPublic(`${url}${search}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        resData = data;
+      } else {
+        const { data } = await axiosWithToken(`${url}${search}`);
+        resData = data;
+      }
+      console.log("ResData", resData);
+      dispatch(setSuccess({ data: resData, url }));
 
       if (
         url === "tasks" &&
         new Date(date).getDate() === new Date().getDate()
       ) {
-        dispatch(setTodayTasks({ data }));
+        dispatch(setTodayTasks({ resData }));
       }
     } catch (error) {
       handleError(error, false); // use toastNotify
