@@ -60,14 +60,13 @@ const useTaskCalls = () => {
         const { data } = await axiosWithToken(`${url}${search}`);
         resData = data;
       }
-      console.log("ResData", resData);
       dispatch(setSuccess({ data: resData, url }));
 
       if (
         url === "tasks" &&
         new Date(date).getDate() === new Date().getDate()
       ) {
-        dispatch(setTodayTasks({ resData }));
+        dispatch(setTodayTasks({ data: resData }));
       }
     } catch (error) {
       handleError(error, false); // use toastNotify
@@ -114,7 +113,8 @@ const useTaskCalls = () => {
       const { data } = await axiosWithToken(
         `tasks?date=${new Date().toISOString()}`
       );
-      dispatch(setTodayTasks({ data: data?.data }));
+      console.log(data);
+      dispatch(setTodayTasks({ data }));
     } catch (error) {
       handleError(error, false); // use toastNotify
     }

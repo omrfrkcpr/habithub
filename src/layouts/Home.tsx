@@ -15,6 +15,7 @@ import TagLists from "../layouts/TagLists";
 import useTaskCalls from "../hooks/useTaskCalls";
 import { RootState } from "../app/store";
 import { useSelector } from "react-redux";
+import TaskAnalytics from "./TaskAnalytics";
 
 const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -131,6 +132,7 @@ const Home = () => {
           <Logo single={false} />
         </div>
         <DateTimePicker setValue={setValue} />
+        <TaskAnalytics setValue={setValue} />
       </div>
 
       {/* Main Content */}

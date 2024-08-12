@@ -15,6 +15,7 @@ const TaskAnalytics = ({
 
   const handleTodayClick = () => {
     handleDateChange(new Date());
+    setValue(0);
   };
 
   const countCompletedTasks = (tasks: Task[], tagId?: string) => {

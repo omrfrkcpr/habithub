@@ -20,17 +20,6 @@ const DateTimePicker = ({
   const { date, time } = useSelector((state: RootState) => state.date);
   const handleDateChange = useDate(setValue);
   const [currentDate, setCurrentDate] = useState(new Date());
-  // const navigate = useNavigate();
-  // const location = useLocation();
-
-  // // If date changes, update URL params
-  // useEffect(() => {
-  //   const searchParams = new URLSearchParams(location.search);
-  //   searchParams.set("date", date);
-  //   navigate(`${location.pathname}?${searchParams.toString()}`, {
-  //     replace: true,
-  //   });
-  // }, [date, navigate, location.pathname, location.search]);
 
   // Update time in Redux only when minutes change
   useEffect(() => {
@@ -52,11 +41,8 @@ const DateTimePicker = ({
     return () => clearInterval(interval);
   }, [dispatch, time]);
 
-  // console.log("Date: ", date);
-  // console.log("Time: ", time);
-
   return (
-    <div className="flex flex-col mx-auto items-center justify-center space-y-4 w-full h-[450px] md:h-[450px] z-50">
+    <div className="flex flex-col mx-auto items-center justify-center space-y-4 w-full h-[280px]  z-50">
       <div>
         <DatePicker
           selected={new Date(date)}
@@ -66,7 +52,6 @@ const DateTimePicker = ({
           minDate={new Date()}
         />
       </div>
-      <TaskAnalytics setValue={setValue} />
       <div className="hidden lg:block absolute bottom-6">
         <Clock value={currentDate} />
       </div>
