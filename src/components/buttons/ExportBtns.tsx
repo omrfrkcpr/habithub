@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Document,
-  Packer,
-  Paragraph,
-  TextRun,
-  HeadingLevel,
-  ImageRun,
-} from "docx";
+import { Document, Packer, Paragraph, TextRun, HeadingLevel } from "docx";
 import { saveAs } from "file-saver";
 import { RootState } from "../../app/store";
 import { useSelector } from "react-redux";
@@ -38,31 +31,11 @@ const ExportBtns = ({
   const handleExportDocx = async () => {
     setLoadingStates((prev) => ({ ...prev, docx: true }));
     try {
-      const imageBuffer = await fetch(`
-        ${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`).then((res) =>
-        res.arrayBuffer()
-      );
-
       const doc = new Document({
         sections: [
           {
             properties: {},
             children: [
-              new Paragraph({
-                children: [
-                  new ImageRun({
-                    data: imageBuffer,
-                    transformation: {
-                      width: 50,
-                      height: 50,
-                    },
-                  }),
-                ],
-                alignment: "center",
-                spacing: {
-                  after: 200,
-                },
-              }),
               new Paragraph({
                 children: [
                   new TextRun({
@@ -129,67 +102,80 @@ const ExportBtns = ({
     try {
       const doc = new jsPDF();
       const margin = 10;
-      const lineHeight = 10;
+      const pageWidth = doc.internal.pageSize.getWidth() - 2 * margin; // Page width minus margins
+      const pageHeight = doc.internal.pageSize.getHeight() - 2 * margin; // Page height minus margins
       let yPosition = margin;
 
-      const imgData = await fetch(`
-        ${process.env.REACT_APP_AWS_S3_BASE_URL}habitHub.png`).then((res) =>
-        res.blob()
-      );
-      const reader = new FileReader();
-      reader.readAsDataURL(imgData);
-      reader.onloadend = () => {
-        const imgWidth = 20;
-        const imgHeight = 20;
-        const text = "Habithub";
-        const textWidth = doc.getTextWidth(text);
-        const totalWidth = imgWidth + textWidth + 10; // Adding some padding
-        const xPosition = (doc.internal.pageSize.getWidth() - totalWidth) / 2;
+      // Function to add a new page if needed
+      const addPageIfNeeded = () => {
+        if (yPosition + 10 > pageHeight) {
+          // If there's no space left
+          doc.addPage(); // Add a new page
+          yPosition = margin; // Reset yPosition for the new page
+        }
+      };
 
-        doc.addImage(
-          reader.result as string,
-          "PNG",
-          xPosition,
-          yPosition,
-          imgWidth,
-          imgHeight
-        );
-        doc.text(text, xPosition + imgWidth + 2, yPosition + imgHeight / 2 + 5); // Centering the text vertically with the image
+      // Add title
+      const title = "Habithub";
+      doc.setFontSize(18);
+      doc.text(title, doc.internal.pageSize.getWidth() / 2, yPosition, {
+        align: "center",
+      });
+      yPosition += 20; // Move down after the title
 
-        yPosition += imgHeight + 10;
+      // Add subtitle
+      const subtitle = `Tasks for ${formattedDate}`;
+      doc.setFontSize(14);
+      doc.text(subtitle, doc.internal.pageSize.getWidth() / 2, yPosition, {
+        align: "center",
+      });
+      yPosition += 20; // Move down after the subtitle
 
-        doc.setFontSize(18);
-        doc.text(
-          `Tasks for ${formattedDate}`,
-          doc.internal.pageSize.getWidth() / 2,
-          yPosition,
-          { align: "center" }
-        );
+      // Add tasks with formatting
+      doc.setFontSize(10);
+      tasks.forEach((task, index) => {
+        // Split text into lines that fit within the page width
+        const taskLines = doc.splitTextToSize(`Task ${index + 1}:`, pageWidth);
+        const nameLines = doc.splitTextToSize(task.name, pageWidth);
+        const description = ` - ${task.description} => ${
+          task.priority === 1
+            ? "Urgent"
+            : task.priority === 0
+            ? "Important"
+            : "Deferred"
+        }`;
 
-        yPosition += lineHeight + 10;
-
-        doc.setFontSize(10);
-        tasks.forEach((task, index) => {
-          doc.text(`Task ${index + 1}:`, margin, yPosition);
-          yPosition += lineHeight;
-          doc.text(
-            `${task.name} - ${task.description} => ${
-              task.priority === 1
-                ? "Urgent"
-                : task.priority === 0
-                ? "Important"
-                : "Deferred"
-            }`,
-            margin,
-            yPosition
-          );
-          yPosition += lineHeight;
+        taskLines.forEach((line: string) => {
+          addPageIfNeeded(); // Check if we need to add a new page before adding a line
+          doc.setFont("Helvetica", "bold"); // Set bold font for "Task X: "
+          doc.text(line, margin, yPosition);
+          yPosition += 5; // Move down after the bold text
         });
 
-        doc.save(`tasks_${formattedDate}.pdf`);
-      };
+        doc.setTextColor(255, 0, 0); // Set text color to red for task name
+        nameLines.forEach((line: string) => {
+          addPageIfNeeded(); // Check if we need to add a new page before adding a line
+          doc.text(line, margin + 5, yPosition); // Adjust x position if needed
+          yPosition += 5; // Move down after the red text
+        });
+
+        doc.setTextColor(0, 0, 0); // Reset text color to black
+        const descriptionLines = doc.splitTextToSize(description, pageWidth);
+        descriptionLines.forEach((line: string) => {
+          addPageIfNeeded(); // Check if we need to add a new page before adding a line
+          doc.text(line, margin + 5, yPosition); // Adjust x position if needed
+          yPosition += 5; // Move down after the description
+        });
+
+        yPosition += 5; // Add space between tasks
+
+        addPageIfNeeded(); // Check if we need to add a new page after each task
+      });
+
+      doc.save(`tasks_${formattedDate}.pdf`);
     } catch (error) {
-      console.error(error);
+      console.error("Error exporting PDF:", error);
+      alert("Failed to export PDF. Check the console for more details.");
     } finally {
       setLoadingStates((prev) => ({ ...prev, pdf: false }));
       setShowExports(false);
@@ -199,13 +185,10 @@ const ExportBtns = ({
   const handleExportEmail = async () => {
     setLoadingStates((prev) => ({ ...prev, email: true }));
     try {
-      const { data } = await axiosWithToken.post(
-        `${process.env.REACT_APP_BASE_URL}/tasks/email`,
-        {
-          userId: currentUser?.id,
-          date,
-        }
-      );
+      const { data } = await axiosWithToken.post(`tasks/email`, {
+        userId: currentUser?.id,
+        date,
+      });
       toastNotify("success", data.message);
     } catch (error: any) {
       console.log(error);
